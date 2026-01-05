@@ -7,7 +7,7 @@
     </constraints>
     <properties>
       <background color="-8932379"/>
-      <foreground color="-8932379"/>
+      <foreground color="-1715938"/>
     </properties>
     <border type="none"/>
     <children>
@@ -60,6 +60,7 @@
         </constraints>
         <properties>
           <background color="-6871766"/>
+          <foreground color="-1715938"/>
           <text value="Ingresar"/>
         </properties>
       </component>

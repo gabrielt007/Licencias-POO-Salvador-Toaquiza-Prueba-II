@@ -1,4 +1,6 @@
 package View;
 
-public class PerfilAdmin {
+import javax.swing.*;
+
+public class PerfilAdmin extends JFrame {
 }
