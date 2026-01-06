@@ -3,10 +3,10 @@ package View;
 import javax.swing.*;
 
 public class Login extends JFrame {
-    private JTextField textField1;
-    private JTextField textField2;
+    private JTextField txtUsuario;
     private JButton ingresarButton;
     private JPanel LoginPane;
+    private JPasswordField txtPassword;
 
     public Login() {
         setContentPane(LoginPane);

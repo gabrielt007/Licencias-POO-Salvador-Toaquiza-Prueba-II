@@ -55,7 +55,7 @@
           <text value="Observaciones:"/>
         </properties>
       </component>
-      <component id="d9a3a" class="javax.swing.JCheckBox" binding="checkBox1" default-binding="true">
+      <component id="d9a3a" class="javax.swing.JCheckBox" binding="ChBoxCertificado_f">
         <constraints>
           <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -63,7 +63,7 @@
           <text value="CheckBox"/>
         </properties>
       </component>
-      <component id="1620d" class="javax.swing.JCheckBox" binding="checkBox2" default-binding="true">
+      <component id="1620d" class="javax.swing.JCheckBox" binding="ChBoxPago_t">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -71,7 +71,7 @@
           <text value="CheckBox"/>
         </properties>
       </component>
-      <component id="2ad8f" class="javax.swing.JCheckBox" binding="checkBox3" default-binding="true">
+      <component id="2ad8f" class="javax.swing.JCheckBox" binding="ChBoxPago_f">
         <constraints>
           <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -79,7 +79,7 @@
           <text value="CheckBox"/>
         </properties>
       </component>
-      <component id="12e7" class="javax.swing.JCheckBox" binding="checkBox4" default-binding="true">
+      <component id="12e7" class="javax.swing.JCheckBox" binding="ChBoxMultas_t">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -87,7 +87,7 @@
           <text value="CheckBox"/>
         </properties>
       </component>
-      <component id="d6893" class="javax.swing.JCheckBox" binding="checkBox5" default-binding="true">
+      <component id="d6893" class="javax.swing.JCheckBox" binding="ChBoxMultas_f">
         <constraints>
           <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -111,7 +111,7 @@
           <text value="No"/>
         </properties>
       </component>
-      <component id="f881e" class="javax.swing.JCheckBox" binding="checkBox6" default-binding="true">
+      <component id="f881e" class="javax.swing.JCheckBox" binding="ChBoxCertificado_t">
         <constraints>
           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -119,7 +119,7 @@
           <text value="CheckBox"/>
         </properties>
       </component>
-      <component id="dc05b" class="javax.swing.JFormattedTextField" binding="formattedTextField1" default-binding="true">
+      <component id="dc05b" class="javax.swing.JFormattedTextField" binding="TextFieldObservaciones">
         <constraints>
           <grid row="5" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>

@@ -10,4 +10,9 @@ public class PerfilAnalista extends JFrame {
     private JButton generarButton;
     private JButton cerrarSesionButton;
     private JPanel PerfilAnalista;
+    public PerfilAnalista(){
+        setContentPane(PerfilAnalista);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
+    }
 }

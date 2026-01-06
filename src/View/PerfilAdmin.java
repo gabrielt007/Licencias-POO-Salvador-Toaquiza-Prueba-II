@@ -10,4 +10,9 @@ public class PerfilAdmin extends JFrame {
     private JButton usuariosButton;
     private JButton reportesButton;
     private JButton cerrarSesionButton;
+    public PerfilAdmin(){
+        setContentPane(PerfilAdmin);
+        setVisible(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
 }
