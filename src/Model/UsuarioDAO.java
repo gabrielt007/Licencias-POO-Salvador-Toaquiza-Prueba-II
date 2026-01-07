@@ -114,4 +114,23 @@ public class UsuarioDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public static boolean registrarUsuarioPlataforma(String cedulaI, String passHash, String rol, String estado) {
+        String resultado=existeUsuario(cedulaI,passHash);
+        if(resultado.equals("No encontrado")){
+            String sql="insert into usuariosPlataforma(cedula,clave,rol,estadoUsuario) values(?,?,?,?)";
+            try(Connection conn=Conexion.getConexion();
+            PreparedStatement ps=conn.prepareStatement(sql)){
+                ps.setString(1, cedulaI);
+                ps.setString(2, passHash);
+                ps.setString(3, rol.toUpperCase());
+                ps.setString(4, estado.toUpperCase());
+                ps.executeUpdate();
+                return true;
+            }catch (NullPointerException|SQLException e){
+                throw new RuntimeException(e);
+            }
+        }
+        return false;
+    }
 }
