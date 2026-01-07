@@ -1,6 +1,11 @@
 package View;
 
+import Controller.VentanaManager;
+import Model.UsuarioDAO;
+
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class PerfilAdmin extends JFrame {
     private JPanel PerfilAdmin;
@@ -19,12 +24,18 @@ public class PerfilAdmin extends JFrame {
     public PerfilAdmin(String cedula){
         setContentPane(PerfilAdmin);
         setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Sistema de Licencias");
         pack();
         setLocationRelativeTo(null);
         nombreUsuario.setText(cedula);
 
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                VentanaManager.cambiar(PerfilAdmin.this, new Login());
+            }
+        });
 
         cerrarSesionButton.addActionListener(e ->  {
             dispose();
@@ -32,15 +43,39 @@ public class PerfilAdmin extends JFrame {
             new Login().setVisible(true);
         });
 
-        registrarButton.addActionListener(e ->  {
+        registrarSolicitantesButton.addActionListener(e ->  {
            dispose();
            new Registro(cedula).setVisible(true);
         });
 
-        requisitosButton.addActionListener(e ->  {
+        requisitosButton.addActionListener(e -> {
+
+            String cedulaSolicitante = JOptionPane.showInputDialog(
+                    "Digite la cédula del solicitante:"
+            );
+
+            if (cedulaSolicitante == null) {
+                JOptionPane.showMessageDialog(null, "Operación cancelada");
+                return;
+            }
+
+            if (cedulaSolicitante.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "La cédula no puede estar vacía");
+                return;
+            }
+            String resultados= UsuarioDAO.requisitos(cedulaSolicitante);
+            if (resultados.equals("NO_EXISTE")) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Usuario no encontrado",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
             dispose();
-            String cedulaSolicitante=JOptionPane.showInputDialog("Digite el cedula de la solicitante: ");
-            new Requisitos(cedula,cedulaSolicitante).setVisible(true);
+            new Requisitos(cedula, cedulaSolicitante,resultados).setVisible(true);
         });
+
     }
 }

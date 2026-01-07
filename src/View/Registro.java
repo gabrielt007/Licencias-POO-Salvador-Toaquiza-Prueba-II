@@ -1,9 +1,12 @@
 package View;
 
+import Controller.VentanaManager;
 import Model.UsuarioDAO;
+import Utils.HashUtil;
 
 import javax.swing.*;
-import java.security.Principal;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Objects;
 
 public class Registro extends JFrame {
@@ -22,6 +25,13 @@ public class Registro extends JFrame {
         setVisible(true);
         setSize(600,300);
 
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                VentanaManager.cambiar(Registro.this, new PerfilAdmin(nombreUsuario));
+            }
+        });
+
         registrarButton.addActionListener(e -> {
             String cedula = txtCedula.getText();
             String nombre = txtNombre.getText().toUpperCase();
@@ -34,7 +44,8 @@ public class Registro extends JFrame {
             }else {
                 int edadInt = Integer.parseInt(edad);
                 if(edadInt >= 18){
-                    if (UsuarioDAO.registrarUsuarioSolicitante(cedula, nombre, edadInt, tipoLicencia, password)) {
+                    String passwordHash = HashUtil.hash(password);
+                    if (UsuarioDAO.registrarUsuarioSolicitante(cedula, nombre, edadInt, tipoLicencia, passwordHash)) {
                         JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
                         dispose();
                         new PerfilAdmin(nombreUsuario).setVisible(true);

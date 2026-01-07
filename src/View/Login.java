@@ -1,6 +1,7 @@
 package View;
 
 import Model.UsuarioDAO;
+import Utils.HashUtil;
 
 import javax.swing.*;
 import java.security.Principal;
@@ -22,7 +23,8 @@ public class Login extends JFrame {
         ingresarButton.addActionListener(e ->  {
             String usuario = txtUsuario.getText();
             String password = String.valueOf(txtPassword.getPassword());
-            String tipousuario=UsuarioDAO.existeUsuario(usuario, password);
+            String passwordHash = HashUtil.hash(password);
+            String tipousuario=UsuarioDAO.existeUsuario(usuario, passwordHash);
             if(tipousuario.equals("ADMINISTRADOR")) {
                 new PerfilAdmin(usuario).setVisible(true);
                 setVisible(false);

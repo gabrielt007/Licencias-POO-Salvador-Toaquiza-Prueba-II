@@ -1,8 +1,12 @@
 package View;
 
+import Controller.VentanaManager;
 import Model.UsuarioDAO;
 
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.security.Principal;
 
 public class Requisitos extends JFrame{
     private JCheckBox ChBoxCertificado_f;
@@ -11,80 +15,94 @@ public class Requisitos extends JFrame{
     private JCheckBox ChBoxMultas_t;
     private JCheckBox ChBoxMultas_f;
     private JCheckBox ChBoxCertificado_t;
-    private JFormattedTextField TextFieldObservaciones;
     private JButton aceptarCambiosButton;
     private JButton rechazarButton;
     private JPanel Requisitos;
-    public Requisitos(String cedula, String cedulaSolicitante){
+    private JTextArea textAreaObservaciones;
+    //private JTextField TextFieldObservaciones;
+
+    public Requisitos(String cedula, String cedulaSolicitante,String resultados){
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                VentanaManager.cambiar(Requisitos.this, new PerfilAdmin(cedula));
+            }
+        });
+
         setContentPane(Requisitos);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
         setTitle("Sistema de Licencias");
-        pack();
+        setSize(400,400);
         setLocationRelativeTo(null);
 
-        String resultados=UsuarioDAO.requisitos(cedulaSolicitante);
         String[] partes = resultados.split("/");
-        String certMedO= partes[0];
-        String pagoO= partes[1];
-        String multaO= partes[2];
-        String obsO= partes[3];
+        String certMedO = partes[0];
+        String pagoO = partes[1];
+        String multaO = partes[2];
+        String obsO = partes[3];
 
-        if(multaO.equals("1")){
+        if (multaO.equals("1")) {
             ChBoxMultas_t.setSelected(true);
-        }else if(multaO.equals("0")){
+        } else if (multaO.equals("0")) {
             ChBoxMultas_f.setSelected(true);
         }
-        if(pagoO.equals("1")){
+        if (pagoO.equals("1")) {
             ChBoxPago_t.setSelected(true);
-        }else if(pagoO.equals("0")){
+        } else if (pagoO.equals("0")) {
             ChBoxPago_f.setSelected(true);
         }
-        if(certMedO.equals("1")){
+        if (certMedO.equals("1")) {
             ChBoxCertificado_t.setSelected(true);
-        }else if(certMedO.equals("0")){
+        } else if (certMedO.equals("0")) {
             ChBoxCertificado_f.setSelected(true);
         }
-        if(obsO.equals("Ninguna")){
-            TextFieldObservaciones.setText("Ninguna");
-        }else {
-            TextFieldObservaciones.setText(obsO);
+        if (obsO.equals("Ninguna")) {
+            textAreaObservaciones.setText("Ninguna");
+        } else {
+            textAreaObservaciones.setText(obsO);
         }
 
         aceptarCambiosButton.addActionListener(e -> {
-            String certMedNuevo="",pagoNuevo="",multaNuevo="",obsNuevo="";
+            String certMedNuevo = "", pagoNuevo = "", multaNuevo = "", obsNuevo = "";
             if (ChBoxCertificado_f.isSelected()) {
-                certMedNuevo="0";
-            }else if (ChBoxCertificado_t.isSelected()) {
-                certMedNuevo="1";
+                certMedNuevo = "0";
+            } else if (ChBoxCertificado_t.isSelected()) {
+                certMedNuevo = "1";
             }
 
             if (ChBoxPago_f.isSelected()) {
-                pagoNuevo="0";
-            }else if (ChBoxPago_t.isSelected()) {
-                pagoNuevo="1";
+                pagoNuevo = "0";
+            } else if (ChBoxPago_t.isSelected()) {
+                pagoNuevo = "1";
             }
 
             if (ChBoxMultas_f.isSelected()) {
-                multaNuevo="0";
-            }else if (ChBoxMultas_t.isSelected()) {
-                multaNuevo="1";
+                multaNuevo = "0";
+            } else if (ChBoxMultas_t.isSelected()) {
+                multaNuevo = "1";
             }
 
-            if (TextFieldObservaciones.getText().trim().isEmpty()) {
-                obsNuevo="Ninguna";
-            }else{
-                obsNuevo=TextFieldObservaciones.getText().trim();
+            if (textAreaObservaciones.getText().trim().isEmpty()) {
+                obsNuevo = "Ninguna";
+            } else {
+                obsNuevo = textAreaObservaciones.getText().trim();
             }
 
-            String ejecucion=UsuarioDAO.actualizarRequisitos(certMedNuevo,pagoNuevo,multaNuevo,obsNuevo,cedulaSolicitante);
-            if(ejecucion.equals("Exitoso")){
+            String ejecucion = UsuarioDAO.actualizarRequisitos(certMedNuevo, pagoNuevo, multaNuevo, obsNuevo, cedulaSolicitante);
+            if (ejecucion.equals("Exitoso")) {
                 dispose();
-                JOptionPane.showMessageDialog(null,"Actualizacion exitosa");
+                JOptionPane.showMessageDialog(null, "Actualizacion exitosa");
                 new PerfilAdmin(cedula).setVisible(true);
-            }else{
-                JOptionPane.showMessageDialog(null,"No se pudo actualizar");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo actualizar");
             }
+        });
+
+        rechazarButton.addActionListener(e -> {
+            dispose();
+            JOptionPane.showMessageDialog(null, "Deshaciendo los cambios");
+            new PerfilAdmin(cedula).setVisible(true);
         });
     }
 }
