@@ -15,7 +15,7 @@ public class Requisitos extends JFrame{
     private JPanel Requisitos;
     public Requisitos(){
         setContentPane(Requisitos);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
         setTitle("Sistema de Licencias");
 

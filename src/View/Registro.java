@@ -13,9 +13,10 @@ public class Registro extends JFrame {
 
     public Registro() {
         setContentPane(Registro);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Sistema de Licencias");
         setVisible(true);
         setSize(600,300);
+
     }
 }

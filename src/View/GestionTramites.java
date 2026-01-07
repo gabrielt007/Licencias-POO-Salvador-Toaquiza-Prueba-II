@@ -13,6 +13,7 @@ public class GestionTramites extends JFrame{
     public GestionTramites(){
         setContentPane(GestionTramites);
         setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setTitle("Sistema de Licencias");
     }
 }

@@ -22,7 +22,7 @@ public class GestionUsuarios extends JFrame{
 
     public GestionUsuarios(){
         setContentPane(GestionUsuarios);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
         setTitle("Sistema de Licencias");
     }

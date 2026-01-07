@@ -10,7 +10,8 @@ public class Examenes extends JFrame{
     private JButton ingresarButton;
     public Examenes(){
         setContentPane(Examenes);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
+        setTitle("Sistema de Licencias");
     }
 }
