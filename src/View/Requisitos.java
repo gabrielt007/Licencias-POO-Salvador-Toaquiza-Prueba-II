@@ -1,5 +1,7 @@
 package View;
 
+import Model.UsuarioDAO;
+
 import javax.swing.*;
 
 public class Requisitos extends JFrame{
@@ -13,11 +15,16 @@ public class Requisitos extends JFrame{
     private JButton aceptarCambiosButton;
     private JButton rechazarButton;
     private JPanel Requisitos;
-    public Requisitos(){
+    public Requisitos(String cedula, String cedulaSolicitante){
         setContentPane(Requisitos);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
         setTitle("Sistema de Licencias");
+        pack();
+        setLocationRelativeTo(null);
 
+        aceptarCambiosButton.addActionListener(e -> {
+            UsuarioDAO.requisitos(cedulaSolicitante);
+        });
     }
 }

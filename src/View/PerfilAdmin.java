@@ -30,5 +30,16 @@ public class PerfilAdmin extends JFrame {
             JOptionPane.showMessageDialog(null,"Cierre de sesion exitoso");
             new Login().setVisible(true);
         });
+
+        registrarButton.addActionListener(e ->  {
+           setVisible(false);
+           new Registro(cedula).setVisible(true);
+        });
+
+        requisitosButton.addActionListener(e ->  {
+            setVisible(false);
+            String cedulaSolicitante=JOptionPane.showInputDialog("Digite el cedula de la solicitante: ");
+            new Requisitos(cedula,cedulaSolicitante).setVisible(true);
+        });
     }
 }
