@@ -37,7 +37,11 @@ public class RegistroUsuarios extends JFrame{
             String estado=CombBoxEstado.getSelectedItem().toString();
             String passHash=HashUtil.hash(clave);
 
-            UsuarioDAO.registrarUsuarioPlataforma(cedulaI,passHash,rol,estado);
+            if(UsuarioDAO.registrarUsuarioPlataforma(cedulaI,passHash,rol,estado)){
+                JOptionPane.showMessageDialog(null,"Usuario registrado correctamente");
+            }else{
+                JOptionPane.showMessageDialog(null,"El usuario ya existe");
+            }
         });
     }
 }
