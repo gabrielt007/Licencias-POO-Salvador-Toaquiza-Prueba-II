@@ -27,10 +27,10 @@ public class Login extends JFrame {
             String tipousuario=UsuarioDAO.existeUsuario(usuario, passwordHash);
             if(tipousuario.equals("ADMINISTRADOR")) {
                 new PerfilAdmin(usuario).setVisible(true);
-                setVisible(false);
+                dispose();
             } else if (tipousuario.equals("ANALISTA")) {
-                new PerfilAnalista().setVisible(true);
-                setVisible(false);
+                new PerfilAnalista(usuario).setVisible(true);
+                dispose();
             }else{
                 JOptionPane.showMessageDialog(null,"El usuario no fue encontrado. Verifique sus credenciales","No Encontrado",JOptionPane.ERROR_MESSAGE);
                 txtUsuario.setText("");

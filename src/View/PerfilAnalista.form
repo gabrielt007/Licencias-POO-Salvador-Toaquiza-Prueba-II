@@ -103,7 +103,7 @@
           <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Label"/>
+          <text value="ANALISTA"/>
         </properties>
       </component>
       <component id="d7c88" class="javax.swing.JLabel" binding="txtNombreUsuario">
@@ -113,7 +113,7 @@
           </grid>
         </constraints>
         <properties>
-          <text value="Label"/>
+          <text value=" "/>
         </properties>
       </component>
       <component id="53341" class="javax.swing.JLabel">
@@ -134,20 +134,20 @@
           <text value="Registrar Examenes:"/>
         </properties>
       </component>
-      <component id="fc69" class="javax.swing.JButton" binding="button1" default-binding="true">
+      <component id="fc69" class="javax.swing.JButton" binding="requisitosButton" default-binding="true">
         <constraints>
           <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Button"/>
+          <text value="Requisitos"/>
         </properties>
       </component>
-      <component id="7178" class="javax.swing.JButton" binding="button2" default-binding="true">
+      <component id="7178" class="javax.swing.JButton" binding="examenesButton" default-binding="true">
         <constraints>
           <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Button"/>
+          <text value="Examenes"/>
         </properties>
       </component>
       <vspacer id="63c34">
