@@ -25,6 +25,31 @@ public class UsuarioDAO {
         }
     }
 
+    public static String existeSolicitante(String cedula, String password) {
+
+        String sql = "select * from usuariosSolicitantes where cedula = ? and clave = ?";
+
+        try (Connection conn = Conexion.getConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, cedula);
+            ps.setString(2, password);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("estadoTramite");
+            }
+
+            return "No encontrado";
+
+        } catch (NullPointerException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
     public static boolean registrarUsuarioSolicitante(String cedula, String nombre, int edad, String tipoLicencia, String password) {
 
         String sqlBuscar = "SELECT 1 FROM usuariosPlataforma WHERE cedula = ?";
