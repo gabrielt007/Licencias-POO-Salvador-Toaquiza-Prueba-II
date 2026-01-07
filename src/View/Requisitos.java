@@ -17,5 +17,7 @@ public class Requisitos extends JFrame{
         setContentPane(Requisitos);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+        setTitle("Sistema de Licencias");
+
     }
 }

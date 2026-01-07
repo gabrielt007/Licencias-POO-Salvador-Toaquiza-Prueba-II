@@ -12,10 +12,14 @@ public class PerfilAdmin extends JFrame {
     private JButton cerrarSesionButton;
     private JLabel tipoUsuario;
     private JLabel nombreUsuario;
+    private JButton requisitosButton;
+    private JButton examenesButton;
 
     public PerfilAdmin(){
         setContentPane(PerfilAdmin);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setTitle("Sistema de Licencias");
+
     }
 }

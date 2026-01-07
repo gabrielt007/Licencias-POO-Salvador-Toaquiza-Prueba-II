@@ -17,7 +17,7 @@
         </constraints>
         <properties>
           <font name="Dubai Medium" size="24"/>
-          <text value="Login para el sistema de Licencias"/>
+          <text value="Sistema de Licencias"/>
         </properties>
       </component>
       <component id="16e76" class="javax.swing.JLabel">

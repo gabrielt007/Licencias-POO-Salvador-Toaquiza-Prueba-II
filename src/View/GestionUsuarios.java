@@ -3,21 +3,27 @@ package View;
 import javax.swing.*;
 
 public class GestionUsuarios extends JFrame{
-    private JTextField txtNombre;
-    private JTextField txtCedula;
-    private JTextField txtUsername;
-    private JPasswordField txtxPassword;
-    private JTextField txtRol;
+    private JTextField txtNombreCambios;
+    private JTextField txtCedulaCambios;
+    private JTextField txtUsernameCambios;
+    private JTextField txtRolCambios;
     private JButton guardarButton;
     private JButton buscarButton;
     private JButton activarDesactivarButton;
     private JTextField txtNombre_Cambios;
     private JPanel GestionUsuarios;
-    private JLabel estado;
+    private JLabel txtEstadoActual;
+    private JLabel txtNombreActual;
+    private JLabel txtCedulaActual;
+    private JLabel txtUsernameActual;
+    private JLabel txtPasswordActual;
+    private JLabel txtRolActual;
+    private JTextField txtPasswordCambios;
 
     public GestionUsuarios(){
         setContentPane(GestionUsuarios);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+        setTitle("Sistema de Licencias");
     }
 }

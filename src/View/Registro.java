@@ -7,13 +7,14 @@ public class Registro extends JFrame {
     private JTextField txtNombre;
     private JTextField txtEdad;
     private JComboBox ComBxTipoLicencia;
-    private JPasswordField txtPassword;
     private JPanel Registro;
     private JButton registrarButton;
+    private JTextField txtPassword;
+
     public Registro() {
         setContentPane(Registro);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("Login");
+        setTitle("Sistema de Licencias");
         setVisible(true);
         setSize(600,300);
     }

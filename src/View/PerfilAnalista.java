@@ -10,9 +10,13 @@ public class PerfilAnalista extends JFrame {
     private JButton generarButton;
     private JButton cerrarSesionButton;
     private JPanel PerfilAnalista;
+    private JButton button1;
+    private JButton button2;
+
     public PerfilAnalista(){
         setContentPane(PerfilAnalista);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+        setTitle("Sistema de Licencias");
     }
 }
