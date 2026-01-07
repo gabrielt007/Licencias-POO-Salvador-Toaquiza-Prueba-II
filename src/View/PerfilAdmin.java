@@ -26,18 +26,18 @@ public class PerfilAdmin extends JFrame {
 
 
         cerrarSesionButton.addActionListener(e ->  {
-            setVisible(false);
+            dispose();
             JOptionPane.showMessageDialog(null,"Cierre de sesion exitoso");
             new Login().setVisible(true);
         });
 
         registrarButton.addActionListener(e ->  {
-           setVisible(false);
+           dispose();
            new Registro(cedula).setVisible(true);
         });
 
         requisitosButton.addActionListener(e ->  {
-            setVisible(false);
+            dispose();
             String cedulaSolicitante=JOptionPane.showInputDialog("Digite el cedula de la solicitante: ");
             new Requisitos(cedula,cedulaSolicitante).setVisible(true);
         });

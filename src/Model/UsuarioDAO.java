@@ -63,5 +63,47 @@ public class UsuarioDAO {
     }
 
 
+    public static String requisitos(String cedula) {
+        String sql="select 1 from usuariosSolicitantes where cedula=?";
+        try(Connection conn=Conexion.getConexion();
+        PreparedStatement ps=conn.prepareStatement(sql)){
+            ps.setString(1, cedula);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
+                String sqlRequisitosActuales="select * from requisitos where cedula=?";
+                try (PreparedStatement psRequisitos=conn.prepareStatement(sqlRequisitosActuales)){
+                    psRequisitos.setString(1, cedula);
+                    ResultSet rsRequisitos=psRequisitos.executeQuery();
+                    if(rsRequisitos.next()){
+                        String cm=rsRequisitos.getString("certificadoMedico");
+                        String p=rsRequisitos.getString("pago");
+                        String m=rsRequisitos.getString("multas");
+                        String obs=rsRequisitos.getString("observaciones");
+                        return cm+"/"+p+"/"+m+"/"+obs;
+                    }
+                }
+            }else{
+                return "No encontrado";
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return "";
+    }
 
+    public static String actualizarRequisitos(String certMedNuevo, String pagoNuevo, String multaNuevo, String obsNuevo, String cedulaSolicitante) {
+        String sql="update requisitos set certificadoMedico=?,pago=?,multas=?,observaciones=? where cedula=?";
+        try(Connection conn=Conexion.getConexion();
+        PreparedStatement ps=conn.prepareStatement(sql)){
+            ps.setInt(1, Integer.parseInt(certMedNuevo));
+            ps.setInt(2, Integer.parseInt(pagoNuevo));
+            ps.setInt(3, Integer.parseInt(multaNuevo));
+            ps.setString(4, obsNuevo);
+            ps.setString(5, cedulaSolicitante);
+            ps.executeUpdate();
+            return "Exitoso";
+        }catch (NullPointerException| SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
 }

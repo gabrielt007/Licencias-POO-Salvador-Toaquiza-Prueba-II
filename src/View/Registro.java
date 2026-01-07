@@ -24,7 +24,7 @@ public class Registro extends JFrame {
 
         registrarButton.addActionListener(e -> {
             String cedula = txtCedula.getText();
-            String nombre = txtNombre.getText();
+            String nombre = txtNombre.getText().toUpperCase();
             String edad =txtEdad.getText();
             String tipoLicencia = Objects.requireNonNull(ComBxTipoLicencia.getSelectedItem()).toString();
             String password = txtPassword.getText();
@@ -36,7 +36,7 @@ public class Registro extends JFrame {
                 if(edadInt >= 18){
                     if (UsuarioDAO.registrarUsuarioSolicitante(cedula, nombre, edadInt, tipoLicencia, password)) {
                         JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
-                        setVisible(false);
+                        dispose();
                         new PerfilAdmin(nombreUsuario).setVisible(true);
                     }
                 }else  {
