@@ -67,5 +67,10 @@ public class PerfilAnalista extends JFrame {
             dispose();
             new Requisitos(nombreUsuario, cedulaSolicitante,resultados).setVisible(true);
         });
+
+        cerrarSesionButton.addActionListener(e -> {
+            dispose();
+            new Login().setVisible(true);
+        });
     }
 }
