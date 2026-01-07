@@ -77,5 +77,9 @@ public class PerfilAdmin extends JFrame {
             new Requisitos(cedula, cedulaSolicitante,resultados).setVisible(true);
         });
 
+        registrarUsuariosButton.addActionListener(e ->  {
+           dispose();
+           new RegistroUsuarios(cedula).setVisible(true);
+        });
     }
 }

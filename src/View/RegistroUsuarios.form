@@ -55,14 +55,14 @@
           <text value="Estado:"/>
         </properties>
       </component>
-      <component id="7b4c5" class="javax.swing.JButton" binding="button1" default-binding="true">
+      <component id="7b4c5" class="javax.swing.JButton" binding="CREARButton" default-binding="true">
         <constraints>
           <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-6871766"/>
           <foreground color="-1716943"/>
-          <text value="Button"/>
+          <text value="CREAR"/>
         </properties>
       </component>
       <component id="f196c" class="javax.swing.JTextField" binding="txtCedula">
