@@ -45,7 +45,7 @@ public class PerfilAdmin extends JFrame {
 
         registrarSolicitantesButton.addActionListener(e ->  {
            dispose();
-           new Registro(cedula).setVisible(true);
+           new Registro(cedula,"ADMIN").setVisible(true);
         });
 
         requisitosButton.addActionListener(e -> {
@@ -63,8 +63,8 @@ public class PerfilAdmin extends JFrame {
                 JOptionPane.showMessageDialog(null, "La cédula no puede estar vacía");
                 return;
             }
-            String resultados= UsuarioDAO.requisitos(cedulaSolicitante);
-            if (resultados.equals("NO_EXISTE")) {
+            boolean resultados= UsuarioDAO.verificarCedula(cedulaSolicitante);
+            if (!resultados) {
                 JOptionPane.showMessageDialog(
                         null,
                         "Usuario no encontrado",
@@ -72,14 +72,51 @@ public class PerfilAdmin extends JFrame {
                         JOptionPane.ERROR_MESSAGE
                 );
                 return;
+            }else{
+                String resultadosRequisitos=UsuarioDAO.requisitos(cedulaSolicitante);
+                dispose();
+                new Requisitos(cedula, cedulaSolicitante,resultadosRequisitos,"ADMIN").setVisible(true);
             }
-            dispose();
-            new Requisitos(cedula, cedulaSolicitante,resultados).setVisible(true);
+
         });
 
         registrarUsuariosButton.addActionListener(e ->  {
            dispose();
-           new RegistroUsuarios(cedula).setVisible(true);
+           new RegistroUsuarios(cedula,"ADMIN").setVisible(true);
+        });
+
+        examenesButton.addActionListener(e -> {
+            String cedulaSolicitante = JOptionPane.showInputDialog(
+                    "Digite la cédula del solicitante:"
+            );
+
+            if (cedulaSolicitante == null) {
+                JOptionPane.showMessageDialog(null, "Operación cancelada");
+                return;
+            }
+
+            if (cedulaSolicitante.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "La cédula no puede estar vacía");
+                return;
+            }
+            boolean resultados= UsuarioDAO.verificarCedula(cedulaSolicitante);
+            if (!resultados) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Usuario no encontrado",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }else{
+                String resultadosExamenes=UsuarioDAO.examenes(cedulaSolicitante);
+                if (resultadosExamenes.equals("No hay datos")){
+                    JOptionPane.showMessageDialog(null,"El usuario no tiene registro de examenes","Error",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                dispose();
+                new Examenes(cedula, cedulaSolicitante,resultadosExamenes,"ADMIN").setVisible(true);
+            }
         });
     }
 }

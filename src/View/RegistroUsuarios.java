@@ -15,7 +15,7 @@ public class RegistroUsuarios extends JFrame{
     private JTextField txtClave;
     private JComboBox CombBoxRol;
     private JComboBox CombBoxEstado;
-    public RegistroUsuarios(String cedula){
+    public RegistroUsuarios(String cedula,String usuario){
         setContentPane(RegistroUsuarios);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setVisible(true);
@@ -26,7 +26,11 @@ public class RegistroUsuarios extends JFrame{
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                VentanaManager.cambiar(RegistroUsuarios.this, new PerfilAdmin(cedula));
+                if (usuario.equals("ADMIN")){
+                    VentanaManager.cambiar(RegistroUsuarios.this, new PerfilAdmin(cedula));
+                }else if (usuario.equals("ANALISTA")){
+                    VentanaManager.cambiar(RegistroUsuarios.this, new PerfilAnalista(cedula));
+                }
             }
         });
 

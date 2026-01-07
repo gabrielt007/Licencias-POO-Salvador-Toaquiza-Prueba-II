@@ -21,11 +21,15 @@ public class Requisitos extends JFrame{
     private JTextArea textAreaObservaciones;
     //private JTextField TextFieldObservaciones;
 
-    public Requisitos(String cedula, String cedulaSolicitante,String resultados){
+    public Requisitos(String cedula, String cedulaSolicitante,String resultados,String usuario){
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                VentanaManager.cambiar(Requisitos.this, new PerfilAdmin(cedula));
+                if (usuario.equals("ADMIN")){
+                    VentanaManager.cambiar(Requisitos.this, new PerfilAdmin(cedula));
+                }else if (usuario.equals("ANALISTA")){
+                    VentanaManager.cambiar(Requisitos.this, new PerfilAnalista(cedula));
+                }
             }
         });
 

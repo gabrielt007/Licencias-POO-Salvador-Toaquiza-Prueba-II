@@ -88,23 +88,40 @@ public class UsuarioDAO {
         }
     }
 
-
-    public static String requisitos(String cedula) {
-
+    public static boolean verificarCedula(String cedula){
         String sqlUsuario = "SELECT 1 FROM usuariosSolicitantes WHERE cedula = ?";
-        String sqlRequisitos = "SELECT certificadoMedico, pago, multas, observaciones FROM requisitos WHERE cedula = ? ";
-
         try (Connection conn = Conexion.getConexion();
              PreparedStatement psUsuario = conn.prepareStatement(sqlUsuario)) {
 
             psUsuario.setString(1, cedula);
             ResultSet rsUsuario = psUsuario.executeQuery();
 
-            if (!rsUsuario.next()) {
-                return "NO_EXISTE";
+            if (rsUsuario.next()) {
+                return true;
             }
+            return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-            try (PreparedStatement psReq = conn.prepareStatement(sqlRequisitos)) {
+    public static String requisitos(String cedula) {
+
+        //String sqlUsuario = "SELECT 1 FROM usuariosSolicitantes WHERE cedula = ?";
+        String sqlRequisitos = "SELECT certificadoMedico, pago, multas, observaciones FROM requisitos WHERE cedula = ? ";
+
+//        try (Connection conn = Conexion.getConexion();
+//             PreparedStatement psUsuario = conn.prepareStatement(sqlUsuario)) {
+//
+//            psUsuario.setString(1, cedula);
+//            ResultSet rsUsuario = psUsuario.executeQuery();
+//
+//            if (!rsUsuario.next()) {
+//                return "NO_EXISTE";
+//            }
+
+            try (Connection conn=Conexion.getConexion();
+                    PreparedStatement psReq = conn.prepareStatement(sqlRequisitos)) {
                 psReq.setString(1, cedula);
                 ResultSet rsReq = psReq.executeQuery();
 
@@ -116,11 +133,13 @@ public class UsuarioDAO {
                 } else {
                     return "SIN_REQUISITOS";
                 }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
 
@@ -157,5 +176,24 @@ public class UsuarioDAO {
             }
         }
         return false;
+    }
+
+    public static String examenes(String cedulaSolicitante) {
+        String sql="select practica,teorica,promedio from examen where cedula=?";
+        try(Connection conn=Conexion.getConexion();
+        PreparedStatement ps=conn.prepareStatement(sql)) {
+            ps.setString(1,cedulaSolicitante);
+            ResultSet rs=ps.executeQuery();
+            if (rs.next()){
+                String mensaje = "";
+                mensaje+=rs.getString("practica")+"/";
+                mensaje+=rs.getString("teorica")+"/";
+                mensaje+=rs.getString("promedio");
+                return mensaje;
+            }
+            return "No hay datos";
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 }

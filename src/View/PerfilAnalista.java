@@ -37,7 +37,7 @@ public class PerfilAnalista extends JFrame {
 
         registrarButton.addActionListener(e -> {
             dispose();
-            new Registro(nombreUsuario).setVisible(true);
+            new Registro(nombreUsuario,"ANALISTA").setVisible(true);
         });
 
         requisitosButton.addActionListener(e -> {
@@ -65,7 +65,7 @@ public class PerfilAnalista extends JFrame {
                 return;
             }
             dispose();
-            new Requisitos(nombreUsuario, cedulaSolicitante,resultados).setVisible(true);
+            new Requisitos(nombreUsuario, cedulaSolicitante,resultados,"ANALISTA").setVisible(true);
         });
 
         cerrarSesionButton.addActionListener(e -> {

@@ -1,5 +1,6 @@
 package View;
 
+import Controller.VentanaManager;
 import Utils.Conexion;
 
 import javax.swing.*;
@@ -7,6 +8,8 @@ import javax.swing.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.*;
 
 public class PerfilUsuario extends JFrame {
@@ -25,11 +28,18 @@ public class PerfilUsuario extends JFrame {
         setTitle("Sistema de Licencias");
         setSize(400,250);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         configurarTabla();
         cargarDatosUsuario();
         cargarTramiteUsuario();
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                VentanaManager.cambiar(PerfilUsuario.this, new Login());
+            }
+        });
 
         cerrarSesionButton.addActionListener(e -> {
             dispose();
@@ -40,9 +50,9 @@ public class PerfilUsuario extends JFrame {
         setVisible(true);
     }
 
-
     private void configurarTabla() {
         DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Tipo de Licencia");
         modelo.addColumn("Fecha de Solicitud");
         modelo.addColumn("Estado del Trámite");
         tablaTramiteUsuario.setModel(modelo);
@@ -72,7 +82,7 @@ public class PerfilUsuario extends JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tablaTramiteUsuario.getModel();
         modelo.setRowCount(0);
 
-        String sql = "SELECT fechaSolicitud, estadoTramite FROM usuariosSolicitantes WHERE cedula = ?";
+        String sql = "SELECT tipoLicencia,fechaSolicitud, estadoTramite FROM usuariosSolicitantes WHERE cedula = ?";
 
         try (Connection con = Conexion.getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -81,9 +91,10 @@ public class PerfilUsuario extends JFrame {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Object[] fila = new Object[2];
-                fila[0] = rs.getTimestamp("fechaSolicitud");
-                fila[1] = rs.getString("estadoTramite");
+                Object[] fila = new Object[3];
+                fila[0]=rs.getString("tipoLicencia");
+                fila[1] = rs.getTimestamp("fechaSolicitud");
+                fila[2] = rs.getString("estadoTramite");
                 modelo.addRow(fila);
             }
 

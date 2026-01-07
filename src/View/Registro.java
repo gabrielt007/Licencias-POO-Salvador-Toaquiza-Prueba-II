@@ -18,7 +18,7 @@ public class Registro extends JFrame {
     private JButton registrarButton;
     private JTextField txtPassword;
 
-    public Registro(String nombreUsuario) {
+    public Registro(String nombreUsuario,String usuario) {
         setContentPane(Registro);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Sistema de Licencias");
