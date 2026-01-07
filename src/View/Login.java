@@ -17,13 +17,14 @@ public class Login extends JFrame {
         setTitle("Login");
         setVisible(true);
         setSize(600,300);
+        setLocationRelativeTo(null);
 
         ingresarButton.addActionListener(e ->  {
             String usuario = txtUsuario.getText();
             String password = String.valueOf(txtPassword.getPassword());
             String tipousuario=UsuarioDAO.existeUsuario(usuario, password);
             if(tipousuario.equals("ADMINISTRADOR")) {
-                new PerfilAdmin().setVisible(true);
+                new PerfilAdmin(usuario).setVisible(true);
                 setVisible(false);
             } else if (tipousuario.equals("ANALISTA")) {
                 new PerfilAnalista().setVisible(true);

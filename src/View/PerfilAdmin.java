@@ -15,13 +15,20 @@ public class PerfilAdmin extends JFrame {
     private JButton requisitosButton;
     private JButton examenesButton;
 
-    public PerfilAdmin(){
+    public PerfilAdmin(String cedula){
         setContentPane(PerfilAdmin);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Sistema de Licencias");
         pack();
         setLocationRelativeTo(null);
+        nombreUsuario.setText(cedula);
 
+
+        cerrarSesionButton.addActionListener(e ->  {
+            setVisible(false);
+            JOptionPane.showMessageDialog(null,"Cierre de sesion exitoso");
+            new Login().setVisible(true);
+        });
     }
 }
