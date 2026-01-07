@@ -48,8 +48,6 @@ public class UsuarioDAO {
         }
     }
 
-
-
     public static boolean registrarUsuarioSolicitante(String cedula, String nombre, int edad, String tipoLicencia, String password) {
 
         String sqlBuscar = "SELECT 1 FROM usuariosPlataforma WHERE cedula = ?";
@@ -142,7 +140,6 @@ public class UsuarioDAO {
 //        }
     }
 
-
     public static String actualizarRequisitos(String certMedNuevo, String pagoNuevo, String multaNuevo, String obsNuevo, String cedulaSolicitante) {
         String sql="update requisitos set certificadoMedico=?,pago=?,multas=?,observaciones=? where cedula=?";
         try(Connection conn=Conexion.getConexion();
@@ -192,6 +189,91 @@ public class UsuarioDAO {
                 return mensaje;
             }
             return "No hay datos";
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String intentos(String usuario) {
+        String sql = "SELECT intentos FROM usuariosPlataforma WHERE cedula = ?";
+
+        try (Connection conn = Conexion.getConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, usuario);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int intentosActuales = rs.getInt("intentos");
+
+                // Si llega a 3 → bloquear
+                if (intentosActuales >= 3) {
+                    String sqlEstado = "UPDATE usuariosPlataforma " +
+                            "SET estadoUsuario = 'BLOQUEADO', intentos = 0 " +
+                            "WHERE cedula = ?";
+
+                    try (PreparedStatement psEstado = conn.prepareStatement(sqlEstado)) {
+                        psEstado.setString(1, usuario);
+                        psEstado.executeUpdate();
+                    }
+                    return "BLOQUEADO";
+                }
+
+                // Si aún puede intentar
+                String aumentarIntentos = "UPDATE usuariosPlataforma SET intentos = ? WHERE cedula = ?";
+                int nuevosIntentos = intentosActuales + 1;
+
+                try (PreparedStatement psIntentos = conn.prepareStatement(aumentarIntentos)) {
+                    psIntentos.setInt(1, nuevosIntentos);
+                    psIntentos.setString(2, usuario);
+                    psIntentos.executeUpdate();
+                }
+
+                return String.valueOf(nuevosIntentos);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return "";
+    }
+
+    public static String estadoUsuario(String usuario) {
+        String sql="SELECT estadoUsuario FROM usuariosPlataforma WHERE cedula=?";
+        try(Connection conn=Conexion.getConexion();
+        PreparedStatement ps=conn.prepareStatement(sql)){
+            ps.setString(1, usuario);
+            ResultSet rs=ps.executeQuery();
+            if (rs.next()) {
+                String estadoUsuario = rs.getString("estadoUsuario");
+                return estadoUsuario;
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return "";
+    }
+
+    public static void modificarIntentos(String usuario) {
+        String sql="update  usuariosPlataforma set intentos = 0 WHERE cedula=?";
+        try(Connection conn =Conexion.getConexion();
+        PreparedStatement ps=conn.prepareStatement(sql)){
+            ps.setString(1, usuario);
+            ps.executeUpdate();
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void modificarNotas(String cedulaSolicitante, double nuevaP, double nuevaT) {
+        String sql="update examen set practica=?,teorica=? where cedula=?";
+        try(Connection conn =Conexion.getConexion();
+        PreparedStatement ps=conn.prepareStatement(sql)){
+            ps.setDouble(1, nuevaP);
+            ps.setDouble(2, nuevaT);
+            ps.setString(3, cedulaSolicitante);
+            ps.executeUpdate();
         }catch (SQLException e){
             throw new RuntimeException(e);
         }

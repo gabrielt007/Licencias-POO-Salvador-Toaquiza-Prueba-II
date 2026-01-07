@@ -20,26 +20,72 @@ public class Login extends JFrame {
         setSize(600,300);
         setLocationRelativeTo(null);
 
-        ingresarButton.addActionListener(e ->  {
-            String usuario = txtUsuario.getText();
+        ingresarButton.addActionListener(e -> {
+
+            String usuario = txtUsuario.getText().trim();
             String password = String.valueOf(txtPassword.getPassword());
             String passwordHash = HashUtil.hash(password);
-            String tipousuario=UsuarioDAO.existeUsuario(usuario, passwordHash);
-            String tipoUserSol=UsuarioDAO.existeSolicitante(usuario,passwordHash);
-            if(tipousuario.equals("ADMINISTRADOR")) {
-                new PerfilAdmin(usuario).setVisible(true);
-                dispose();
-            } else if (tipousuario.equals("ANALISTA")) {
-                new PerfilAnalista(usuario).setVisible(true);
-                dispose();
-            } else if (!tipoUserSol.equals("No encontrado")){
-                new PerfilUsuario(usuario).setVisible(true);
-                dispose();
-            }else{
-                JOptionPane.showMessageDialog(null,"El usuario no fue encontrado. Verifique sus credenciales","No Encontrado",JOptionPane.ERROR_MESSAGE);
+
+            // 1. Validar bloqueo primero
+            String estado = UsuarioDAO.estadoUsuario(usuario);
+            if ("BLOQUEADO".equals(estado)) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Su usuario está bloqueado, contacte con el administrador",
+                        "BLOQUEADO",
+                        JOptionPane.WARNING_MESSAGE
+                );
                 txtUsuario.setText("");
                 txtPassword.setText("");
+                return;
             }
+
+            // 2. Validar usuario plataforma
+            String tipoUsuario = UsuarioDAO.existeUsuario(usuario, passwordHash);
+            if ("ADMINISTRADOR".equals(tipoUsuario)) {
+                UsuarioDAO.modificarIntentos(usuario);
+                new PerfilAdmin(usuario).setVisible(true);
+                dispose();
+                return;
+            }
+            if ("ANALISTA".equals(tipoUsuario)) {
+                UsuarioDAO.modificarIntentos(usuario);
+                new PerfilAnalista(usuario).setVisible(true);
+                dispose();
+                return;
+            }
+
+            // 3. Validar solicitante
+            String tipoUserSol = UsuarioDAO.existeSolicitante(usuario, passwordHash);
+            if (!"No encontrado".equals(tipoUserSol)) {
+                UsuarioDAO.modificarIntentos(usuario);
+                new PerfilUsuario(usuario).setVisible(true);
+                dispose();
+                return;
+            }
+
+            // 4. Fallo de login → manejar intentos
+            String intentos = UsuarioDAO.intentos(usuario);
+
+            if ("BLOQUEADO".equals(intentos)) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Ha superado el número de intentos. Usuario bloqueado.",
+                        "BLOQUEADO",
+                        JOptionPane.WARNING_MESSAGE
+                );
+            } else {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Credenciales incorrectas. Intento " + intentos + " de 3",
+                        "ADVERTENCIA",
+                        JOptionPane.WARNING_MESSAGE
+                );
+            }
+
+            txtUsuario.setText("");
+            txtPassword.setText("");
         });
+
     }
 }

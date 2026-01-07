@@ -24,6 +24,8 @@ public class Registro extends JFrame {
         setTitle("Sistema de Licencias");
         setVisible(true);
         setSize(600,300);
+        //pack();
+        setLocationRelativeTo(null);
 
         addWindowListener(new WindowAdapter() {
             @Override
