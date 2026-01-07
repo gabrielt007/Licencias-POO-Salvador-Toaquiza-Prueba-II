@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class PerfilAdmin extends JFrame {
     private JPanel PerfilAdmin;
-    private JButton registrarButton;
+    private JButton registrarSolicitantesButton;
     private JButton tramitesButton;
     private JButton generarButton;
     private JButton usuariosButton;
@@ -14,6 +14,7 @@ public class PerfilAdmin extends JFrame {
     private JLabel nombreUsuario;
     private JButton requisitosButton;
     private JButton examenesButton;
+    private JButton registrarUsuariosButton;
 
     public PerfilAdmin(String cedula){
         setContentPane(PerfilAdmin);
