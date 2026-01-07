@@ -39,6 +39,8 @@ public class RegistroUsuarios extends JFrame{
 
             if(UsuarioDAO.registrarUsuarioPlataforma(cedulaI,passHash,rol,estado)){
                 JOptionPane.showMessageDialog(null,"Usuario registrado correctamente");
+                dispose();
+                new PerfilAdmin(cedula);
             }else{
                 JOptionPane.showMessageDialog(null,"El usuario ya existe");
             }
