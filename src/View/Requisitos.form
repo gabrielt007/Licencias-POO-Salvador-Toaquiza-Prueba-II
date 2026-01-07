@@ -60,7 +60,7 @@
           <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="CheckBox"/>
+          <text value=""/>
         </properties>
       </component>
       <component id="1620d" class="javax.swing.JCheckBox" binding="ChBoxPago_t">
@@ -68,7 +68,7 @@
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="CheckBox"/>
+          <text value=""/>
         </properties>
       </component>
       <component id="2ad8f" class="javax.swing.JCheckBox" binding="ChBoxPago_f">
@@ -76,7 +76,7 @@
           <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="CheckBox"/>
+          <text value=""/>
         </properties>
       </component>
       <component id="12e7" class="javax.swing.JCheckBox" binding="ChBoxMultas_t">
@@ -84,15 +84,7 @@
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="CheckBox"/>
-        </properties>
-      </component>
-      <component id="d6893" class="javax.swing.JCheckBox" binding="ChBoxMultas_f">
-        <constraints>
-          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="CheckBox"/>
+          <text value=""/>
         </properties>
       </component>
       <component id="c5840" class="javax.swing.JLabel">
@@ -116,7 +108,7 @@
           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="CheckBox"/>
+          <text value=""/>
         </properties>
       </component>
       <component id="dc05b" class="javax.swing.JFormattedTextField" binding="TextFieldObservaciones">
@@ -127,14 +119,14 @@
         </constraints>
         <properties/>
       </component>
-      <component id="1faf8" class="javax.swing.JButton" binding="aprobarButton" default-binding="true">
+      <component id="1faf8" class="javax.swing.JButton" binding="aceptarCambiosButton" default-binding="true">
         <constraints>
           <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-6871766"/>
           <foreground color="-1716943"/>
-          <text value="Aprobar"/>
+          <text value="Aceptar Cambios"/>
         </properties>
       </component>
       <component id="f2b92" class="javax.swing.JButton" binding="rechazarButton" default-binding="true">
@@ -147,6 +139,28 @@
           <text value="Rechazar"/>
         </properties>
       </component>
+      <component id="d6893" class="javax.swing.JCheckBox" binding="ChBoxMultas_f">
+        <constraints>
+          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value=""/>
+        </properties>
+      </component>
     </children>
   </grid>
+  <buttonGroups>
+    <group name="certificadoMedico">
+      <member id="d9a3a"/>
+      <member id="f881e"/>
+    </group>
+    <group name="pagos">
+      <member id="1620d"/>
+      <member id="2ad8f"/>
+    </group>
+    <group name="multas">
+      <member id="12e7"/>
+      <member id="d6893"/>
+    </group>
+  </buttonGroups>
 </form>

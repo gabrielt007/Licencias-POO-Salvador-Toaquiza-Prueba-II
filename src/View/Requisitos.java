@@ -10,7 +10,7 @@ public class Requisitos extends JFrame{
     private JCheckBox ChBoxMultas_f;
     private JCheckBox ChBoxCertificado_t;
     private JFormattedTextField TextFieldObservaciones;
-    private JButton aprobarButton;
+    private JButton aceptarCambiosButton;
     private JButton rechazarButton;
     private JPanel Requisitos;
     public Requisitos(){
