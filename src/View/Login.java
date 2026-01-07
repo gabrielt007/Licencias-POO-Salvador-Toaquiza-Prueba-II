@@ -1,6 +1,9 @@
 package View;
 
+import Model.UsuarioDAO;
+
 import javax.swing.*;
+import java.security.Principal;
 
 public class Login extends JFrame {
     private JTextField txtUsuario;
@@ -14,5 +17,22 @@ public class Login extends JFrame {
         setTitle("Login");
         setVisible(true);
         setSize(600,300);
+
+        ingresarButton.addActionListener(e ->  {
+            String usuario = txtUsuario.getText();
+            String password = String.valueOf(txtPassword.getPassword());
+            String tipousuario=UsuarioDAO.existeUsuario(usuario, password);
+            if(tipousuario.equals("ADMINISTRADOR")) {
+                new PerfilAdmin().setVisible(true);
+                setVisible(false);
+            } else if (tipousuario.equals("ANALISTA")) {
+                new PerfilAnalista().setVisible(true);
+                setVisible(false);
+            }else{
+                JOptionPane.showMessageDialog(null,"El usuario no fue encontrado. Verifique sus credenciales","No Encontrado",JOptionPane.ERROR_MESSAGE);
+                txtUsuario.setText("");
+                txtPassword.setText("");
+            }
+        });
     }
 }

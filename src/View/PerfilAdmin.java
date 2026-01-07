@@ -20,6 +20,8 @@ public class PerfilAdmin extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Sistema de Licencias");
+        pack();
+        setLocationRelativeTo(null);
 
     }
 }
