@@ -37,20 +37,20 @@
           <text value="Nombre de Usuario:"/>
         </properties>
       </component>
-      <component id="e982b" class="javax.swing.JLabel">
+      <component id="e982b" class="javax.swing.JLabel" binding="tipoUsuario">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Label"/>
+          <text value=" "/>
         </properties>
       </component>
-      <component id="d8c1c" class="javax.swing.JLabel">
+      <component id="d8c1c" class="javax.swing.JLabel" binding="nombreUsuario">
         <constraints>
           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Label"/>
+          <text value=" "/>
         </properties>
       </component>
       <component id="b8005" class="javax.swing.JLabel">
