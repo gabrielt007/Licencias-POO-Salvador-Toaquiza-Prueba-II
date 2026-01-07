@@ -1,6 +1,7 @@
 package View;
 
 import Controller.VentanaManager;
+import Model.UsuarioDAO;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -34,6 +35,37 @@ public class PerfilAnalista extends JFrame {
 
         txtNombreUsuario.setText(nombreUsuario);
 
+        registrarButton.addActionListener(e -> {
+            dispose();
+            new Registro(nombreUsuario).setVisible(true);
+        });
 
+        requisitosButton.addActionListener(e -> {
+            String cedulaSolicitante = JOptionPane.showInputDialog(
+                    "Digite la cédula del solicitante:"
+            );
+
+            if (cedulaSolicitante == null) {
+                JOptionPane.showMessageDialog(null, "Operación cancelada");
+                return;
+            }
+
+            if (cedulaSolicitante.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "La cédula no puede estar vacía");
+                return;
+            }
+            String resultados= UsuarioDAO.requisitos(cedulaSolicitante);
+            if (resultados.equals("NO_EXISTE")) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Usuario no encontrado",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+            dispose();
+            new Requisitos(nombreUsuario, cedulaSolicitante,resultados).setVisible(true);
+        });
     }
 }
