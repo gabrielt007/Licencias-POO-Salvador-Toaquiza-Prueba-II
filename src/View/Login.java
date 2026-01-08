@@ -2,7 +2,7 @@ package View;
 
 import Model.UsuarioDAO;
 import Utils.HashUtil;
-
+import java.awt.*;
 import javax.swing.*;
 import java.security.Principal;
 
@@ -11,6 +11,7 @@ public class Login extends JFrame {
     private JButton ingresarButton;
     private JPanel LoginPane;
     private JPasswordField txtPassword;
+    private JLabel iconPanel;
 
     public Login() {
         setContentPane(LoginPane);
@@ -19,6 +20,10 @@ public class Login extends JFrame {
         setVisible(true);
         setSize(600,300);
         setLocationRelativeTo(null);
+
+        ImageIcon iconoLogin = new ImageIcon(getClass().getResource("/Imagenes/icono.png"));
+        iconPanel.setIcon(iconoLogin);
+
 
         ingresarButton.addActionListener(e -> {
 
