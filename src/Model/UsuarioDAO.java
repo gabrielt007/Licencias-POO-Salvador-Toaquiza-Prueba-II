@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.sql.ResultSetMetaData;
 
 public class UsuarioDAO {
@@ -717,4 +718,34 @@ public class UsuarioDAO {
     }
 
 
+    public static TableModel cargarLicencia() {
+        String sql="select * from licencia";
+        DefaultTableModel modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        try(Connection conn=Conexion.getConexion();
+        PreparedStatement ps=conn.prepareStatement(sql)){
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData meta = rs.getMetaData();
+            int columnas = meta.getColumnCount();
+
+            for (int c = 1; c <= columnas; c++) {
+                modelo.addColumn(meta.getColumnName(c));
+            }
+
+            while (rs.next()) {
+                Object[] fila = new Object[columnas];
+                for (int c = 0; c < columnas; c++) {
+                    fila[c] = rs.getObject(c + 1);
+                }
+                modelo.addRow(fila);
+            }
+            return  modelo;
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
 }

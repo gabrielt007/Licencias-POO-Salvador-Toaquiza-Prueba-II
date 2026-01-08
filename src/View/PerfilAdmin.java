@@ -20,6 +20,7 @@ public class PerfilAdmin extends JFrame {
     private JButton requisitosButton;
     private JButton examenesButton;
     private JButton registrarUsuariosButton;
+    private JButton licenciasButton;
 
     public PerfilAdmin(String cedula){
         setContentPane(PerfilAdmin);
@@ -181,6 +182,11 @@ public class PerfilAdmin extends JFrame {
             }
            dispose();
            new GestionUsuarios(cedula,"ADMIN",cedulaSolicitante,"usuariosPlataforma").setVisible(true);
+        });
+
+        licenciasButton.addActionListener(e ->  {
+            dispose();
+            new Licencias(cedula,"ADMIN").setVisible(true);
         });
     }
 }
