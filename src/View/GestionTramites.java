@@ -140,7 +140,8 @@ public class GestionTramites extends JFrame{
                 );
                 return;
             }
-
+            dispose();
+            new DetalleUsuarios(usuario,cedula,cedulaSolicitante).setVisible(true);
         });
 
         filtrarButton.addActionListener(e->{});

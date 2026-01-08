@@ -142,5 +142,10 @@ public class PerfilAdmin extends JFrame {
             dispose();
             new Licencias(cedula,"ADMIN").setVisible(true);
         });
+
+        usuariosButton.addActionListener(e ->  {
+           dispose();
+           new GestionUsuarios(cedula,"ADMIN").setVisible(true);
+        });
     }
 }

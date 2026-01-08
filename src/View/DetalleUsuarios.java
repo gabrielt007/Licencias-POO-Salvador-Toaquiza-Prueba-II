@@ -14,13 +14,14 @@ public class DetalleUsuarios extends JFrame {
     private JScrollPane datosPersonales;
     private JScrollPane requisitos;
     private JScrollPane notasP;
+    private JPanel panelPrincipal;
 
     public DetalleUsuarios(String usuario,String cedula,String cedulaSolicitante) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setContentPane(panelPrincipal);
         setTitle("Detalle Usuarios");
-        setSize(800, 600);
+        setSize(480, 300);
         setLocationRelativeTo(null);
-        pack();
         setVisible(true);
 
         addWindowListener(new WindowAdapter() {

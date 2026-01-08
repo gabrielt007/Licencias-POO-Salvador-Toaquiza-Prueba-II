@@ -34,8 +34,20 @@ public class Licencias extends JFrame{
         generarButton.addActionListener(e->{
             String cedulaa = txtCedula.getText();
 
+            boolean validacion=UsuarioDAO.verificarCedula(cedulaa);
+            if(!validacion){
+                JOptionPane.showMessageDialog(null, "Usuario no encontrado");
+                txtCedula.setText("");
+                return;
+            }
             if (!UsuarioDAO.esAptoParaLicencia(cedulaa)) {
                 JOptionPane.showMessageDialog(null, "El usuario NO cumple requisitos o no aprobó");
+                dispose();
+                if (usuario.equals("ADMIN")){
+                    new PerfilAdmin(cedula).setVisible(true);
+                }else if (usuario.equals("ANALISTA")){
+                    new PerfilAnalista(cedula).setVisible(true);
+                }
                 return;
             }
 

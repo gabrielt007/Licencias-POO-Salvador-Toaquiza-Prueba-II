@@ -28,6 +28,7 @@ public class PerfilUsuario extends JFrame {
         setSize(600,250);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setVisible(true);
 
 //        configurarTabla();
 //        cargarDatosUsuario();
@@ -49,7 +50,6 @@ public class PerfilUsuario extends JFrame {
             new Login().setVisible(true);
         });
 
-        setVisible(true);
     }
 
 //    private void configurarTabla() {
