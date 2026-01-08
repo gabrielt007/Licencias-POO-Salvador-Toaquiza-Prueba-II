@@ -105,7 +105,7 @@ public class PerfilAnalista extends JFrame {
                 return;
             }else{
                 String estado = UsuarioDAO.actualizarEstado(cedulaSolicitante);
-// 1️⃣ Prioridad máxima: APROBADO
+// Prioridad máxima: APROBADO
                 if ("PREPARADO".equals(estado)) {
                     JOptionPane.showMessageDialog(null, "El usuario ya está aprobado");
                     return;
@@ -127,6 +127,10 @@ public class PerfilAnalista extends JFrame {
         tramitesButton.addActionListener(e -> {
             dispose();
             new GestionTramites(nombreUsuario,"ANALISTA").setVisible(true);
+        });
+
+        generarButton.addActionListener(e->{
+            new Licencias(nombreUsuario,"ANALISTA").setVisible(true);
         });
     }
 }

@@ -17,8 +17,6 @@ public class PerfilUsuario extends JFrame {
 
     private JPanel PerfilUsuario;
     private JButton cerrarSesionButton;
-    private JLabel txtNombreUsuario;
-    private JLabel txtCedulaUsuario;
     private JTable table1;
     private String cedulaUsuario;
 
@@ -27,7 +25,7 @@ public class PerfilUsuario extends JFrame {
 
         setContentPane(PerfilUsuario);
         setTitle("Sistema de Licencias");
-        setSize(600,400);
+        setSize(600,250);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 

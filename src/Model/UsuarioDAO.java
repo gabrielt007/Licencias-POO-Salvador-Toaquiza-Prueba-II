@@ -428,5 +428,52 @@ public class UsuarioDAO {
 
         return modelo;
     }
+    //Prueba para generar Licencias
+    public static boolean esAptoParaLicencia(String cedula) {
+
+        String sql = """
+        select estadoTramite
+        from usuariosSolicitantes
+        where cedula = ?
+        and estadoTramite = 'PREPARADO'
+    """;
+
+        try (Connection con = Conexion.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, cedula);
+            ResultSet rs = ps.executeQuery();
+
+            return rs.next();
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    public static boolean generarLicencia(String cedula) {
+
+        String sql = "insert into licencia (cedula, numeroLicencia) values (?, floor(rand()*900000)+100000)";
+
+        try (Connection con = Conexion.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, cedula);
+            ps.executeUpdate();
+
+            // Cambiar estado del trámite
+            PreparedStatement ps2 = con.prepareStatement(
+                    "update usuariosSolicitantes set estadoTramite='Aprobado' where cedula=?"
+            );
+            ps2.setString(1, cedula);
+            ps2.executeUpdate();
+
+            return true;
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+
 
 }
