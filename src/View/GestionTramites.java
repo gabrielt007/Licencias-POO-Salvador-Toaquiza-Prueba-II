@@ -34,7 +34,7 @@ public class GestionTramites extends JFrame{
             }
         });
 
-        table1.setModel(UsuarioDAO.cargarVistaAprobados());
+        table1.setModel(UsuarioDAO.cargarVistaTramites());
         table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         VentanaManager.ajustarColumnas(table1);
     }

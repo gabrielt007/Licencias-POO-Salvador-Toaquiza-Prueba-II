@@ -1,6 +1,7 @@
 package View;
 
 import Controller.VentanaManager;
+import Model.UsuarioDAO;
 import Utils.Conexion;
 
 import javax.swing.*;
@@ -15,10 +16,10 @@ import java.sql.*;
 public class PerfilUsuario extends JFrame {
 
     private JPanel PerfilUsuario;
-    private JTable tablaTramiteUsuario;
     private JButton cerrarSesionButton;
     private JLabel txtNombreUsuario;
     private JLabel txtCedulaUsuario;
+    private JTable table1;
     private String cedulaUsuario;
 
     public PerfilUsuario(String cedula) {
@@ -26,14 +27,17 @@ public class PerfilUsuario extends JFrame {
 
         setContentPane(PerfilUsuario);
         setTitle("Sistema de Licencias");
-        setSize(400,250);
+        setSize(600,400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
-        configurarTabla();
-        cargarDatosUsuario();
-        cargarTramiteUsuario();
+//        configurarTabla();
+//        cargarDatosUsuario();
+//        cargarTramiteUsuario();
 
+        VentanaManager.ajustarColumnas(table1);
+        table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table1.setModel(UsuarioDAO.cargarVistaTramitesUsuario(cedulaUsuario));
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -50,58 +54,58 @@ public class PerfilUsuario extends JFrame {
         setVisible(true);
     }
 
-    private void configurarTabla() {
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("Tipo de Licencia");
-        modelo.addColumn("Fecha de Solicitud");
-        modelo.addColumn("Estado del Trámite");
-        tablaTramiteUsuario.setModel(modelo);
-    }
-
-    private void cargarDatosUsuario() {
-        String sql = "SELECT nombre, cedula FROM usuariosSolicitantes WHERE cedula = ?";
-
-        try (Connection con = Conexion.getConexion();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setString(1, cedulaUsuario);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                txtNombreUsuario.setText(rs.getString("nombre"));
-                txtCedulaUsuario.setText(rs.getString("cedula"));
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error cargando usuario");
-        }
-    }
-
-    private void cargarTramiteUsuario() {
-
-        DefaultTableModel modelo = (DefaultTableModel) tablaTramiteUsuario.getModel();
-        modelo.setRowCount(0);
-
-        String sql = "SELECT tipoLicencia,fechaSolicitud, estadoTramite FROM usuariosSolicitantes WHERE cedula = ?";
-
-        try (Connection con = Conexion.getConexion();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setString(1, cedulaUsuario);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Object[] fila = new Object[3];
-                fila[0]=rs.getString("tipoLicencia");
-                fila[1] = rs.getTimestamp("fechaSolicitud");
-                fila[2] = rs.getString("estadoTramite");
-                modelo.addRow(fila);
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error cargando trámite");
-        }
-    }
+//    private void configurarTabla() {
+//        DefaultTableModel modelo = new DefaultTableModel();
+//        modelo.addColumn("Tipo de Licencia");
+//        modelo.addColumn("Fecha de Solicitud");
+//        modelo.addColumn("Estado del Trámite");
+//        tablaTramiteUsuario.setModel(modelo);
+//    }
+//
+//    private void cargarDatosUsuario() {
+//        String sql = "SELECT nombre, cedula FROM usuariosSolicitantes WHERE cedula = ?";
+//
+//        try (Connection con = Conexion.getConexion();
+//             PreparedStatement ps = con.prepareStatement(sql)) {
+//
+//            ps.setString(1, cedulaUsuario);
+//            ResultSet rs = ps.executeQuery();
+//
+//            if (rs.next()) {
+//                txtNombreUsuario.setText(rs.getString("nombre"));
+//                txtCedulaUsuario.setText(rs.getString("cedula"));
+//            }
+//
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(this, "Error cargando usuario");
+//        }
+//    }
+//
+//    private void cargarTramiteUsuario() {
+//
+//        DefaultTableModel modelo = (DefaultTableModel) tablaTramiteUsuario.getModel();
+//        modelo.setRowCount(0);
+//
+//        String sql = "SELECT tipoLicencia,fechaSolicitud, estadoTramite FROM usuariosSolicitantes WHERE cedula = ?";
+//
+//        try (Connection con = Conexion.getConexion();
+//             PreparedStatement ps = con.prepareStatement(sql)) {
+//
+//            ps.setString(1, cedulaUsuario);
+//            ResultSet rs = ps.executeQuery();
+//
+//            while (rs.next()) {
+//                Object[] fila = new Object[3];
+//                fila[0]=rs.getString("tipoLicencia");
+//                fila[1] = rs.getTimestamp("fechaSolicitud");
+//                fila[2] = rs.getString("estadoTramite");
+//                modelo.addRow(fila);
+//            }
+//
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(this, "Error cargando trámite");
+//        }
+//    }
 
 
 }

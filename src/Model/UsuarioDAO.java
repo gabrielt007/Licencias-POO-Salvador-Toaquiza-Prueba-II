@@ -351,13 +351,13 @@ public class UsuarioDAO {
         return "Sin estado";
     }
 
-    public static DefaultTableModel cargarVistaAprobados() {
+    public static DefaultTableModel cargarVistaTramites() {
 
         String sql = "SELECT * FROM tramites";
         DefaultTableModel modelo = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // 🔐 nadie edita nada
+                return false;
             }
         };
 
@@ -366,6 +366,45 @@ public class UsuarioDAO {
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
+            ResultSetMetaData meta = rs.getMetaData();
+            int columnas = meta.getColumnCount();
+
+            // Nombres de columnas
+            for (int i = 1; i <= columnas; i++) {
+                modelo.addColumn(meta.getColumnName(i));
+            }
+
+            // Filas
+            while (rs.next()) {
+                Object[] fila = new Object[columnas];
+                for (int i = 0; i < columnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return modelo;
+    }
+
+    public static DefaultTableModel cargarVistaTramitesUsuario(String cedula) {
+
+        String sql = "SELECT * FROM tramites where cedula=?";
+        DefaultTableModel modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+
+        try (Connection conn = Conexion.getConexion();
+             PreparedStatement ps = conn.prepareStatement(sql);) {
+            ps.setString(1, cedula);
+            ResultSet rs = ps.executeQuery();
             ResultSetMetaData meta = rs.getMetaData();
             int columnas = meta.getColumnCount();
 
