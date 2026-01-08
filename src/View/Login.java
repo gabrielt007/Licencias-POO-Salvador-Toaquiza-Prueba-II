@@ -21,8 +21,8 @@ public class Login extends JFrame {
         setSize(600,300);
         setLocationRelativeTo(null);
 
-        ImageIcon iconoLogin = new ImageIcon(getClass().getResource("/Imagenes/icono.png"));
-        iconPanel.setIcon(iconoLogin);
+        //ImageIcon iconoLogin = new ImageIcon(getClass().getResource("/Imagenes/icono.png"));
+        //iconPanel.setIcon(iconoLogin);
 
 
         ingresarButton.addActionListener(e -> {

@@ -143,6 +143,11 @@ public class PerfilAdmin extends JFrame {
             new Licencias(cedula,"ADMIN").setVisible(true);
         });
 
+        reportesButton.addActionListener(e->{
+            dispose();
+            new Reportes().setVisible(true);
+        });
+
         usuariosButton.addActionListener(e ->  {
             String cedulaSolicitante = JOptionPane.showInputDialog(
                     "Digite la cédula del Usuario a modificar:"

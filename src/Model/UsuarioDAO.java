@@ -665,4 +665,56 @@ public class UsuarioDAO {
             }
         }
     }
+//prueba para reportes
+    public static DefaultTableModel cargarReporte(
+            String desde, String hasta,
+            String estado, String tipo, String cedula) {
+
+        String sql = "SELECT * FROM tramites WHERE 1=1 ";
+
+        if (!desde.isEmpty()) sql += " AND fechaSolicitud >= ?";
+        if (!hasta.isEmpty()) sql += " AND fechaSolicitud <= ?";
+        if (!estado.equals("Todos")) sql += " AND estadoTramite = ?";
+        if (!tipo.equals("Todos")) sql += " AND tipoLicencia = ?";
+        if (!cedula.isEmpty()) sql += " AND cedula = ?";
+
+        DefaultTableModel modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int r, int c) { return false; }
+        };
+
+        try (Connection conn = Conexion.getConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            int i = 1;
+            if (!desde.isEmpty()) ps.setString(i++, desde);
+            if (!hasta.isEmpty()) ps.setString(i++, hasta);
+            if (!estado.equals("Todos")) ps.setString(i++, estado);
+            if (!tipo.equals("Todos")) ps.setString(i++, tipo);
+            if (!cedula.isEmpty()) ps.setString(i++, cedula);
+
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData meta = rs.getMetaData();
+            int columnas = meta.getColumnCount();
+
+            for (int c = 1; c <= columnas; c++) {
+                modelo.addColumn(meta.getColumnName(c));
+            }
+
+            while (rs.next()) {
+                Object[] fila = new Object[columnas];
+                for (int c = 0; c < columnas; c++) {
+                    fila[c] = rs.getObject(c + 1);
+                }
+                modelo.addRow(fila);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return modelo;
+    }
+
+
 }
