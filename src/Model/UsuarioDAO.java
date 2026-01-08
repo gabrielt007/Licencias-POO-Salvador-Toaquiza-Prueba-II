@@ -474,6 +474,75 @@ public class UsuarioDAO {
         }
     }
 
+    public static DefaultTableModel cargarDatosUsuarios_notas(String cedula) {
+        String sql = "SELECT * FROM examen where cedula=?";
+        DefaultTableModel modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
 
+        try (Connection conn = Conexion.getConexion();
+             PreparedStatement ps = conn.prepareStatement(sql);) {
+            ps.setString(1, cedula);
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData meta = rs.getMetaData();
+            int columnas = meta.getColumnCount();
+
+            // Nombres de columnas
+            for (int i = 1; i <= columnas; i++) {
+                modelo.addColumn(meta.getColumnName(i));
+            }
+
+            // Filas
+            while (rs.next()) {
+                Object[] fila = new Object[columnas];
+                for (int i = 0; i < columnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return modelo;
+    }
+
+    public static DefaultTableModel cargarDatosUsuarios_requisitos(String cedula) {
+        String sql = "SELECT * FROM requisitos where cedula=?";
+        DefaultTableModel modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+
+        try (Connection conn = Conexion.getConexion();
+             PreparedStatement ps = conn.prepareStatement(sql);) {
+            ps.setString(1, cedula);
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData meta = rs.getMetaData();
+            int columnas = meta.getColumnCount();
+
+            // Nombres de columnas
+            for (int i = 1; i <= columnas; i++) {
+                modelo.addColumn(meta.getColumnName(i));
+            }
+
+            // Filas
+            while (rs.next()) {
+                Object[] fila = new Object[columnas];
+                for (int i = 0; i < columnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return modelo;
+    }
 }
