@@ -15,6 +15,7 @@ public class RegistroUsuarios extends JFrame{
     private JTextField txtClave;
     private JComboBox CombBoxRol;
     private JComboBox CombBoxEstado;
+
     public RegistroUsuarios(String cedula,String usuario){
         setContentPane(RegistroUsuarios);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);

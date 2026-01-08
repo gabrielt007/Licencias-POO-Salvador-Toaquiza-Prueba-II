@@ -21,7 +21,7 @@ public class GestionUsuarios extends JFrame{
     private JTextField txtPasswordCambios;
     private JComboBox CombBoxRol;
 
-    public GestionUsuarios(String  cedula,String rol,String cedulaSolicitante){
+    public GestionUsuarios(String  cedula,String rol,String cedulaSolicitante,String table){
         setContentPane(GestionUsuarios);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setVisible(true);
@@ -40,11 +40,24 @@ public class GestionUsuarios extends JFrame{
             }
         });
 
-        String datosActuales= UsuarioDAO.datosActuales(cedulaSolicitante);
-        String[] lista=datosActuales.split("/");
-        String cedulaActual= lista[0];
-        String rolActual= lista[1];
-        String estadoActual= lista[2];
+        String datosActuales= UsuarioDAO.datosActuales(cedulaSolicitante,table);
+        String cedulaActual,rolActual="",estadoActual;
+        if (table.equals("usuariosPlataforma")) {
+            String[] lista = datosActuales.split("/");
+            cedulaActual = lista[0];
+            rolActual = lista[1];
+            estadoActual = lista[2];
+
+        }else if (table.equals("usuariosSolicitantes")) {
+            CombBoxRol.setEnabled(false);
+            String[] lista = datosActuales.split("/");
+            cedulaActual = lista[0];
+            estadoActual = lista[1];
+            rolActual ="Ninguno";
+        } else {
+            cedulaActual = "";
+            estadoActual = "";
+        }
 
         txtCedulaActual.setText(cedulaActual);
         txtRolActual.setText(rolActual);
@@ -75,7 +88,7 @@ public class GestionUsuarios extends JFrame{
                 return;
             }
             passwordNueva=HashUtil.hash(passwordNueva);
-            UsuarioDAO.actalizarDatos(cedulaActual,cedulaNueva,rolNueva,passwordNueva,estadoNuevo.get());
+            UsuarioDAO.actalizarDatos(cedulaActual,cedulaNueva,rolNueva,passwordNueva,estadoNuevo.get(),table);
             JOptionPane.showMessageDialog(null, "Se ha modificado el usuario con exito");
             dispose();
             new PerfilAdmin(cedula);

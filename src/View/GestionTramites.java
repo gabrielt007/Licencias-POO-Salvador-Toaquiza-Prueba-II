@@ -150,6 +150,9 @@ public class GestionTramites extends JFrame{
         table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         VentanaManager.ajustarColumnas(table1);
 
-
+        generarLicenciaButton.addActionListener(e -> {
+            dispose();
+            new Licencias(cedula,usuario).setVisible(true);
+        });
     }
 }

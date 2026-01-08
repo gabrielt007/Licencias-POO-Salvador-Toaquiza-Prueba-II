@@ -145,7 +145,7 @@ public class PerfilAdmin extends JFrame {
 
         usuariosButton.addActionListener(e ->  {
             String cedulaSolicitante = JOptionPane.showInputDialog(
-                    "Digite la cédula del solicitante:"
+                    "Digite la cédula del Usuario a modificar:"
             );
 
             if (cedulaSolicitante == null) {
@@ -158,17 +158,24 @@ public class PerfilAdmin extends JFrame {
                 return;
             }
             boolean resultados= UsuarioDAO.verificarCedulaPlataforma(cedulaSolicitante);
+            boolean resultadosS=UsuarioDAO.verificarCedula(cedulaSolicitante);
             if (!resultados) {
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Usuario no encontrado",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE
-                );
-                return;
+                if(!resultadosS){
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Usuario no encontrado",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }else{
+                    dispose();
+                    new GestionUsuarios(cedula,"ADMIN",cedulaSolicitante,"usuariosSolicitantes").setVisible(true);
+                    return;
+                }
             }
            dispose();
-           new GestionUsuarios(cedula,"ADMIN",cedulaSolicitante).setVisible(true);
+           new GestionUsuarios(cedula,"ADMIN",cedulaSolicitante,"usuariosPlataforma").setVisible(true);
         });
     }
 }
