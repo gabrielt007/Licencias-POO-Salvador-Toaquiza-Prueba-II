@@ -16,7 +16,7 @@
         </constraints>
         <properties>
           <font name="Dubai Medium" size="24"/>
-          <text value="Regsitro de Usuarios"/>
+          <text value="Registro de Usuarios"/>
         </properties>
       </component>
       <component id="17b3e" class="javax.swing.JLabel">

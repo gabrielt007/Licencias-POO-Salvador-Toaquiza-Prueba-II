@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="Reportes" layout-manager="GridLayoutManager" row-count="15" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="700" height="473"/>
+      <xy x="20" y="20" width="704" height="473"/>
     </constraints>
     <properties>
       <background color="-8932379"/>
@@ -102,11 +102,11 @@
         </constraints>
         <properties>
           <model>
-            <item value="Pendiente "/>
+            <item value="Pendiente"/>
             <item value="en_examenes"/>
             <item value="PREPARADO"/>
             <item value="NO"/>
-            <item value="APROBADO "/>
+            <item value="APROBADO"/>
             <item value="REPROBADO"/>
           </model>
         </properties>
@@ -305,6 +305,16 @@
         </constraints>
         <properties>
           <text value="Rango de Fecha:"/>
+        </properties>
+      </component>
+      <component id="5335e" class="javax.swing.JButton" binding="limpiarFiltrosButton" default-binding="true">
+        <constraints>
+          <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-6871766"/>
+          <foreground color="-1716943"/>
+          <text value="Limpiar Filtros"/>
         </properties>
       </component>
     </children>

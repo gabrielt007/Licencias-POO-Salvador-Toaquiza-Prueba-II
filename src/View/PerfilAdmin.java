@@ -145,7 +145,7 @@ public class PerfilAdmin extends JFrame {
 
         reportesButton.addActionListener(e->{
             dispose();
-            new Reportes().setVisible(true);
+            new Reportes(cedula,"ADMIN").setVisible(true);
         });
 
         usuariosButton.addActionListener(e ->  {

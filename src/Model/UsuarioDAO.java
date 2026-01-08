@@ -672,8 +672,8 @@ public class UsuarioDAO {
 
         String sql = "SELECT * FROM tramites WHERE 1=1 ";
 
-        if (!desde.isEmpty()) sql += " AND fechaSolicitud >= ?";
-        if (!hasta.isEmpty()) sql += " AND fechaSolicitud <= ?";
+        if (!desde.isEmpty()) sql += " AND date(fechaSolicitud) >= ?";
+        if (!hasta.isEmpty()) sql += " AND date(fechaSolicitud) <= ?";
         if (!estado.equals("Todos")) sql += " AND estadoTramite = ?";
         if (!tipo.equals("Todos")) sql += " AND tipoLicencia = ?";
         if (!cedula.isEmpty()) sql += " AND cedula = ?";

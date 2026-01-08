@@ -63,7 +63,7 @@ public class GestionUsuarios extends JFrame{
         txtRolActual.setText(rolActual);
         txtEstadoActual.setText(estadoActual);
 
-        AtomicReference<String> estadoNuevo= new AtomicReference<>("");
+        AtomicReference<String> estadoNuevo= new AtomicReference<>(estadoActual);
         cambiarEstado.addActionListener(e -> {
             if(estadoActual.equals("ACTIVO")){
                 estadoNuevo.set("BLOQUEADO");

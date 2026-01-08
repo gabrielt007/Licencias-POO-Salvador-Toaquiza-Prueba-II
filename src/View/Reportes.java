@@ -2,10 +2,11 @@ package View;
 
 import Controller.VentanaManager;
 import Model.UsuarioDAO;
-import Utils.Conexion;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.PrintWriter;
 
@@ -26,18 +27,30 @@ public class Reportes extends JFrame{
     private JLabel lblLicenciasEmitidas;
     private JLabel lblEnExamenes;
     private JLabel lblAprobados;
+    private JButton limpiarFiltrosButton;
 
-    public Reportes(){
+    public Reportes(String cedulaI, String usuario){
         setContentPane(Reportes);
         setTitle("Sistema de Licencias");
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setVisible(true);
+        setLocationRelativeTo(null);
         pack();
 
         VentanaManager.ajustarColumnas(table1);
         table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         table1.setModel(UsuarioDAO.cargarVistaTramites());
 
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if (usuario.equals("ADMIN")){
+                    VentanaManager.cambiar(Reportes.this, new PerfilAdmin(cedulaI));
+                }else if (usuario.equals("ANALISTA")){
+                    VentanaManager.cambiar(Reportes.this, new PerfilAnalista(cedulaI));
+                }
+            }
+        });
 
         buscarButton.addActionListener(e -> {
             String desde = txtFechaDesde.getText();
@@ -97,6 +110,14 @@ public class Reportes extends JFrame{
                 ex.printStackTrace();
             }
         });
+
+        limpiarFiltrosButton.addActionListener(e -> {
+            VentanaManager.ajustarColumnas(table1);
+            table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+            table1.setModel(UsuarioDAO.cargarVistaTramites());
+        });
+
+
 
 
     }

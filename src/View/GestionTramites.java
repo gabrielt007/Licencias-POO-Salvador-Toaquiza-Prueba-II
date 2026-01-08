@@ -15,7 +15,13 @@ public class GestionTramites extends JFrame{
     private JButton verDetalleButton;
     private JButton registrarExamenButton;
     private JButton generarLicenciaButton;
+    private JTextField textField1;
+    private JTextField textField2;
     private JComboBox comboBox1;
+    private JComboBox comboBox2;
+    private JTextField textField3;
+    private JButton buscarButton;
+    private JButton limpiarBusquedaButton;
 
     public GestionTramites(String cedula, String usuario){
         setContentPane(GestionTramitesP);
