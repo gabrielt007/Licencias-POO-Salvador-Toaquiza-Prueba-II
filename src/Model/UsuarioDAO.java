@@ -209,7 +209,7 @@ public class UsuarioDAO {
                 int intentosActuales = rs.getInt("intentos");
 
                 // Si llega a 3 → bloquear
-                if (intentosActuales >= 3) {
+                if (intentosActuales > 3) {
                     String sqlEstado = "UPDATE usuariosPlataforma " +
                             "SET estadoUsuario = 'BLOQUEADO', intentos = 0 " +
                             "WHERE cedula = ?";
