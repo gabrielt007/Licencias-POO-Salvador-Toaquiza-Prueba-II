@@ -49,7 +49,6 @@ public class PerfilAdmin extends JFrame {
         });
 
         requisitosButton.addActionListener(e -> {
-
             String cedulaSolicitante = JOptionPane.showInputDialog(
                     "Digite la cédula del solicitante:"
             );
@@ -73,6 +72,10 @@ public class PerfilAdmin extends JFrame {
                 );
                 return;
             }else{
+                if (!UsuarioDAO.actualizarEstado(cedulaSolicitante).equals("Pendiente")) {
+                    JOptionPane.showMessageDialog(null,"El usuario ya tiene los requisitos aprobados");
+                    return;
+                }
                 String resultadosRequisitos=UsuarioDAO.requisitos(cedulaSolicitante);
                 dispose();
                 new Requisitos(cedula, cedulaSolicitante,resultadosRequisitos,"ADMIN").setVisible(true);
@@ -109,6 +112,17 @@ public class PerfilAdmin extends JFrame {
                 );
                 return;
             }else{
+                String estado = UsuarioDAO.actualizarEstado(cedulaSolicitante);
+// 1️⃣ Prioridad máxima: APROBADO
+                if ("PREPARADO".equals(estado)) {
+                    JOptionPane.showMessageDialog(null, "El usuario ya está aprobado");
+                    return;
+                }else if (!"OK".equals(estado)) {
+                    // continúa el proceso
+                    JOptionPane.showMessageDialog(null, "El usuario no cumple los requisitos");
+                    return;
+                }
+
                 String resultadosExamenes=UsuarioDAO.examenes(cedulaSolicitante);
                 if (resultadosExamenes.equals("No hay datos")){
                     JOptionPane.showMessageDialog(null,"El usuario no tiene registro de examenes","Error",JOptionPane.ERROR_MESSAGE);
@@ -117,6 +131,11 @@ public class PerfilAdmin extends JFrame {
                 dispose();
                 new Examenes(cedula, cedulaSolicitante,resultadosExamenes,"ADMIN").setVisible(true);
             }
+        });
+
+        tramitesButton.addActionListener(e ->  {
+            dispose();
+            new GestionTramites(cedula,"ADMIN").setVisible(true);
         });
     }
 }

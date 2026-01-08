@@ -72,5 +72,39 @@ public class PerfilAnalista extends JFrame {
             dispose();
             new Login().setVisible(true);
         });
+
+        examenesButton.addActionListener(e -> {
+            String cedulaSolicitante = JOptionPane.showInputDialog(
+                    "Digite la cédula del solicitante:"
+            );
+
+            if (cedulaSolicitante == null) {
+                JOptionPane.showMessageDialog(null, "Operación cancelada");
+                return;
+            }
+
+            if (cedulaSolicitante.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "La cédula no puede estar vacía");
+                return;
+            }
+            boolean resultados= UsuarioDAO.verificarCedula(cedulaSolicitante);
+            if (!resultados) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Usuario no encontrado",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }else{
+                String resultadosExamenes=UsuarioDAO.examenes(cedulaSolicitante);
+                if (resultadosExamenes.equals("No hay datos")){
+                    JOptionPane.showMessageDialog(null,"El usuario no tiene registro de examenes","Error",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                dispose();
+                new Examenes(nombreUsuario, cedulaSolicitante,resultadosExamenes,"ANALISTA").setVisible(true);
+            }
+        });
     }
 }

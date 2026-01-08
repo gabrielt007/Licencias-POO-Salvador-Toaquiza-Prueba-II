@@ -49,7 +49,10 @@ public class Examenes extends JFrame{
             double nuevaT= Double.parseDouble(txtNotaT.getText());
             double promedioN= (nuevaP+nuevaT)/2;
             promedio.setText(promedioN+"");
-            UsuarioDAO. modificarNotas(cedulaSolicitante,nuevaP,nuevaT);
+            UsuarioDAO.modificarNotas(cedulaSolicitante,nuevaP,nuevaT);
+            UsuarioDAO.actualizarEstado(cedulaSolicitante);
+            dispose();
+            new PerfilAdmin(cedula);
         });
     }
 }

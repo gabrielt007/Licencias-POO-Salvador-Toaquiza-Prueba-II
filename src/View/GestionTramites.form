@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="View.GestionTramites">
-  <grid id="27dc6" binding="GestionTramites" layout-manager="GridLayoutManager" row-count="5" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="GestionTramitesP" layout-manager="GridLayoutManager" row-count="5" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
@@ -19,23 +19,6 @@
           <text value="Gestion de Tramites"/>
         </properties>
       </component>
-      <scrollpane id="96ba">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-        <border type="none"/>
-        <children>
-          <component id="2794f" class="javax.swing.JTable" binding="table1" default-binding="true">
-            <constraints/>
-            <properties>
-              <autoCreateColumnsFromModel value="false"/>
-              <cellSelectionEnabled value="true"/>
-              <updateSelectionOnSort value="false"/>
-            </properties>
-          </component>
-        </children>
-      </scrollpane>
       <component id="38b7c" class="javax.swing.JButton" binding="filtrarButton" default-binding="true">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -78,6 +61,19 @@
           <text value="Generar Licencia"/>
         </properties>
       </component>
+      <scrollpane id="471d5">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="83191" class="javax.swing.JTable" binding="table1" default-binding="true">
+            <constraints/>
+            <properties/>
+          </component>
+        </children>
+      </scrollpane>
     </children>
   </grid>
 </form>

@@ -96,6 +96,7 @@ public class Requisitos extends JFrame{
             String ejecucion = UsuarioDAO.actualizarRequisitos(certMedNuevo, pagoNuevo, multaNuevo, obsNuevo, cedulaSolicitante);
             if (ejecucion.equals("Exitoso")) {
                 dispose();
+                UsuarioDAO.actualizarEstado(cedulaSolicitante);
                 JOptionPane.showMessageDialog(null, "Actualizacion exitosa");
                 new PerfilAdmin(cedula).setVisible(true);
             } else {

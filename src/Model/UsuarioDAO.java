@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSetMetaData;
 
 public class UsuarioDAO {
     public static String existeUsuario(String usuario, String password){
@@ -278,4 +280,114 @@ public class UsuarioDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public static String actualizarEstado(String cedula) {
+
+        if (!verificarCedula(cedula)) {
+            return "Sin estado";
+        }
+
+        String sqlEstadoActual = "SELECT estadoTramite FROM usuariosSolicitantes WHERE cedula=?";
+        String sqlEstadoExamen = "SELECT estado FROM examen WHERE cedula=?";
+        String sqlEstadoRequisitos = "SELECT estadoRequisitos FROM requisitos WHERE cedula=?";
+
+        try (Connection conn = Conexion.getConexion();
+             PreparedStatement ps1 = conn.prepareStatement(sqlEstadoActual);
+             PreparedStatement ps2 = conn.prepareStatement(sqlEstadoExamen);
+             PreparedStatement ps3 = conn.prepareStatement(sqlEstadoRequisitos)) {
+
+            ps1.setString(1, cedula);
+            ps2.setString(1, cedula);
+            ps3.setString(1, cedula);
+
+            ResultSet rs1 = ps1.executeQuery();
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSet rs3 = ps3.executeQuery();
+
+            if (rs1.next() && rs2.next() && rs3.next()) {
+
+                String estadoActual = rs1.getString("estadoTramite");
+                String estadoExamen = rs2.getString("estado"); // ✔ corregido
+                String estadoRequisitos = rs3.getString("estadoRequisitos");
+
+                String estadoNuevo = estadoActual;
+
+                boolean examenAprobado = "APROBADO".equals(estadoExamen);
+                boolean examenReprobado = "REPROBADO".equals(estadoExamen);
+                boolean requisitosOK = "OK".equals(estadoRequisitos);
+
+//                if ("Pendiente".equals(estadoActual)) {
+
+                    if (examenReprobado) {
+                        estadoNuevo = "REPROBADO";
+                    } else if (requisitosOK && examenAprobado) {
+                        estadoNuevo = "PREPARADO";
+                    } else if (requisitosOK) {
+                        estadoNuevo = "en_examenes";
+                    } else if (examenAprobado) {
+                        estadoNuevo = "APROBADO";
+                    } else {
+                        estadoNuevo = "Pendiente";
+                    }
+  //              }
+
+                String sqlActualizacion =
+                        "UPDATE usuariosSolicitantes SET estadoTramite=? WHERE cedula=?";
+
+                try (PreparedStatement psActualizacion =
+                             conn.prepareStatement(sqlActualizacion)) {
+                    psActualizacion.setString(1, estadoNuevo);
+                    psActualizacion.setString(2, cedula);
+                    psActualizacion.executeUpdate();
+                }
+                System.out.println(estadoNuevo);
+                return estadoNuevo;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return "Sin estado";
+    }
+
+    public static DefaultTableModel cargarVistaAprobados() {
+
+        String sql = "SELECT * FROM tramites";
+        DefaultTableModel modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // 🔐 nadie edita nada
+            }
+        };
+
+
+        try (Connection conn = Conexion.getConexion();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            ResultSetMetaData meta = rs.getMetaData();
+            int columnas = meta.getColumnCount();
+
+            // Nombres de columnas
+            for (int i = 1; i <= columnas; i++) {
+                modelo.addColumn(meta.getColumnName(i));
+            }
+
+            // Filas
+            while (rs.next()) {
+                Object[] fila = new Object[columnas];
+                for (int i = 0; i < columnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return modelo;
+    }
+
 }
