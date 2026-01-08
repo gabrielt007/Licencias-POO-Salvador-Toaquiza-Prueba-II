@@ -213,8 +213,8 @@ public class UsuarioDAO {
         }
     }
 
-    public static String intentos(String usuario) {
-        String sql = "SELECT intentos FROM usuariosPlataforma WHERE cedula = ?";
+    private static String manejarIntentos(String usuario, String tabla) {
+        String sql = "SELECT intentos FROM " + tabla + " WHERE cedula = ?";
 
         try (Connection conn = Conexion.getConexion();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -225,11 +225,10 @@ public class UsuarioDAO {
             if (rs.next()) {
                 int intentosActuales = rs.getInt("intentos");
 
-                // Si llega a 3 → bloquear
+                // Bloquear si llega a 3
                 if (intentosActuales >= 2) {
-                    String sqlEstado = "UPDATE usuariosPlataforma " +
-                            "SET estadoUsuario = 'BLOQUEADO', intentos = 0 " +
-                            "WHERE cedula = ?";
+                    String sqlEstado = "UPDATE " + tabla +
+                            " SET estadoUsuario = 'BLOQUEADO', intentos = 0 WHERE cedula = ?";
 
                     try (PreparedStatement psEstado = conn.prepareStatement(sqlEstado)) {
                         psEstado.setString(1, usuario);
@@ -238,9 +237,9 @@ public class UsuarioDAO {
                     return "BLOQUEADO";
                 }
 
-                // Si aún puede intentar
-                String aumentarIntentos = "UPDATE usuariosPlataforma SET intentos = ? WHERE cedula = ?";
+                // Aumentar intentos
                 int nuevosIntentos = intentosActuales + 1;
+                String aumentarIntentos = "UPDATE " + tabla + " SET intentos = ? WHERE cedula = ?";
 
                 try (PreparedStatement psIntentos = conn.prepareStatement(aumentarIntentos)) {
                     psIntentos.setInt(1, nuevosIntentos);
@@ -254,36 +253,70 @@ public class UsuarioDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return "";
     }
+
+    public static String intentos(String usuario) {
+        return manejarIntentos(usuario, "usuariosPlataforma");
+    }
+
+    public static String intentosSolicitantes(String usuario) {
+        return manejarIntentos(usuario, "usuariosSolicitantes");
+    }
+
+
+    private static String obtenerEstado(String usuario, String tabla) {
+        String sql = "SELECT estadoUsuario FROM " + tabla + " WHERE cedula = ?";
+
+        try (Connection conn = Conexion.getConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, usuario);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("estadoUsuario");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return "";
+    }
+
 
     public static String estadoUsuario(String usuario) {
-        String sql="SELECT estadoUsuario FROM usuariosPlataforma WHERE cedula=?";
-        try(Connection conn=Conexion.getConexion();
-        PreparedStatement ps=conn.prepareStatement(sql)){
-            ps.setString(1, usuario);
-            ResultSet rs=ps.executeQuery();
-            if (rs.next()) {
-                String estadoUsuario = rs.getString("estadoUsuario");
-                return estadoUsuario;
-            }
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-        return "";
+        return obtenerEstado(usuario, "usuariosPlataforma");
     }
 
-    public static void modificarIntentos(String usuario) {
-        String sql="update  usuariosPlataforma set intentos = 0 WHERE cedula=?";
-        try(Connection conn =Conexion.getConexion();
-        PreparedStatement ps=conn.prepareStatement(sql)){
+    public static String estadoUsuarioSolicitante(String usuario) {
+        return obtenerEstado(usuario, "usuariosSolicitantes");
+    }
+
+
+    private static void resetearIntentos(String usuario, String tabla) {
+        String sql = "UPDATE " + tabla + " SET intentos = 0 WHERE cedula = ?";
+
+        try (Connection conn = Conexion.getConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.setString(1, usuario);
             ps.executeUpdate();
-        }catch (SQLException e){
+
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
+
+    public static void modificarIntentos(String usuario) {
+        resetearIntentos(usuario, "usuariosPlataforma");
+    }
+
+    public static void modificarIntentosSolicitantes(String usuario) {
+        resetearIntentos(usuario, "usuariosSolicitantes");
+    }
+
 
     public static void modificarNotas(String cedulaSolicitante, double nuevaP, double nuevaT) {
         String sql="update examen set practica=?,teorica=? where cedula=?";

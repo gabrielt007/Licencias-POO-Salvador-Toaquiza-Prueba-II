@@ -26,9 +26,24 @@ public class Login extends JFrame {
             String password = String.valueOf(txtPassword.getPassword());
             String passwordHash = HashUtil.hash(password);
 
-            // 1. Validar bloqueo primero
+            // 1. Validar bloqueo primero Plataforma
             String estado = UsuarioDAO.estadoUsuario(usuario);
             if ("BLOQUEADO".equals(estado)) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Su usuario está bloqueado, contacte con el administrador",
+                        "BLOQUEADO",
+                        JOptionPane.WARNING_MESSAGE
+                );
+                txtUsuario.setText("");
+                txtPassword.setText("");
+                return;
+            }
+
+            //Bloqueo Solicitantes
+
+            String estadoS = UsuarioDAO.estadoUsuarioSolicitante(usuario);
+            if ("BLOQUEADO".equals(estadoS)) {
                 JOptionPane.showMessageDialog(
                         null,
                         "Su usuario está bloqueado, contacte con el administrador",
@@ -58,34 +73,58 @@ public class Login extends JFrame {
             // 3. Validar solicitante
             String tipoUserSol = UsuarioDAO.existeSolicitante(usuario, passwordHash);
             if (!"No encontrado".equals(tipoUserSol)) {
-                UsuarioDAO.modificarIntentos(usuario);
+                UsuarioDAO.modificarIntentosSolicitantes(usuario);
                 new PerfilUsuario(usuario).setVisible(true);
                 dispose();
                 return;
             }
 
             // 4. Fallo de login → manejar intentos
-            String intentos = UsuarioDAO.intentos(usuario);
+            // 4. Fallo de login → manejar intentos SOLO donde exista el usuario
 
-            if ("BLOQUEADO".equals(intentos)) {
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Ha superado el número de intentos. Usuario bloqueado.",
-                        "BLOQUEADO",
-                        JOptionPane.WARNING_MESSAGE
-                );
+            if (!UsuarioDAO.estadoUsuario(usuario).isEmpty()) {
+                // Existe como usuario plataforma
+                String intentos = UsuarioDAO.intentos(usuario);
+                mostrarMensajeIntentos(intentos);
+
+            } else if (!UsuarioDAO.estadoUsuarioSolicitante(usuario).isEmpty()) {
+                // Existe como solicitante
+                String intentosS = UsuarioDAO.intentosSolicitantes(usuario);
+                mostrarMensajeIntentos(intentosS);
+
             } else {
+                // No existe en ningún lado
                 JOptionPane.showMessageDialog(
                         null,
-                        "Credenciales incorrectas. Intento " + intentos + " de 3",
-                        "ADVERTENCIA",
-                        JOptionPane.WARNING_MESSAGE
+                        "Usuario no encontrado",
+                        "ERROR",
+                        JOptionPane.ERROR_MESSAGE
                 );
             }
+
 
             txtUsuario.setText("");
             txtPassword.setText("");
         });
 
     }
+
+    private void mostrarMensajeIntentos(String intentos) {
+        if ("BLOQUEADO".equals(intentos)) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Ha superado el número de intentos. Usuario bloqueado.",
+                    "BLOQUEADO",
+                    JOptionPane.WARNING_MESSAGE
+            );
+        } else {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Credenciales incorrectas. Intento " + intentos + " de 3",
+                    "ADVERTENCIA",
+                    JOptionPane.WARNING_MESSAGE
+            );
+        }
+    }
+
 }
