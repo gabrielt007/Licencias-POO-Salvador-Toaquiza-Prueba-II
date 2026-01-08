@@ -105,6 +105,23 @@ public class UsuarioDAO {
         }
     }
 
+    public static boolean verificarCedulaPlataforma(String cedula){
+        String sqlUsuario = "SELECT 1 FROM usuariosPlataforma WHERE cedula = ?";
+        try (Connection conn = Conexion.getConexion();
+             PreparedStatement psUsuario = conn.prepareStatement(sqlUsuario)) {
+
+            psUsuario.setString(1, cedula);
+            ResultSet rsUsuario = psUsuario.executeQuery();
+
+            if (rsUsuario.next()) {
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static String requisitos(String cedula) {
 
         //String sqlUsuario = "SELECT 1 FROM usuariosSolicitantes WHERE cedula = ?";
@@ -209,7 +226,7 @@ public class UsuarioDAO {
                 int intentosActuales = rs.getInt("intentos");
 
                 // Si llega a 3 → bloquear
-                if (intentosActuales > 3) {
+                if (intentosActuales >= 2) {
                     String sqlEstado = "UPDATE usuariosPlataforma " +
                             "SET estadoUsuario = 'BLOQUEADO', intentos = 0 " +
                             "WHERE cedula = ?";
@@ -544,5 +561,46 @@ public class UsuarioDAO {
             throw new RuntimeException(e);
         }
         return modelo;
+    }
+
+    public static String datosActuales(String cedulaSolicitante) {
+        String sql="select * from usuariosPlataforma where cedula=?";
+        try(Connection conn =Conexion.getConexion();
+        PreparedStatement ps=conn.prepareStatement(sql)){
+            ps.setString(1, cedulaSolicitante);
+            ResultSet rs=ps.executeQuery();
+            //System.out.println(rs.next());
+            if (rs.next()) {
+                String mensaje="";
+                System.out.println(rs.getString("cedula"));
+                System.out.println(rs.getString("rol"));
+                System.out.println(rs.getString("estadoUsuario"));
+
+                 mensaje+=rs.getString("cedula")+"/";
+                 mensaje+=rs.getString("rol")+"/";
+                 mensaje+=rs.getString("estadoUsuario");
+                 System.out.println(mensaje);
+
+                 return mensaje;
+            }
+            return "";
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void actalizarDatos(String cedulaActual, String cedulaNueva, String rolNueva,String pass, String estadoNueva) {
+        String sql="update usuariosPlataforma set cedula=?,clave=?,rol=?,estadoUsuario=? where cedula=?";
+        try(Connection conn=Conexion.getConexion();
+        PreparedStatement ps=conn.prepareStatement(sql)){
+            ps.setString(1, cedulaNueva);
+            ps.setString(2, pass);
+            ps.setString(3, rolNueva);
+            ps.setString(4, estadoNueva);
+            ps.setString(5, cedulaActual);
+            ps.executeUpdate();
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 }

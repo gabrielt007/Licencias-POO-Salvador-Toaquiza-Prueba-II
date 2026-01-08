@@ -144,8 +144,31 @@ public class PerfilAdmin extends JFrame {
         });
 
         usuariosButton.addActionListener(e ->  {
+            String cedulaSolicitante = JOptionPane.showInputDialog(
+                    "Digite la cédula del solicitante:"
+            );
+
+            if (cedulaSolicitante == null) {
+                JOptionPane.showMessageDialog(null, "Operación cancelada");
+                return;
+            }
+
+            if (cedulaSolicitante.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "La cédula no puede estar vacía");
+                return;
+            }
+            boolean resultados= UsuarioDAO.verificarCedulaPlataforma(cedulaSolicitante);
+            if (!resultados) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Usuario no encontrado",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
            dispose();
-           new GestionUsuarios(cedula,"ADMIN").setVisible(true);
+           new GestionUsuarios(cedula,"ADMIN",cedulaSolicitante).setVisible(true);
         });
     }
 }
