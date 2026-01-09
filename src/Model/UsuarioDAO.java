@@ -496,29 +496,51 @@ public class UsuarioDAO {
             return false;
         }
     }
+
+
     public static boolean generarLicencia(String cedula) {
 
-        String sql = "insert into licencia (cedula, numeroLicencia) values (?, floor(rand()*900000)+100000)";
+        String sqlInsert = "INSERT INTO licencia (cedula, numeroLicencia, fechaEmision) VALUES (?, ?,curdate())";
+        String sqlUpdate = "UPDATE usuariosSolicitantes SET estadoTramite='LicenciaEmitida' WHERE cedula=?";
 
-        try (Connection con = Conexion.getConexion();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = Conexion.getConexion()) {
 
-            ps.setString(1, cedula);
-            ps.executeUpdate();
+            con.setAutoCommit(false); // INICIAR TRANSACCIÓN
+
+            int numero = (int)(Math.random() * 900000) + 100000;
+
+            // Verificar que el número no exista
+            PreparedStatement psCheck = con.prepareStatement(
+                    "SELECT 1 FROM licencia WHERE numeroLicencia=?"
+            );
+            psCheck.setInt(1, numero);
+            ResultSet rs = psCheck.executeQuery();
+
+            if (rs.next()) {
+                con.rollback();
+                return false;
+            }
+
+            // Insertar licencia
+            PreparedStatement psInsert = con.prepareStatement(sqlInsert);
+            psInsert.setString(1, cedula);
+            psInsert.setInt(2, numero);
+            psInsert.executeUpdate();
 
             // Cambiar estado del trámite
-            PreparedStatement ps2 = con.prepareStatement(
-                    "update usuariosSolicitantes set estadoTramite='Aprobado' where cedula=?"
-            );
-            ps2.setString(1, cedula);
-            ps2.executeUpdate();
+            PreparedStatement psUpdate = con.prepareStatement(sqlUpdate);
+            psUpdate.setString(1, cedula);
+            psUpdate.executeUpdate();
 
+            con.commit();
             return true;
 
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
+
 
     public static DefaultTableModel cargarDatosUsuarios_notas(String cedula) {
         String sql = "SELECT * FROM examen where cedula=?";
@@ -743,4 +765,5 @@ public class UsuarioDAO {
             throw new RuntimeException(e);
         }
     }
+
 }

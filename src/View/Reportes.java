@@ -28,6 +28,7 @@ public class Reportes extends JFrame{
     private JLabel lblEnExamenes;
     private JLabel lblAprobados;
     private JButton limpiarFiltrosButton;
+    private JButton exportarEnExcelButton;
 
     public Reportes(String cedulaI, String usuario){
         setContentPane(Reportes);
@@ -36,7 +37,7 @@ public class Reportes extends JFrame{
         setVisible(true);
         setLocationRelativeTo(null);
         //pack();
-        setSize(600,800);
+        setSize(680,800);
 
         VentanaManager.ajustarColumnas(table1);
         table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -117,7 +118,7 @@ public class Reportes extends JFrame{
             table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
             table1.setModel(UsuarioDAO.cargarVistaTramites());
         });
-
+        actualizarTotales();
 
 
 
@@ -133,7 +134,7 @@ public class Reportes extends JFrame{
                 case "Aprobado": aprobados++; break;
                 case "Reprobado": reprobados++; break;
                 case "En_Examenes": examenes++; break;
-                case "Licencia_Emitida": licencias++; break;
+                case "LicenciaEmitida": licencias++; break;
             }
         }
 
