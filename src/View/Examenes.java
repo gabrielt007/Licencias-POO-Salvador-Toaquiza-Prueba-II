@@ -4,6 +4,7 @@ import Controller.VentanaManager;
 import Model.UsuarioDAO;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -14,6 +15,7 @@ public class Examenes extends JFrame{
     private JButton ingresarNotasButton;
     private JLabel Labelcedula;
     private JLabel promedio;
+    private JLabel examenicon;
 
     public Examenes(String cedula, String cedulaSolicitante, String resultadosExamenes,String usuario){
         setContentPane(Examenes);
@@ -22,6 +24,12 @@ public class Examenes extends JFrame{
         setTitle("Sistema de Licencias");
         pack();
         setLocationRelativeTo(null);
+
+        ImageIcon Icon = new ImageIcon(
+                getClass().getResource("/img/examen.png")
+        );
+        Image img = Icon.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        examenicon.setIcon(new ImageIcon(img));
 
         addWindowListener(new WindowAdapter() {
             @Override

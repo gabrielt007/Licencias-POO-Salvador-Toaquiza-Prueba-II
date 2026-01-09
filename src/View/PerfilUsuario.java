@@ -18,6 +18,7 @@ public class PerfilUsuario extends JFrame {
     private JPanel PerfilUsuario;
     private JButton cerrarSesionButton;
     private JTable table1;
+    private JLabel iconoUsuario;
     private String cedulaUsuario;
 
     public PerfilUsuario(String cedula) {
@@ -30,9 +31,11 @@ public class PerfilUsuario extends JFrame {
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setVisible(true);
 
-//        configurarTabla();
-//        cargarDatosUsuario();
-//        cargarTramiteUsuario();
+        ImageIcon Icon = new ImageIcon(
+                getClass().getResource("/img/usuario.png")
+        );
+        Image img = Icon.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        iconoUsuario.setIcon(new ImageIcon(img));
 
         VentanaManager.ajustarColumnas(table1);
         table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
