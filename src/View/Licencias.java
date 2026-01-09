@@ -40,6 +40,18 @@ public class Licencias extends JFrame{
                 txtCedula.setText("");
                 return;
             }
+
+            if(UsuarioDAO.actualizarEstado(cedulaa).equals("LicenciaEmitida")){
+                JOptionPane.showMessageDialog(null,"El usuario ya tiene registrada una licencia");
+                dispose();
+                if (usuario.equals("ADMIN")){
+                    new PerfilAdmin(cedula).setVisible(true);
+                }else if (usuario.equals("ANALISTA")){
+                    new PerfilAnalista(cedula).setVisible(true);
+                }
+                return;
+            }
+
             if (!UsuarioDAO.esAptoParaLicencia(cedulaa)) {
                 JOptionPane.showMessageDialog(null, "El usuario NO cumple requisitos o no aprobó");
                 dispose();
