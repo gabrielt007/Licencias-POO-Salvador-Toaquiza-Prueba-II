@@ -362,23 +362,20 @@ public class UsuarioDAO {
                 boolean examenReprobado = "REPROBADO".equals(estadoExamen);
                 boolean requisitosOK = "OK".equals(estadoRequisitos);
 
-//                if ("Pendiente".equals(estadoActual)) {
-
-                    if (examenReprobado) {
-                        estadoNuevo = "REPROBADO";
-                    } else if (requisitosOK && examenAprobado) {
-                        estadoNuevo = "PREPARADO";
-                    } else if (requisitosOK) {
-                        estadoNuevo = "en_examenes";
-                    } else if (examenAprobado) {
-                        estadoNuevo = "APROBADO";
-                    } else {
-                        if (estadoActual.equals("LicenciaEmitida")) {
-                            estadoNuevo = "LicenciaEmitida";
-                        }else{
-                        estadoNuevo = "Pendiente";}
-                    }
-  //              }
+                if (estadoActual.equals("LicenciaEmitida")) {
+                    return "LicenciaEmitida";
+                }
+                if (examenReprobado) {
+                    estadoNuevo = "REPROBADO";
+                } else if (requisitosOK && examenAprobado) {
+                    estadoNuevo = "PREPARADO";
+                } else if (requisitosOK) {
+                    estadoNuevo = "en_examenes";
+                } else if (examenAprobado) {
+                    estadoNuevo = "APROBADO";
+                } else {
+                    estadoNuevo = "Pendiente";
+                }
 
                 String sqlActualizacion =
                         "UPDATE usuariosSolicitantes SET estadoTramite=? WHERE cedula=?";
