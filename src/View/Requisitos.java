@@ -98,7 +98,11 @@ public class Requisitos extends JFrame{
                 dispose();
                 UsuarioDAO.actualizarEstado(cedulaSolicitante);
                 JOptionPane.showMessageDialog(null, "Actualizacion exitosa");
-                new PerfilAdmin(cedula).setVisible(true);
+                if (usuario.equals("ADMIN")){
+                    VentanaManager.cambiar(Requisitos.this, new PerfilAdmin(cedula));
+                }else if (usuario.equals("ANALISTA")){
+                    VentanaManager.cambiar(Requisitos.this, new PerfilAnalista(cedula));
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo actualizar");
             }
@@ -107,7 +111,11 @@ public class Requisitos extends JFrame{
         rechazarButton.addActionListener(e -> {
             dispose();
             JOptionPane.showMessageDialog(null, "Deshaciendo los cambios");
-            new PerfilAdmin(cedula).setVisible(true);
+            if (usuario.equals("ADMIN")){
+                VentanaManager.cambiar(Requisitos.this, new PerfilAdmin(cedula));
+            }else if (usuario.equals("ANALISTA")){
+                VentanaManager.cambiar(Requisitos.this, new PerfilAnalista(cedula));
+            }
         });
     }
 }

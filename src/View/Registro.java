@@ -37,7 +37,17 @@ public class Registro extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                VentanaManager.cambiar(Registro.this, new PerfilAdmin(nombreUsuario));
+
+            }
+        });
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if (usuario.equals("ADMIN")){
+                    VentanaManager.cambiar(Registro.this, new PerfilAdmin(nombreUsuario));
+                }else if (usuario.equals("ANALISTA")){
+                    VentanaManager.cambiar(Registro.this, new PerfilAnalista(nombreUsuario));
+                }
             }
         });
 
@@ -57,7 +67,11 @@ public class Registro extends JFrame {
                     if (UsuarioDAO.registrarUsuarioSolicitante(cedula, nombre, edadInt, tipoLicencia, passwordHash)) {
                         JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
                         dispose();
-                        new PerfilAdmin(nombreUsuario).setVisible(true);
+                        if (usuario.equals("ADMIN")){
+                            VentanaManager.cambiar(Registro.this, new PerfilAdmin(nombreUsuario));
+                        }else if (usuario.equals("ANALISTA")){
+                            VentanaManager.cambiar(Registro.this, new PerfilAnalista(nombreUsuario));
+                        }
                     }
                 }else  {
                     JOptionPane.showMessageDialog(null, "La edad debe ser mayor o igual a 18");

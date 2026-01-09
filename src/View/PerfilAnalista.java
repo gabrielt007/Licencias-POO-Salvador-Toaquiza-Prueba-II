@@ -117,7 +117,7 @@ public class PerfilAnalista extends JFrame {
                 if ("PREPARADO".equals(estado)) {
                     JOptionPane.showMessageDialog(null, "El usuario ya está aprobado");
                     return;
-                }else if (!"OK".equals(estado)) {
+                }else if (!"en_examenes".equals(estado)) {
                     // continúa el proceso
                     JOptionPane.showMessageDialog(null, "El usuario no cumple los requisitos");
                     return;
@@ -138,6 +138,7 @@ public class PerfilAnalista extends JFrame {
         });
 
         generarButton.addActionListener(e->{
+            dispose();
             new Licencias(nombreUsuario,"ANALISTA").setVisible(true);
         });
     }

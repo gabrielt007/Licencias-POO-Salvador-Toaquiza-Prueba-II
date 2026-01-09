@@ -52,7 +52,11 @@ public class Examenes extends JFrame{
             UsuarioDAO.modificarNotas(cedulaSolicitante,nuevaP,nuevaT);
             UsuarioDAO.actualizarEstado(cedulaSolicitante);
             dispose();
-            new PerfilAdmin(cedula);
+            if (usuario.equals("ADMIN")){
+                VentanaManager.cambiar(Examenes.this, new PerfilAdmin(cedula));
+            }else if (usuario.equals("ANALISTA")){
+                VentanaManager.cambiar(Examenes.this, new PerfilAnalista(cedula));
+            }
         });
     }
 }
