@@ -10,6 +10,12 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.PrintWriter;
 
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import javax.swing.table.TableModel;
+import java.io.FileOutputStream;
+
+
 public class Reportes extends JFrame{
     private JPanel Reportes;
     private JTable table1;
@@ -118,6 +124,10 @@ public class Reportes extends JFrame{
             table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
             table1.setModel(UsuarioDAO.cargarVistaTramites());
         });
+
+        exportarEnExcelButton.addActionListener(e -> {
+           exportarJTableAExcel(table1);
+        });
         actualizarTotales();
 
 
@@ -146,6 +156,71 @@ public class Reportes extends JFrame{
         lblTotalLicenciasGeneradas.setText(""+licencias);
     }
 
+    public static void exportarJTableAExcel(JTable tabla) {
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Guardar Excel");
+        chooser.setSelectedFile(new File("reporte.xlsx"));
+
+        if (chooser.showSaveDialog(null) != JFileChooser.APPROVE_OPTION) return;
+
+        File archivo = chooser.getSelectedFile();
+
+        try (Workbook wb = new XSSFWorkbook()) {
+            Sheet hoja = wb.createSheet("Reporte");
+
+            TableModel model = tabla.getModel();
+
+            // 🎨 Estilo encabezado
+            CellStyle headerStyle = wb.createCellStyle();
+            Font font = wb.createFont();
+            font.setBold(true);
+            headerStyle.setFont(font);
+            headerStyle.setAlignment(HorizontalAlignment.CENTER);
+
+            // 🧾 Encabezados
+            Row header = hoja.createRow(0);
+            for (int c = 0; c < model.getColumnCount(); c++) {
+                Cell cell = header.createCell(c);
+                cell.setCellValue(model.getColumnName(c));
+                cell.setCellStyle(headerStyle);
+            }
+
+            // 📋 Datos
+            for (int r = 0; r < model.getRowCount(); r++) {
+                Row fila = hoja.createRow(r + 1);
+                for (int c = 0; c < model.getColumnCount(); c++) {
+                    Object valor = model.getValueAt(r, c);
+                    fila.createCell(c).setCellValue(
+                            valor == null ? "" : valor.toString()
+                    );
+                }
+            }
+
+            // 📐 Autoajustar columnas
+            for (int c = 0; c < model.getColumnCount(); c++) {
+                hoja.autoSizeColumn(c);
+            }
+
+            // 💾 Guardar
+            try (FileOutputStream fos = new FileOutputStream(archivo)) {
+                wb.write(fos);
+            }
+
+            JOptionPane.showMessageDialog(null,
+                    "Excel generado correctamente ✔",
+                    "Éxito",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al generar Excel: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
 
 
 }
