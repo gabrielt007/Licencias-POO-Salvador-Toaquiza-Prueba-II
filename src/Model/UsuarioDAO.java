@@ -373,7 +373,10 @@ public class UsuarioDAO {
                     } else if (examenAprobado) {
                         estadoNuevo = "APROBADO";
                     } else {
-                        estadoNuevo = "Pendiente";
+                        if (estadoActual.equals("LicenciaEmitida")) {
+                            estadoNuevo = "LicenciaEmitida";
+                        }else{
+                        estadoNuevo = "Pendiente";}
                     }
   //              }
 

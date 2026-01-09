@@ -5,6 +5,7 @@ import Model.UsuarioDAO;
 import Utils.HashUtil;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -15,14 +16,22 @@ public class RegistroUsuarios extends JFrame{
     private JTextField txtClave;
     private JComboBox CombBoxRol;
     private JComboBox CombBoxEstado;
+    private JLabel iconNuevo;
 
     public RegistroUsuarios(String cedula,String usuario){
         setContentPane(RegistroUsuarios);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setVisible(true);
         setTitle("Sistema de Licencias");
-        pack();
+        //pack();
+        setSize(350,225);
         setLocationRelativeTo(null);
+
+        ImageIcon Icon = new ImageIcon(
+                getClass().getResource("/img/nuevo.png")
+        );
+        Image img = Icon.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        iconNuevo.setIcon(new ImageIcon(img));
 
         addWindowListener(new WindowAdapter() {
             @Override

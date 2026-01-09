@@ -5,6 +5,7 @@ import Model.UsuarioDAO;
 import Utils.HashUtil;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Objects;
@@ -17,15 +18,21 @@ public class Registro extends JFrame {
     private JPanel Registro;
     private JButton registrarButton;
     private JTextField txtPassword;
+    private JLabel iconNuevo;
 
     public Registro(String nombreUsuario,String usuario) {
         setContentPane(Registro);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Sistema de Licencias");
         setVisible(true);
-        setSize(600,300);
-        //pack();
+        setSize(600,350);
         setLocationRelativeTo(null);
+
+        ImageIcon Icon = new ImageIcon(
+                getClass().getResource("/img/nuevo.png")
+        );
+        Image img = Icon.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        iconNuevo.setIcon(new ImageIcon(img));
 
         addWindowListener(new WindowAdapter() {
             @Override

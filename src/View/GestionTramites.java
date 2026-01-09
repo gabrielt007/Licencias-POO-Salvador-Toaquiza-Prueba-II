@@ -5,6 +5,7 @@ import Model.UsuarioDAO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -23,14 +24,21 @@ public class GestionTramites extends JFrame{
     private JTextField txtCedula;
     private JButton buscarButton;
     private JButton limpiarBusquedaButton;
+    private JLabel tramiteIcon;
 
     public GestionTramites(String cedula, String usuario){
         setContentPane(GestionTramitesP);
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Sistema de Licencias");
-        setSize(600,600);
+        setSize(650,600);
         setLocationRelativeTo(null);
+
+        ImageIcon Icon = new ImageIcon(
+                getClass().getResource("/img/tramite.png")
+        );
+        Image img = Icon.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        tramiteIcon.setIcon(new ImageIcon(img));
 
         addWindowListener(new WindowAdapter() {
             @Override

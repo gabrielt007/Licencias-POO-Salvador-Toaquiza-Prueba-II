@@ -35,7 +35,8 @@ public class Reportes extends JFrame{
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
-        pack();
+        //pack();
+        setSize(600,800);
 
         VentanaManager.ajustarColumnas(table1);
         table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
