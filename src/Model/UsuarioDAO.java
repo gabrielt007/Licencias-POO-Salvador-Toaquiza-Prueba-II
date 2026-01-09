@@ -692,11 +692,11 @@ public class UsuarioDAO {
 
         String sql = "SELECT * FROM tramites WHERE 1=1 ";
 
-        if (!desde.isEmpty()) sql += " AND date(fechaSolicitud) >= ?";
-        if (!hasta.isEmpty()) sql += " AND date(fechaSolicitud) <= ?";
-        if (!estado.equals("Todos")) sql += " AND estadoTramite = ?";
-        if (!tipo.equals("Todos")) sql += " AND tipoLicencia = ?";
-        if (!cedula.isEmpty()) sql += " AND cedula = ?";
+        if (desde!=null&&!desde.isEmpty()) sql += " AND date(fechaSolicitud) >= ?";
+        if (hasta!=null&&!hasta.isEmpty()) sql += " AND date(fechaSolicitud) <= ?";
+        if (estado!=null&&!estado.equals("Todos")) sql += " AND estadoTramite = ?";
+        if (tipo!=null&&!tipo.equals("Todos")) sql += " AND tipoLicencia = ?";
+        if (cedula!=null&&!cedula.isEmpty()) sql += " AND cedula = ?";
 
         DefaultTableModel modelo = new DefaultTableModel() {
             @Override
@@ -707,11 +707,11 @@ public class UsuarioDAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             int i = 1;
-            if (!desde.isEmpty()) ps.setString(i++, desde);
-            if (!hasta.isEmpty()) ps.setString(i++, hasta);
-            if (!estado.equals("Todos")) ps.setString(i++, estado);
-            if (!tipo.equals("Todos")) ps.setString(i++, tipo);
-            if (!cedula.isEmpty()) ps.setString(i++, cedula);
+            if (desde!=null&&!desde.isEmpty()) ps.setString(i++, desde);
+            if (hasta!=null&&!hasta.isEmpty()) ps.setString(i++, hasta);
+            if (estado!=null&&!estado.equals("Todos")) ps.setString(i++, estado);
+            if (tipo!=null&&!tipo.equals("Todos")) ps.setString(i++, tipo);
+            if (cedula!=null&&!cedula.isEmpty()) ps.setString(i++, cedula);
 
             ResultSet rs = ps.executeQuery();
             ResultSetMetaData meta = rs.getMetaData();

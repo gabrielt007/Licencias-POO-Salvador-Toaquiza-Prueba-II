@@ -58,102 +58,102 @@ public class PerfilAdmin extends JFrame {
            new Registro(cedula,"ADMIN").setVisible(true);
         });
 
-        requisitosButton.addActionListener(e -> {
-            String cedulaSolicitante = JOptionPane.showInputDialog(
-                    "Digite la cédula del solicitante:"
-            );
-
-            if (cedulaSolicitante == null) {
-                JOptionPane.showMessageDialog(null, "Operación cancelada");
-                return;
-            }
-
-            if (cedulaSolicitante.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "La cédula no puede estar vacía");
-                return;
-            }
-            boolean resultados= UsuarioDAO.verificarCedula(cedulaSolicitante);
-            if (!resultados) {
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Usuario no encontrado",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE
-                );
-                return;
-            }else{
-                if (!UsuarioDAO.actualizarEstado(cedulaSolicitante).equals("Pendiente")) {
-                    JOptionPane.showMessageDialog(null,"El usuario ya tiene los requisitos aprobados");
-                    return;
-                }
-                String resultadosRequisitos=UsuarioDAO.requisitos(cedulaSolicitante);
-                dispose();
-                new Requisitos(cedula, cedulaSolicitante,resultadosRequisitos,"ADMIN").setVisible(true);
-            }
-
-        });
+//        requisitosButton.addActionListener(e -> {
+//            String cedulaSolicitante = JOptionPane.showInputDialog(
+//                    "Digite la cédula del solicitante:"
+//            );
+//
+//            if (cedulaSolicitante == null) {
+//                JOptionPane.showMessageDialog(null, "Operación cancelada");
+//                return;
+//            }
+//
+//            if (cedulaSolicitante.trim().isEmpty()) {
+//                JOptionPane.showMessageDialog(null, "La cédula no puede estar vacía");
+//                return;
+//            }
+//            boolean resultados= UsuarioDAO.verificarCedula(cedulaSolicitante);
+//            if (!resultados) {
+//                JOptionPane.showMessageDialog(
+//                        null,
+//                        "Usuario no encontrado",
+//                        "Error",
+//                        JOptionPane.ERROR_MESSAGE
+//                );
+//                return;
+//            }else{
+//                if (!UsuarioDAO.actualizarEstado(cedulaSolicitante).equals("Pendiente")) {
+//                    JOptionPane.showMessageDialog(null,"El usuario ya tiene los requisitos aprobados");
+//                    return;
+//                }
+//                String resultadosRequisitos=UsuarioDAO.requisitos(cedulaSolicitante);
+//                dispose();
+//                new Requisitos(cedula, cedulaSolicitante,resultadosRequisitos,"ADMIN").setVisible(true);
+//            }
+//
+//        });
 
         registrarUsuariosButton.addActionListener(e ->  {
            dispose();
            new RegistroUsuarios(cedula,"ADMIN").setVisible(true);
         });
 
-        examenesButton.addActionListener(e -> {
-            String cedulaSolicitante = JOptionPane.showInputDialog(
-                    "Digite la cédula del solicitante:"
-            );
-
-            if (cedulaSolicitante == null) {
-                JOptionPane.showMessageDialog(null, "Operación cancelada");
-                return;
-            }
-
-            if (cedulaSolicitante.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "La cédula no puede estar vacía");
-                return;
-            }
-            boolean resultados= UsuarioDAO.verificarCedula(cedulaSolicitante);
-            if (!resultados) {
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Usuario no encontrado",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE
-                );
-                return;
-            }else{
-                String estado = UsuarioDAO.actualizarEstado(cedulaSolicitante);
-//  Prioridad máxima: APROBADO
-                if ("PREPARADO".equals(estado)) {
-                    JOptionPane.showMessageDialog(null, "El usuario ya está aprobado");
-                    return;
-                }else if (!"REPROBADO".equals(estado)) {
-                    // continúa el proceso
-                    if (!"en_examenes".equals(estado)){
-                        JOptionPane.showMessageDialog(null, "El usuario no cumple los requisitos");
-                        return;
-                    }
-                }
-
-                String resultadosExamenes=UsuarioDAO.examenes(cedulaSolicitante);
-                if (resultadosExamenes.equals("No hay datos")){
-                    JOptionPane.showMessageDialog(null,"El usuario no tiene registro de examenes","Error",JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                dispose();
-                new Examenes(cedula, cedulaSolicitante,resultadosExamenes,"ADMIN").setVisible(true);
-            }
-        });
+//        examenesButton.addActionListener(e -> {
+//            String cedulaSolicitante = JOptionPane.showInputDialog(
+//                    "Digite la cédula del solicitante:"
+//            );
+//
+//            if (cedulaSolicitante == null) {
+//                JOptionPane.showMessageDialog(null, "Operación cancelada");
+//                return;
+//            }
+//
+//            if (cedulaSolicitante.trim().isEmpty()) {
+//                JOptionPane.showMessageDialog(null, "La cédula no puede estar vacía");
+//                return;
+//            }
+//            boolean resultados= UsuarioDAO.verificarCedula(cedulaSolicitante);
+//            if (!resultados) {
+//                JOptionPane.showMessageDialog(
+//                        null,
+//                        "Usuario no encontrado",
+//                        "Error",
+//                        JOptionPane.ERROR_MESSAGE
+//                );
+//                return;
+//            }else{
+//                String estado = UsuarioDAO.actualizarEstado(cedulaSolicitante);
+////  Prioridad máxima: APROBADO
+//                if ("PREPARADO".equals(estado)) {
+//                    JOptionPane.showMessageDialog(null, "El usuario ya está aprobado");
+//                    return;
+//                }else if (!"REPROBADO".equals(estado)) {
+//                    // continúa el proceso
+//                    if (!"en_examenes".equals(estado)){
+//                        JOptionPane.showMessageDialog(null, "El usuario no cumple los requisitos");
+//                        return;
+//                    }
+//                }
+//
+//                String resultadosExamenes=UsuarioDAO.examenes(cedulaSolicitante);
+//                if (resultadosExamenes.equals("No hay datos")){
+//                    JOptionPane.showMessageDialog(null,"El usuario no tiene registro de examenes","Error",JOptionPane.ERROR_MESSAGE);
+//                    return;
+//                }
+//                dispose();
+//                new Examenes(cedula, cedulaSolicitante,resultadosExamenes,"ADMIN").setVisible(true);
+//            }
+//        });
 
         tramitesButton.addActionListener(e ->  {
             dispose();
             new GestionTramites(cedula,"ADMIN").setVisible(true);
         });
 
-        generarButton.addActionListener(e->{
-            dispose();
-            new Licencias(cedula,"ADMIN").setVisible(true);
-        });
+//        generarButton.addActionListener(e->{
+//            dispose();
+//            new Licencias(cedula,"ADMIN").setVisible(true);
+//        });
 
         reportesButton.addActionListener(e->{
             dispose();

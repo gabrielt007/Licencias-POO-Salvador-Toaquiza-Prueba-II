@@ -38,6 +38,9 @@ public class Reportes extends JFrame{
     private JButton limpiarFiltrosButton;
     private JButton exportarEnExcelButton;
     private JLabel logo;
+    private JButton fechaButton;
+    private JButton licenciaButton;
+    private JButton cedulaButton;
 
     public Reportes(String cedulaI, String usuario){
         setContentPane(Reportes);
@@ -70,20 +73,43 @@ public class Reportes extends JFrame{
         });
 
         buscarButton.addActionListener(e -> {
-            String desde = txtFechaDesde.getText();
-            String hasta = txtFechaHasta.getText();
-            String estado = ComBoxEstado.getSelectedItem().toString();
-            String tipo = comBoxTipoLicencia.getSelectedItem().toString();
-            String cedula = txtCedula.getText();
 
-            DefaultTableModel model = UsuarioDAO.cargarReporte(
-                    desde, hasta, estado, tipo, cedula
-            );
+            String estado = ComBoxEstado.getSelectedItem().toString();
+
+            DefaultTableModel model = UsuarioDAO.cargarReporte("","",estado,"","");
 
             table1.setModel(model);
             VentanaManager.ajustarColumnas(table1);
 
-            actualizarTotales();
+        });
+
+        fechaButton.addActionListener(e->{
+            String desde = txtFechaDesde.getText();
+            String hasta = txtFechaHasta.getText();
+
+            DefaultTableModel model = UsuarioDAO.cargarReporte(desde, hasta,"","","");
+
+            table1.setModel(model);
+            VentanaManager.ajustarColumnas(table1);
+        });
+        cedulaButton.addActionListener(e->{
+
+            String cedulaa = txtCedula.getText();
+
+            DefaultTableModel model = UsuarioDAO.cargarReporte("","","","",cedulaa);
+
+            table1.setModel(model);
+            VentanaManager.ajustarColumnas(table1);
+        });
+        licenciaButton.addActionListener(e->{
+
+            String tipo = comBoxTipoLicencia.getSelectedItem().toString();
+
+
+            DefaultTableModel model = UsuarioDAO.cargarReporte("","","",tipo,"");
+
+            table1.setModel(model);
+            VentanaManager.ajustarColumnas(table1);
         });
 
         exportarButton.addActionListener(e -> {

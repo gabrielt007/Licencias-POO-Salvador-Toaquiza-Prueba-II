@@ -25,6 +25,9 @@ public class GestionTramites extends JFrame{
     private JButton buscarButton;
     private JButton limpiarBusquedaButton;
     private JLabel tramiteIcon;
+    private JButton cedulaButton;
+    private JButton fechaButton;
+    private JButton licenciaButton;
 
     public GestionTramites(String cedula, String usuario){
         setContentPane(GestionTramitesP);
@@ -160,19 +163,43 @@ public class GestionTramites extends JFrame{
         });
 
         buscarButton.addActionListener(e -> {
-            String desde = txtFechaDesde.getText();
-            String hasta = txtFechaHasta.getText();
-            String estado = ComBoxEstado.getSelectedItem().toString();
-            String tipo = comBoxTipoLicencia.getSelectedItem().toString();
-            String cedulaa = txtCedula.getText();
 
-            DefaultTableModel model = UsuarioDAO.cargarReporte(
-                    desde, hasta, estado, tipo, cedulaa
-            );
+            String estado = ComBoxEstado.getSelectedItem().toString();
+
+            DefaultTableModel model = UsuarioDAO.cargarReporte("","",estado,"","");
 
             table1.setModel(model);
             VentanaManager.ajustarColumnas(table1);
 
+        });
+
+        fechaButton.addActionListener(e->{
+            String desde = txtFechaDesde.getText();
+            String hasta = txtFechaHasta.getText();
+
+            DefaultTableModel model = UsuarioDAO.cargarReporte(desde, hasta,"","","");
+
+            table1.setModel(model);
+            VentanaManager.ajustarColumnas(table1);
+        });
+        cedulaButton.addActionListener(e->{
+
+            String cedulaa = txtCedula.getText();
+
+            DefaultTableModel model = UsuarioDAO.cargarReporte("","","","",cedulaa);
+
+            table1.setModel(model);
+            VentanaManager.ajustarColumnas(table1);
+        });
+        licenciaButton.addActionListener(e->{
+
+            String tipo = comBoxTipoLicencia.getSelectedItem().toString();
+
+
+            DefaultTableModel model = UsuarioDAO.cargarReporte("","","",tipo,"");
+
+            table1.setModel(model);
+            VentanaManager.ajustarColumnas(table1);
         });
 
         limpiarBusquedaButton.addActionListener(e -> {
