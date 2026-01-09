@@ -4,9 +4,9 @@ import Controller.VentanaManager;
 import Model.UsuarioDAO;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.security.Principal;
 
 public class Requisitos extends JFrame{
     private JCheckBox ChBoxCertificado_f;
@@ -19,6 +19,7 @@ public class Requisitos extends JFrame{
     private JButton rechazarButton;
     private JPanel Requisitos;
     private JTextArea textAreaObservaciones;
+    private JLabel requisitoIcon;
     //private JTextField TextFieldObservaciones;
 
     public Requisitos(String cedula, String cedulaSolicitante,String resultados,String usuario){
@@ -39,6 +40,12 @@ public class Requisitos extends JFrame{
         setTitle("Sistema de Licencias");
         setSize(400,400);
         setLocationRelativeTo(null);
+
+        ImageIcon Icon = new ImageIcon(
+                getClass().getResource("/img/tramite.png")
+        );
+        Image img = Icon.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        requisitoIcon.setIcon(new ImageIcon(img));
 
         String[] partes = resultados.split("/");
         String certMedO = partes[0];

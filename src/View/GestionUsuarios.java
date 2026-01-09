@@ -5,6 +5,7 @@ import Model.UsuarioDAO;
 import Utils.HashUtil;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.concurrent.atomic.AtomicReference;
@@ -20,6 +21,7 @@ public class GestionUsuarios extends JFrame{
     private JLabel txtRolActual;
     private JTextField txtPasswordCambios;
     private JComboBox CombBoxRol;
+    private JLabel gestionIcon;
 
     public GestionUsuarios(String  cedula,String rol,String cedulaSolicitante,String table){
         setContentPane(GestionUsuarios);
@@ -28,6 +30,12 @@ public class GestionUsuarios extends JFrame{
         pack();
         setLocationRelativeTo(null);
         setTitle("Sistema de Licencias");
+
+        ImageIcon Icon = new ImageIcon(
+                getClass().getResource("/img/actualizar-datos.png")
+        );
+        Image img = Icon.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        gestionIcon.setIcon(new ImageIcon(img));
 
         addWindowListener(new WindowAdapter() {
             @Override

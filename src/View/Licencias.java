@@ -4,6 +4,7 @@ import Controller.VentanaManager;
 import Model.UsuarioDAO;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -11,6 +12,8 @@ public class Licencias extends JFrame{
     private JPanel Licencia;
     private JButton generarButton;
     private JTextField txtCedula;
+    private JLabel iconoLicenciaGenerador;
+
     public Licencias(String cedula, String usuario){
         setContentPane(Licencia);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -18,6 +21,12 @@ public class Licencias extends JFrame{
         pack();
         setTitle("Sistema Licencias");
         setLocationRelativeTo(null);
+
+        ImageIcon Icon = new ImageIcon(
+                getClass().getResource("/img/generar.png")
+        );
+        Image img = Icon.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        iconoLicenciaGenerador.setIcon(new ImageIcon(img));
 
         addWindowListener(new WindowAdapter() {
             @Override

@@ -4,6 +4,7 @@ import Controller.VentanaManager;
 import Model.UsuarioDAO;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -15,6 +16,7 @@ public class DetalleUsuarios extends JFrame {
     private JScrollPane requisitos;
     private JScrollPane notasP;
     private JPanel panelPrincipal;
+    private JLabel detallesIcon;
 
     public DetalleUsuarios(String usuario,String cedula,String cedulaSolicitante) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -23,6 +25,12 @@ public class DetalleUsuarios extends JFrame {
         setSize(480, 300);
         setLocationRelativeTo(null);
         setVisible(true);
+
+        ImageIcon Icon = new ImageIcon(
+                getClass().getResource("/img/detallesUsuario.png")
+        );
+        Image img = Icon.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        detallesIcon.setIcon(new ImageIcon(img));
 
         addWindowListener(new WindowAdapter() {
             @Override
