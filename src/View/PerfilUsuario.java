@@ -2,16 +2,12 @@ package View;
 
 import Controller.VentanaManager;
 import Model.UsuarioDAO;
-import Utils.Conexion;
 
 import javax.swing.*;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.*;
 
 public class PerfilUsuario extends JFrame {
 
@@ -19,6 +15,14 @@ public class PerfilUsuario extends JFrame {
     private JButton cerrarSesionButton;
     private JTable table1;
     private JLabel iconoUsuario;
+    private JPanel PanelUsuarioLicencia;
+    private JButton mostrarLicenciaButton;
+    private JPanel licencia;
+    private JLabel tipoLicencia;
+    private JLabel emision;
+    private JLabel vencimiento;
+    private JLabel logo;
+    private JLabel cedula;
     private String cedulaUsuario;
 
     public PerfilUsuario(String cedula) {
@@ -51,6 +55,14 @@ public class PerfilUsuario extends JFrame {
             dispose();
             JOptionPane.showMessageDialog(null,"Cierre de sesion exitoso");
             new Login().setVisible(true);
+        });
+
+        mostrarLicenciaButton.addActionListener(e -> {
+            if (!PanelUsuarioLicencia.isVisible()) {
+                PanelUsuarioLicencia.setVisible(true);
+            }else{
+                PanelUsuarioLicencia.setVisible(false);
+            }
         });
 
     }
