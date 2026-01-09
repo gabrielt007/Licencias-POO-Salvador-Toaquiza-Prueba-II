@@ -91,7 +91,7 @@
         <properties>
           <model>
             <item value="ACTIVO"/>
-            <item value="INACTIVO"/>
+            <item value="BLOQUEADO"/>
           </model>
         </properties>
       </component>

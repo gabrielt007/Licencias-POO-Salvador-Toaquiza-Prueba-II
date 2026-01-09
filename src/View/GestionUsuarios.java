@@ -22,6 +22,8 @@ public class GestionUsuarios extends JFrame{
     private JTextField txtPasswordCambios;
     private JComboBox CombBoxRol;
     private JLabel gestionIcon;
+    private JLabel nombreActual;
+    private JTextField nombreNuevo;
 
     public GestionUsuarios(String  cedula,String rol,String cedulaSolicitante,String table){
         setContentPane(GestionUsuarios);
@@ -49,18 +51,21 @@ public class GestionUsuarios extends JFrame{
         });
 
         String datosActuales= UsuarioDAO.datosActuales(cedulaSolicitante,table);
-        String cedulaActual,rolActual="",estadoActual;
+        String cedulaActual,rolActual="",estadoActual,nombreActualUsuario="";
         if (table.equals("usuariosPlataforma")) {
+            nombreNuevo.setEnabled(false);
             String[] lista = datosActuales.split("/");
             cedulaActual = lista[0];
             rolActual = lista[1];
             estadoActual = lista[2];
+            nombreActualUsuario="Ninguno";
 
         }else if (table.equals("usuariosSolicitantes")) {
             CombBoxRol.setEnabled(false);
             String[] lista = datosActuales.split("/");
             cedulaActual = lista[0];
-            estadoActual = lista[1];
+            nombreActualUsuario=lista[1];
+            estadoActual = lista[2];
             rolActual ="Ninguno";
         } else {
             cedulaActual = "";
@@ -70,6 +75,7 @@ public class GestionUsuarios extends JFrame{
         txtCedulaActual.setText(cedulaActual);
         txtRolActual.setText(rolActual);
         txtEstadoActual.setText(estadoActual);
+        nombreActual.setText(nombreActualUsuario);
 
         AtomicReference<String> estadoNuevo= new AtomicReference<>(estadoActual);
         cambiarEstado.addActionListener(e -> {
@@ -96,7 +102,13 @@ public class GestionUsuarios extends JFrame{
                 return;
             }
             passwordNueva=HashUtil.hash(passwordNueva);
-            UsuarioDAO.actalizarDatos(cedulaActual,cedulaNueva,rolNueva,passwordNueva,estadoNuevo.get(),table);
+            String nuevoNombre="";
+            if (nombreNuevo.getText().trim().isEmpty()){
+                nuevoNombre=nombreActual.getText();
+            }else {
+                nuevoNombre = nombreNuevo.getText();
+            }
+            UsuarioDAO.actalizarDatos(cedulaActual,cedulaNueva,rolNueva,passwordNueva,estadoNuevo.get(),table,nuevoNombre);
             JOptionPane.showMessageDialog(null, "Se ha modificado el usuario con exito");
             dispose();
             new PerfilAdmin(cedula);

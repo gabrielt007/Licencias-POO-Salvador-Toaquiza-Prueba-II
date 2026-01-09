@@ -641,6 +641,7 @@ public class UsuarioDAO {
                     System.out.println(rs.getString("estadoUsuario"));
 
                     mensaje+=rs.getString("cedula")+"/";
+                    mensaje+=rs.getString("nombre")+"/";
                     mensaje+=rs.getString("estadoUsuario");
                     System.out.println(mensaje);
 
@@ -654,7 +655,7 @@ public class UsuarioDAO {
         }
     }
 
-    public static void actalizarDatos(String cedulaActual, String cedulaNueva, String rolNueva,String pass, String estadoNueva,String table) {
+    public static void actalizarDatos(String cedulaActual, String cedulaNueva, String rolNueva,String pass, String estadoNueva,String table,String nuevoNombre) {
         String sql="";
         if (table.equals("usuariosPlataforma")) {
             sql="update "+table+" set cedula=?,clave=?,rol=?,estadoUsuario=? where cedula=?";
@@ -670,13 +671,14 @@ public class UsuarioDAO {
                 throw new RuntimeException(e);
             }
         }else if (table.equals("usuariosSolicitantes")) {
-            sql="update "+table+" set cedula=?,clave=?,estadoUsuario=? where cedula=?";
+            sql="update "+table+" set cedula=?,clave=?,estadoUsuario=?,nombre=? where cedula=?";
             try(Connection conn=Conexion.getConexion();
                 PreparedStatement ps=conn.prepareStatement(sql)){
                 ps.setString(1, cedulaNueva);
                 ps.setString(2, pass);
                 ps.setString(3, estadoNueva);
-                ps.setString(4, cedulaActual);
+                ps.setString(4,nuevoNombre);
+                ps.setString(5, cedulaActual);
                 ps.executeUpdate();
             }catch (SQLException e){
                 throw new RuntimeException(e);

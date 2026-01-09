@@ -1,15 +1,15 @@
 <component name="libraryTable">
   <library name="commons-collections4-4.5.0">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../dependencias/commons-collections4-4.5.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../dependencias/commons-compress-1.28.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../dependencias/commons-io-2.19.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../dependencias/log4j-api-2.25.3.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../dependencias/log4j-core-2.25.3.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../dependencias/poi-5.5.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../dependencias/poi-ooxml-5.5.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../dependencias/poi-ooxml-full-5.5.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../dependencias/xmlbeans-5.3.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias/dependencias/commons-collections4-4.5.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias/dependencias/commons-compress-1.28.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias/dependencias/commons-io-2.19.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias/dependencias/log4j-api-2.25.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias/dependencias/log4j-core-2.25.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias/dependencias/poi-5.5.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias/dependencias/poi-ooxml-5.5.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias/dependencias/poi-ooxml-full-5.5.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias/dependencias/xmlbeans-5.3.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
