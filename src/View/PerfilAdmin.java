@@ -4,6 +4,7 @@ import Controller.VentanaManager;
 import Model.UsuarioDAO;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -21,6 +22,7 @@ public class PerfilAdmin extends JFrame {
     private JButton examenesButton;
     private JButton registrarUsuariosButton;
     private JButton licenciasButton;
+    private JLabel admin;
 
     public PerfilAdmin(String cedula){
         setContentPane(PerfilAdmin);
@@ -29,6 +31,13 @@ public class PerfilAdmin extends JFrame {
         setTitle("Sistema de Licencias");
         pack();
         setLocationRelativeTo(null);
+
+        ImageIcon adminIcon = new ImageIcon(
+                getClass().getResource("/img/admin.png")
+        );
+        Image imgAdmin = adminIcon.getImage().getScaledInstance(200, 300, Image.SCALE_SMOOTH);
+        admin.setIcon(new ImageIcon(imgAdmin));
+
         nombreUsuario.setText(cedula);
 
         addWindowListener(new WindowAdapter() {
@@ -118,7 +127,7 @@ public class PerfilAdmin extends JFrame {
                 if ("PREPARADO".equals(estado)) {
                     JOptionPane.showMessageDialog(null, "El usuario ya está aprobado");
                     return;
-                }else if (!"OK".equals(estado)) {
+                }else if (!"en_examenes".equals(estado)) {
                     // continúa el proceso
                     JOptionPane.showMessageDialog(null, "El usuario no cumple los requisitos");
                     return;

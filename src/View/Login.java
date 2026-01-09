@@ -11,7 +11,8 @@ public class Login extends JFrame {
     private JButton ingresarButton;
     private JPanel LoginPane;
     private JPasswordField txtPassword;
-    private JLabel iconPanel;
+    private JLabel user;
+    private JLabel pass;
 
     public Login() {
         setContentPane(LoginPane);
@@ -21,8 +22,16 @@ public class Login extends JFrame {
         setSize(600,300);
         setLocationRelativeTo(null);
 
-        //ImageIcon iconoLogin = new ImageIcon(getClass().getResource("/Imagenes/icono.png"));
-        //iconPanel.setIcon(iconoLogin);
+        ImageIcon userIcon = new ImageIcon(
+                getClass().getResource("/img/user.png")
+        );
+        ImageIcon userPass = new ImageIcon(
+                getClass().getResource("/img/pass.png")
+        );
+        Image imgUser = userIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image imgPass = userPass.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        user.setIcon(new ImageIcon(imgUser));
+        pass.setIcon(new ImageIcon(imgPass));
 
 
         ingresarButton.addActionListener(e -> {

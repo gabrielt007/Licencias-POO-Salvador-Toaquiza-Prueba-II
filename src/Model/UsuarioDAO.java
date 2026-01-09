@@ -333,11 +333,6 @@ public class UsuarioDAO {
     }
 
     public static String actualizarEstado(String cedula) {
-
-        if (!verificarCedula(cedula)) {
-            return "Sin estado";
-        }
-
         String sqlEstadoActual = "SELECT estadoTramite FROM usuariosSolicitantes WHERE cedula=?";
         String sqlEstadoExamen = "SELECT estado FROM examen WHERE cedula=?";
         String sqlEstadoRequisitos = "SELECT estadoRequisitos FROM requisitos WHERE cedula=?";
