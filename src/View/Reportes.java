@@ -5,12 +5,14 @@ import Model.UsuarioDAO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.PrintWriter;
 
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import javax.swing.table.TableModel;
 import java.io.FileOutputStream;
@@ -35,15 +37,22 @@ public class Reportes extends JFrame{
     private JLabel lblAprobados;
     private JButton limpiarFiltrosButton;
     private JButton exportarEnExcelButton;
+    private JLabel logo;
 
     public Reportes(String cedulaI, String usuario){
         setContentPane(Reportes);
         setTitle("Sistema de Licencias");
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        setVisible(true);
+        setSize(680,550);
         setLocationRelativeTo(null);
-        //pack();
-        setSize(680,800);
+        setVisible(true);
+
+
+        ImageIcon Icon = new ImageIcon(
+                getClass().getResource("/img/reporte.png")
+        );
+        Image img = Icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        logo.setIcon(new ImageIcon(img));
 
         VentanaManager.ajustarColumnas(table1);
         table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
