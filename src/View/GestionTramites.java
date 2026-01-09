@@ -4,6 +4,7 @@ import Controller.VentanaManager;
 import Model.UsuarioDAO;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -15,11 +16,11 @@ public class GestionTramites extends JFrame{
     private JButton verDetalleButton;
     private JButton registrarExamenButton;
     private JButton generarLicenciaButton;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
-    private JTextField textField3;
+    private JTextField txtFechaDesde;
+    private JTextField txtFechaHasta;
+    private JComboBox comBoxTipoLicencia;
+    private JComboBox ComBoxEstado;
+    private JTextField txtCedula;
     private JButton buscarButton;
     private JButton limpiarBusquedaButton;
 
@@ -28,7 +29,7 @@ public class GestionTramites extends JFrame{
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Sistema de Licencias");
-        setSize(600,400);
+        setSize(600,600);
         setLocationRelativeTo(null);
 
         addWindowListener(new WindowAdapter() {
@@ -150,7 +151,27 @@ public class GestionTramites extends JFrame{
             new DetalleUsuarios(usuario,cedula,cedulaSolicitante).setVisible(true);
         });
 
-        filtrarButton.addActionListener(e->{});
+        buscarButton.addActionListener(e -> {
+            String desde = txtFechaDesde.getText();
+            String hasta = txtFechaHasta.getText();
+            String estado = ComBoxEstado.getSelectedItem().toString();
+            String tipo = comBoxTipoLicencia.getSelectedItem().toString();
+            String cedulaa = txtCedula.getText();
+
+            DefaultTableModel model = UsuarioDAO.cargarReporte(
+                    desde, hasta, estado, tipo, cedulaa
+            );
+
+            table1.setModel(model);
+            VentanaManager.ajustarColumnas(table1);
+
+        });
+
+        limpiarBusquedaButton.addActionListener(e -> {
+            VentanaManager.ajustarColumnas(table1);
+            table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+            table1.setModel(UsuarioDAO.cargarVistaTramites());
+        });
 
         table1.setModel(UsuarioDAO.cargarVistaTramites());
         table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -161,4 +182,5 @@ public class GestionTramites extends JFrame{
             new Licencias(cedula,usuario).setVisible(true);
         });
     }
+
 }
