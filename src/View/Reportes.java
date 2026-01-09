@@ -171,14 +171,14 @@ public class Reportes extends JFrame{
 
             TableModel model = tabla.getModel();
 
-            // 🎨 Estilo encabezado
+            // Estilo encabezado
             CellStyle headerStyle = wb.createCellStyle();
             Font font = wb.createFont();
             font.setBold(true);
             headerStyle.setFont(font);
             headerStyle.setAlignment(HorizontalAlignment.CENTER);
 
-            // 🧾 Encabezados
+            // Encabezados
             Row header = hoja.createRow(0);
             for (int c = 0; c < model.getColumnCount(); c++) {
                 Cell cell = header.createCell(c);
@@ -186,7 +186,7 @@ public class Reportes extends JFrame{
                 cell.setCellStyle(headerStyle);
             }
 
-            // 📋 Datos
+            // Datos
             for (int r = 0; r < model.getRowCount(); r++) {
                 Row fila = hoja.createRow(r + 1);
                 for (int c = 0; c < model.getColumnCount(); c++) {
@@ -197,12 +197,12 @@ public class Reportes extends JFrame{
                 }
             }
 
-            // 📐 Autoajustar columnas
+            // Autoajustar columnas
             for (int c = 0; c < model.getColumnCount(); c++) {
                 hoja.autoSizeColumn(c);
             }
 
-            // 💾 Guardar
+            // Guardar
             try (FileOutputStream fos = new FileOutputStream(archivo)) {
                 wb.write(fos);
             }
