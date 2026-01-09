@@ -186,7 +186,7 @@ public class PerfilAdmin extends JFrame {
 
         licenciasButton.addActionListener(e ->  {
             dispose();
-            new Licencias(cedula,"ADMIN").setVisible(true);
+            new MostarLicencias(cedula,"ADMIN").setVisible(true);
         });
     }
 }
