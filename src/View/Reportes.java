@@ -150,10 +150,11 @@ public class Reportes extends JFrame{
 
             switch(estado) {
                 case "Pendiente": pendientes++; break;
-                case "Aprobado": aprobados++; break;
-                case "Reprobado": reprobados++; break;
-                case "En_Examenes": examenes++; break;
+                case "APROBADO": aprobados++; break;
+                case "REPROBADO": reprobados++; break;
+                case "en_examenes": examenes++; break;
                 case "LicenciaEmitida": licencias++; break;
+
             }
         }
 

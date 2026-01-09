@@ -201,6 +201,7 @@
                 <item value="NO"/>
                 <item value="APROBADO"/>
                 <item value="REPROBADO"/>
+                <item value="LicenciaEmitida"/>
               </model>
             </properties>
           </component>
