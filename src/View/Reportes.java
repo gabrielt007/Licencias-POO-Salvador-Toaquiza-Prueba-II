@@ -74,7 +74,7 @@ public class Reportes extends JFrame{
 
         buscarButton.addActionListener(e -> {
 
-            String estado = ComBoxEstado.getSelectedItem().toString();
+            String estado = (ComBoxEstado.getSelectedItem().toString());
 
             DefaultTableModel model = UsuarioDAO.cargarReporte("","",estado,"","");
 
@@ -84,29 +84,29 @@ public class Reportes extends JFrame{
         });
 
         fechaButton.addActionListener(e->{
-            String desde = txtFechaDesde.getText();
-            String hasta = txtFechaHasta.getText();
+            String desde = (txtFechaDesde.getText());
+            String hasta = (txtFechaHasta.getText());
 
-            DefaultTableModel model = UsuarioDAO.cargarReporte(desde, hasta,"","","");
+            DefaultTableModel model = UsuarioDAO.cargarReporte(desde, hasta,null,null,null);
 
             table1.setModel(model);
             VentanaManager.ajustarColumnas(table1);
         });
         cedulaButton.addActionListener(e->{
 
-            String cedulaa = txtCedula.getText();
+            String cedulaa = limpiar(txtCedula.getText());
 
-            DefaultTableModel model = UsuarioDAO.cargarReporte("","","","",cedulaa);
+            DefaultTableModel model = UsuarioDAO.cargarReporte(null,null,null,null,cedulaa);
 
             table1.setModel(model);
             VentanaManager.ajustarColumnas(table1);
         });
         licenciaButton.addActionListener(e->{
 
-            String tipo = comBoxTipoLicencia.getSelectedItem().toString();
+            String tipo = limpiar(comBoxTipoLicencia.getSelectedItem().toString());
 
 
-            DefaultTableModel model = UsuarioDAO.cargarReporte("","","",tipo,"");
+            DefaultTableModel model = UsuarioDAO.cargarReporte(null,null,null,tipo,null);
 
             table1.setModel(model);
             VentanaManager.ajustarColumnas(table1);
@@ -256,6 +256,15 @@ public class Reportes extends JFrame{
                     JOptionPane.ERROR_MESSAGE
             );
         }
+    }
+
+    private String limpiar(String valor) {
+        if (valor == null) return null;
+        valor = valor.trim();
+        if (valor.isEmpty()) return null;
+        if (valor.equalsIgnoreCase("Todos")) return null;
+        if (valor.equalsIgnoreCase("Seleccione")) return null;
+        return valor;
     }
 
 

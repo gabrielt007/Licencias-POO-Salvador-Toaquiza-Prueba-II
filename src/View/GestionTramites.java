@@ -166,7 +166,7 @@ public class GestionTramites extends JFrame{
 
             String estado = ComBoxEstado.getSelectedItem().toString();
 
-            DefaultTableModel model = UsuarioDAO.cargarReporte("","",estado,"","");
+            DefaultTableModel model = UsuarioDAO.cargarReporte(null,null,estado,null,null);
 
             table1.setModel(model);
             VentanaManager.ajustarColumnas(table1);
@@ -174,29 +174,29 @@ public class GestionTramites extends JFrame{
         });
 
         fechaButton.addActionListener(e->{
-            String desde = txtFechaDesde.getText();
-            String hasta = txtFechaHasta.getText();
+            String desde = limpiarr(txtFechaDesde.getText());
+            String hasta = limpiarr(txtFechaHasta.getText());
 
-            DefaultTableModel model = UsuarioDAO.cargarReporte(desde, hasta,"","","");
+            DefaultTableModel model = UsuarioDAO.cargarReporte(desde, hasta,null,null,null);
 
             table1.setModel(model);
             VentanaManager.ajustarColumnas(table1);
         });
         cedulaButton.addActionListener(e->{
 
-            String cedulaa = txtCedula.getText();
+            String cedulaa = limpiarr(txtCedula.getText());
 
-            DefaultTableModel model = UsuarioDAO.cargarReporte("","","","",cedulaa);
+            DefaultTableModel model = UsuarioDAO.cargarReporte(null,null,null,null,cedulaa);
 
             table1.setModel(model);
             VentanaManager.ajustarColumnas(table1);
         });
         licenciaButton.addActionListener(e->{
 
-            String tipo = comBoxTipoLicencia.getSelectedItem().toString();
+            String tipo = limpiarr(comBoxTipoLicencia.getSelectedItem().toString());
 
 
-            DefaultTableModel model = UsuarioDAO.cargarReporte("","","",tipo,"");
+            DefaultTableModel model = UsuarioDAO.cargarReporte(null,null,null,tipo,null);
 
             table1.setModel(model);
             VentanaManager.ajustarColumnas(table1);
@@ -217,5 +217,14 @@ public class GestionTramites extends JFrame{
             new Licencias(cedula,usuario).setVisible(true);
         });
     }
+    private String limpiarr(String valor) {
+        if (valor == null) return null;
+        valor = valor.trim();
+        if (valor.isEmpty()) return null;
+        if (valor.equalsIgnoreCase("Todos")) return null;
+        if (valor.equalsIgnoreCase("Seleccione")) return null;
+        return valor;
+    }
+
 
 }
