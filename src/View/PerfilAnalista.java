@@ -117,10 +117,12 @@ public class PerfilAnalista extends JFrame {
                 if ("PREPARADO".equals(estado)) {
                     JOptionPane.showMessageDialog(null, "El usuario ya está aprobado");
                     return;
-                }else if (!"en_examenes".equals(estado)) {
+                }else if (!"REPROBADO".equals(estado)) {
                     // continúa el proceso
-                    JOptionPane.showMessageDialog(null, "El usuario no cumple los requisitos");
-                    return;
+                    if (!"en_examenes".equals(estado)){
+                        JOptionPane.showMessageDialog(null, "El usuario no cumple los requisitos");
+                        return;
+                    }
                 }
                 String resultadosExamenes=UsuarioDAO.examenes(cedulaSolicitante);
                 if (resultadosExamenes.equals("No hay datos")){
