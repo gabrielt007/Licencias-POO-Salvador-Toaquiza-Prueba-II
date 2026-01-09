@@ -4,6 +4,7 @@ import Controller.VentanaManager;
 import Model.UsuarioDAO;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -17,6 +18,7 @@ public class PerfilAnalista extends JFrame {
     private JPanel PerfilAnalista;
     private JButton requisitosButton;
     private JButton examenesButton;
+    private JLabel analista;
 
     public PerfilAnalista(String nombreUsuario) {
         setContentPane(PerfilAnalista);
@@ -25,6 +27,12 @@ public class PerfilAnalista extends JFrame {
         setTitle("Sistema de Licencias");
         pack();
         setLocationRelativeTo(null);
+
+        ImageIcon analistaIcon = new ImageIcon(
+                getClass().getResource("/img/analista.png")
+        );
+        Image imgAnalista = analistaIcon.getImage().getScaledInstance(100, 150, Image.SCALE_SMOOTH);
+        analista.setIcon(new ImageIcon(imgAnalista));
 
         addWindowListener(new WindowAdapter() {
             @Override

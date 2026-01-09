@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="View.PerfilAnalista">
-  <grid id="27dc6" binding="PerfilAnalista" layout-manager="GridLayoutManager" row-count="15" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="PerfilAnalista" layout-manager="GridLayoutManager" row-count="15" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="20" width="500" height="513"/>
@@ -12,7 +12,7 @@
     <children>
       <component id="5160c" class="javax.swing.JLabel">
         <constraints>
-          <grid row="0" column="0" row-span="2" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font name="Dubai Medium" size="24"/>
@@ -21,7 +21,7 @@
       </component>
       <component id="9f615" class="javax.swing.JLabel">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font name="Lucida Console"/>
@@ -30,7 +30,7 @@
       </component>
       <component id="14f62" class="javax.swing.JLabel">
         <constraints>
-          <grid row="9" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font name="Lucida Console"/>
@@ -39,7 +39,7 @@
       </component>
       <component id="74f66" class="javax.swing.JLabel">
         <constraints>
-          <grid row="11" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font name="Lucida Console"/>
@@ -48,7 +48,7 @@
       </component>
       <component id="e5bf5" class="javax.swing.JButton" binding="cerrarSesionButton" default-binding="true">
         <constraints>
-          <grid row="14" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="14" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-6871766"/>
@@ -58,7 +58,7 @@
       </component>
       <component id="26985" class="javax.swing.JButton" binding="registrarButton" default-binding="true">
         <constraints>
-          <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Registrar"/>
@@ -66,7 +66,7 @@
       </component>
       <component id="70ca0" class="javax.swing.JButton" binding="tramitesButton" default-binding="true">
         <constraints>
-          <grid row="10" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Tramites"/>
@@ -74,7 +74,7 @@
       </component>
       <component id="7a140" class="javax.swing.JButton" binding="generarButton" default-binding="true">
         <constraints>
-          <grid row="12" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Generar"/>
@@ -82,7 +82,7 @@
       </component>
       <component id="cf06" class="javax.swing.JLabel">
         <constraints>
-          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font name="Lucida Console"/>
@@ -91,7 +91,7 @@
       </component>
       <component id="66b63" class="javax.swing.JLabel">
         <constraints>
-          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font name="Lucida Console"/>
@@ -100,7 +100,7 @@
       </component>
       <component id="3bdd7" class="javax.swing.JLabel" binding="txtTipoUsuario">
         <constraints>
-          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="ANALISTA"/>
@@ -108,7 +108,7 @@
       </component>
       <component id="d7c88" class="javax.swing.JLabel" binding="txtNombreUsuario">
         <constraints>
-          <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="33" height="76"/>
           </grid>
         </constraints>
@@ -118,7 +118,7 @@
       </component>
       <component id="53341" class="javax.swing.JLabel">
         <constraints>
-          <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font name="Lucida Console"/>
@@ -127,7 +127,7 @@
       </component>
       <component id="601fe" class="javax.swing.JLabel">
         <constraints>
-          <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font name="Lucida Console"/>
@@ -136,7 +136,7 @@
       </component>
       <component id="fc69" class="javax.swing.JButton" binding="requisitosButton" default-binding="true">
         <constraints>
-          <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Requisitos"/>
@@ -144,7 +144,7 @@
       </component>
       <component id="7178" class="javax.swing.JButton" binding="examenesButton" default-binding="true">
         <constraints>
-          <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Examenes"/>
@@ -152,13 +152,13 @@
       </component>
       <vspacer id="63c34">
         <constraints>
-          <grid row="13" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
       <grid id="eeca1" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="4" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-1716943"/>
@@ -176,6 +176,14 @@
           </component>
         </children>
       </grid>
+      <component id="51201" class="javax.swing.JLabel" binding="analista">
+        <constraints>
+          <grid row="3" column="1" row-span="10" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value=" "/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>
