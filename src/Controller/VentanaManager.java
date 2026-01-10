@@ -3,6 +3,7 @@ package Controller;
 import javax.swing.*;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
 
@@ -37,14 +38,19 @@ public class VentanaManager {
     }
 
     private static BufferedImage capturarJPanel(JPanel panel) {
+
+        Dimension size = panel.getPreferredSize();
+        panel.setSize(size);        // fuerza tamaño real
+        panel.doLayout();           // fuerza layout
+
         BufferedImage imagen = new BufferedImage(
-                panel.getWidth(),
-                panel.getHeight(),
+                size.width,
+                size.height,
                 BufferedImage.TYPE_INT_RGB
         );
 
         Graphics2D g2d = imagen.createGraphics();
-        panel.paintAll(g2d);   // clave para JPanel
+        panel.printAll(g2d); // 👈 mejor que paintAll
         g2d.dispose();
 
         return imagen;
@@ -54,14 +60,19 @@ public class VentanaManager {
         try {
             BufferedImage imagen = capturarJPanel(panel);
 
-            Document document = new Document(
-                    new Rectangle(imagen.getWidth(), imagen.getHeight())
-            );
-
+            Document document = new Document(PageSize.A4);
             PdfWriter.getInstance(document, new FileOutputStream(rutaPdf));
             document.open();
 
             Image img = Image.getInstance(imagen, null);
+
+// Escalar para que entre completa
+            img.scaleToFit(
+                    document.getPageSize().getWidth() - 40,
+                    document.getPageSize().getHeight() - 40
+            );
+
+            img.setAlignment(Image.ALIGN_CENTER);
             document.add(img);
 
             document.close();

@@ -99,7 +99,7 @@
                   <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Bodoni MT" size="18" style="3"/>
+                  <font name="Bodoni MT" size="16" style="3"/>
                   <text value="LICENCIA DE CONDUCCION"/>
                 </properties>
               </component>

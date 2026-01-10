@@ -18,13 +18,12 @@ public class UsuarioDAO {
         PreparedStatement ps= conn.prepareStatement(sql)){
             ps.setString(1,usuario);
             ps.setString(2,password);
-            ResultSet rs=ps.executeQuery();
+            try(ResultSet rs=ps.executeQuery()){
             if(rs.next()){
-                conn.close();
                 return rs.getString("rol");
             }
-            conn.close();
             return "No encontrado";
+            }
         }catch (NullPointerException | SQLException e) {
             throw new RuntimeException(e);
         }
@@ -40,14 +39,14 @@ public class UsuarioDAO {
             ps.setString(1, cedula);
             ps.setString(2, password);
 
-            ResultSet rs = ps.executeQuery();
+            try(ResultSet rs=ps.executeQuery()) {
 
-            if (rs.next()) {
-                return rs.getString("estadoTramite");
+                if (rs.next()) {
+                    return rs.getString("estadoTramite");
+                }
+
+                return "No encontrado";
             }
-
-            return "No encontrado";
-
         } catch (NullPointerException | SQLException e) {
             throw new RuntimeException(e);
         }
@@ -61,31 +60,31 @@ public class UsuarioDAO {
                 PreparedStatement ps = conn.prepareStatement(sqlBuscar)) {
 
             ps.setString(1, cedula);
-            ResultSet rs = ps.executeQuery();
+            try(ResultSet rs=ps.executeQuery()) {
 
-            if (rs.next()) {
-                return false; // ya existe
-            }
-
-            String sqlFuncion = "SELECT insertarUsuario(?,?,?,?,?) AS Resultado";
-
-            try (PreparedStatement psInsertar = conn.prepareStatement(sqlFuncion)) {
-
-                psInsertar.setString(1, cedula);
-                psInsertar.setString(2, nombre);
-                psInsertar.setInt(3, edad);
-                psInsertar.setString(4, tipoLicencia);
-                psInsertar.setString(5, password);
-
-                ResultSet rsInsertar = psInsertar.executeQuery();
-
-                if (rsInsertar.next()) {
-                    return "Exitoso".equals(rsInsertar.getString("Resultado"));
+                if (rs.next()) {
+                    return false; // ya existe
                 }
 
-                return false;
-            }
+                String sqlFuncion = "SELECT insertarUsuario(?,?,?,?,?) AS Resultado";
 
+                try (PreparedStatement psInsertar = conn.prepareStatement(sqlFuncion)) {
+
+                    psInsertar.setString(1, cedula);
+                    psInsertar.setString(2, nombre);
+                    psInsertar.setInt(3, edad);
+                    psInsertar.setString(4, tipoLicencia);
+                    psInsertar.setString(5, password);
+
+                    ResultSet rsInsertar = psInsertar.executeQuery();
+
+                    if (rsInsertar.next()) {
+                        return "Exitoso".equals(rsInsertar.getString("Resultado"));
+                    }
+
+                    return false;
+                }
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -97,12 +96,13 @@ public class UsuarioDAO {
              PreparedStatement psUsuario = conn.prepareStatement(sqlUsuario)) {
 
             psUsuario.setString(1, cedula);
-            ResultSet rsUsuario = psUsuario.executeQuery();
+            try(ResultSet rsUsuario = psUsuario.executeQuery()) {
 
-            if (rsUsuario.next()) {
-                return true;
+                if (rsUsuario.next()) {
+                    return true;
+                }
+                return false;
             }
-            return false;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -114,44 +114,33 @@ public class UsuarioDAO {
              PreparedStatement psUsuario = conn.prepareStatement(sqlUsuario)) {
 
             psUsuario.setString(1, cedula);
-            ResultSet rsUsuario = psUsuario.executeQuery();
+            try(ResultSet rsUsuario = psUsuario.executeQuery()) {
 
-            if (rsUsuario.next()) {
-                return true;
+                if (rsUsuario.next()) {
+                    return true;
+                }
+                return false;
             }
-            return false;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     public static String requisitos(String cedula) {
-
-        //String sqlUsuario = "SELECT 1 FROM usuariosSolicitantes WHERE cedula = ?";
         String sqlRequisitos = "SELECT certificadoMedico, pago, multas, observaciones FROM requisitos WHERE cedula = ? ";
-
-//        try (Connection conn = Conexion.getConexion();
-//             PreparedStatement psUsuario = conn.prepareStatement(sqlUsuario)) {
-//
-//            psUsuario.setString(1, cedula);
-//            ResultSet rsUsuario = psUsuario.executeQuery();
-//
-//            if (!rsUsuario.next()) {
-//                return "NO_EXISTE";
-//            }
-
             try (Connection conn=Conexion.getConexion();
                     PreparedStatement psReq = conn.prepareStatement(sqlRequisitos)) {
                 psReq.setString(1, cedula);
-                ResultSet rsReq = psReq.executeQuery();
+                try(ResultSet rsReq = psReq.executeQuery()) {
 
-                if (rsReq.next()) {
-                    return rsReq.getString("certificadoMedico") + "/" +
-                            rsReq.getString("pago") + "/" +
-                            rsReq.getString("multas") + "/" +
-                            rsReq.getString("observaciones");
-                } else {
-                    return "SIN_REQUISITOS";
+                    if (rsReq.next()) {
+                        return rsReq.getString("certificadoMedico") + "/" +
+                                rsReq.getString("pago") + "/" +
+                                rsReq.getString("multas") + "/" +
+                                rsReq.getString("observaciones");
+                    } else {
+                        return "SIN_REQUISITOS";
+                    }
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -202,15 +191,16 @@ public class UsuarioDAO {
         try(Connection conn=Conexion.getConexion();
         PreparedStatement ps=conn.prepareStatement(sql)) {
             ps.setString(1,cedulaSolicitante);
-            ResultSet rs=ps.executeQuery();
-            if (rs.next()){
-                String mensaje = "";
-                mensaje+=rs.getString("practica")+"/";
-                mensaje+=rs.getString("teorica")+"/";
-                mensaje+=rs.getString("promedio");
-                return mensaje;
+            try(ResultSet rs=ps.executeQuery()) {
+                if (rs.next()) {
+                    String mensaje = "";
+                    mensaje += rs.getString("practica") + "/";
+                    mensaje += rs.getString("teorica") + "/";
+                    mensaje += rs.getString("promedio");
+                    return mensaje;
+                }
+                return "No hay datos";
             }
-            return "No hay datos";
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
@@ -223,36 +213,36 @@ public class UsuarioDAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, usuario);
-            ResultSet rs = ps.executeQuery();
+            try(ResultSet rs=ps.executeQuery()) {
 
-            if (rs.next()) {
-                int intentosActuales = rs.getInt("intentos");
+                if (rs.next()) {
+                    int intentosActuales = rs.getInt("intentos");
 
-                // Bloquear si llega a 3
-                if (intentosActuales >= 2) {
-                    String sqlEstado = "UPDATE " + tabla +
-                            " SET estadoUsuario = 'BLOQUEADO', intentos = 0 WHERE cedula = ?";
+                    // Bloquear si llega a 3
+                    if (intentosActuales >= 2) {
+                        String sqlEstado = "UPDATE " + tabla +
+                                " SET estadoUsuario = 'BLOQUEADO', intentos = 0 WHERE cedula = ?";
 
-                    try (PreparedStatement psEstado = conn.prepareStatement(sqlEstado)) {
-                        psEstado.setString(1, usuario);
-                        psEstado.executeUpdate();
+                        try (PreparedStatement psEstado = conn.prepareStatement(sqlEstado)) {
+                            psEstado.setString(1, usuario);
+                            psEstado.executeUpdate();
+                        }
+                        return "BLOQUEADO";
                     }
-                    return "BLOQUEADO";
+
+                    // Aumentar intentos
+                    int nuevosIntentos = intentosActuales + 1;
+                    String aumentarIntentos = "UPDATE " + tabla + " SET intentos = ? WHERE cedula = ?";
+
+                    try (PreparedStatement psIntentos = conn.prepareStatement(aumentarIntentos)) {
+                        psIntentos.setInt(1, nuevosIntentos);
+                        psIntentos.setString(2, usuario);
+                        psIntentos.executeUpdate();
+                    }
+
+                    return String.valueOf(nuevosIntentos);
                 }
-
-                // Aumentar intentos
-                int nuevosIntentos = intentosActuales + 1;
-                String aumentarIntentos = "UPDATE " + tabla + " SET intentos = ? WHERE cedula = ?";
-
-                try (PreparedStatement psIntentos = conn.prepareStatement(aumentarIntentos)) {
-                    psIntentos.setInt(1, nuevosIntentos);
-                    psIntentos.setString(2, usuario);
-                    psIntentos.executeUpdate();
-                }
-
-                return String.valueOf(nuevosIntentos);
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -267,7 +257,6 @@ public class UsuarioDAO {
         return manejarIntentos(usuario, "usuariosSolicitantes");
     }
 
-
     private static String obtenerEstado(String usuario, String tabla) {
         String sql = "SELECT estadoUsuario FROM " + tabla + " WHERE cedula = ?";
 
@@ -275,18 +264,17 @@ public class UsuarioDAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, usuario);
-            ResultSet rs = ps.executeQuery();
+            try(ResultSet rs=ps.executeQuery()) {
 
-            if (rs.next()) {
-                return rs.getString("estadoUsuario");
+                if (rs.next()) {
+                    return rs.getString("estadoUsuario");
+                }
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return "";
     }
-
 
     public static String estadoUsuario(String usuario) {
         return obtenerEstado(usuario, "usuariosPlataforma");
@@ -295,7 +283,6 @@ public class UsuarioDAO {
     public static String estadoUsuarioSolicitante(String usuario) {
         return obtenerEstado(usuario, "usuariosSolicitantes");
     }
-
 
     private static void resetearIntentos(String usuario, String tabla) {
         String sql = "UPDATE " + tabla + " SET intentos = 0 WHERE cedula = ?";
@@ -311,7 +298,6 @@ public class UsuarioDAO {
         }
     }
 
-
     public static void modificarIntentos(String usuario) {
         resetearIntentos(usuario, "usuariosPlataforma");
     }
@@ -319,7 +305,6 @@ public class UsuarioDAO {
     public static void modificarIntentosSolicitantes(String usuario) {
         resetearIntentos(usuario, "usuariosSolicitantes");
     }
-
 
     public static void modificarNotas(String cedulaSolicitante, double nuevaP, double nuevaT) {
         String sql="update examen set practica=?,teorica=? where cedula=?";
@@ -347,51 +332,51 @@ public class UsuarioDAO {
             ps1.setString(1, cedula);
             ps2.setString(1, cedula);
             ps3.setString(1, cedula);
-
+            try(
             ResultSet rs1 = ps1.executeQuery();
             ResultSet rs2 = ps2.executeQuery();
             ResultSet rs3 = ps3.executeQuery();
+            ) {
+                if (rs1.next() && rs2.next() && rs3.next()) {
 
-            if (rs1.next() && rs2.next() && rs3.next()) {
+                    String estadoActual = rs1.getString("estadoTramite");
+                    String estadoExamen = rs2.getString("estado"); // ✔ corregido
+                    String estadoRequisitos = rs3.getString("estadoRequisitos");
 
-                String estadoActual = rs1.getString("estadoTramite");
-                String estadoExamen = rs2.getString("estado"); // ✔ corregido
-                String estadoRequisitos = rs3.getString("estadoRequisitos");
+                    String estadoNuevo = estadoActual;
 
-                String estadoNuevo = estadoActual;
+                    boolean examenAprobado = "APROBADO".equals(estadoExamen);
+                    boolean examenReprobado = "REPROBADO".equals(estadoExamen);
+                    boolean requisitosOK = "OK".equals(estadoRequisitos);
 
-                boolean examenAprobado = "APROBADO".equals(estadoExamen);
-                boolean examenReprobado = "REPROBADO".equals(estadoExamen);
-                boolean requisitosOK = "OK".equals(estadoRequisitos);
+                    if (estadoActual.equals("LicenciaEmitida")) {
+                        return "LicenciaEmitida";
+                    }
+                    if (examenReprobado) {
+                        estadoNuevo = "REPROBADO";
+                    } else if (requisitosOK && examenAprobado) {
+                        estadoNuevo = "PREPARADO";
+                    } else if (requisitosOK) {
+                        estadoNuevo = "en_examenes";
+                    } else if (examenAprobado) {
+                        estadoNuevo = "APROBADO";
+                    } else {
+                        estadoNuevo = "Pendiente";
+                    }
 
-                if (estadoActual.equals("LicenciaEmitida")) {
-                    return "LicenciaEmitida";
+                    String sqlActualizacion =
+                            "UPDATE usuariosSolicitantes SET estadoTramite=? WHERE cedula=?";
+
+                    try (PreparedStatement psActualizacion =
+                                 conn.prepareStatement(sqlActualizacion)) {
+                        psActualizacion.setString(1, estadoNuevo);
+                        psActualizacion.setString(2, cedula);
+                        psActualizacion.executeUpdate();
+                    }
+                    System.out.println(estadoNuevo);
+                    return estadoNuevo;
                 }
-                if (examenReprobado) {
-                    estadoNuevo = "REPROBADO";
-                } else if (requisitosOK && examenAprobado) {
-                    estadoNuevo = "PREPARADO";
-                } else if (requisitosOK) {
-                    estadoNuevo = "en_examenes";
-                } else if (examenAprobado) {
-                    estadoNuevo = "APROBADO";
-                } else {
-                    estadoNuevo = "Pendiente";
-                }
-
-                String sqlActualizacion =
-                        "UPDATE usuariosSolicitantes SET estadoTramite=? WHERE cedula=?";
-
-                try (PreparedStatement psActualizacion =
-                             conn.prepareStatement(sqlActualizacion)) {
-                    psActualizacion.setString(1, estadoNuevo);
-                    psActualizacion.setString(2, cedula);
-                    psActualizacion.executeUpdate();
-                }
-                System.out.println(estadoNuevo);
-                return estadoNuevo;
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -452,31 +437,31 @@ public class UsuarioDAO {
         try (Connection conn = Conexion.getConexion();
              PreparedStatement ps = conn.prepareStatement(sql);) {
             ps.setString(1, cedula);
-            ResultSet rs = ps.executeQuery();
-            ResultSetMetaData meta = rs.getMetaData();
-            int columnas = meta.getColumnCount();
+            try(ResultSet rs=ps.executeQuery()) {
+                ResultSetMetaData meta = rs.getMetaData();
+                int columnas = meta.getColumnCount();
 
-            // Nombres de columnas
-            for (int i = 1; i <= columnas; i++) {
-                modelo.addColumn(meta.getColumnName(i));
-            }
-
-            // Filas
-            while (rs.next()) {
-                Object[] fila = new Object[columnas];
-                for (int i = 0; i < columnas; i++) {
-                    fila[i] = rs.getObject(i + 1);
+                // Nombres de columnas
+                for (int i = 1; i <= columnas; i++) {
+                    modelo.addColumn(meta.getColumnName(i));
                 }
-                modelo.addRow(fila);
-            }
 
+                // Filas
+                while (rs.next()) {
+                    Object[] fila = new Object[columnas];
+                    for (int i = 0; i < columnas; i++) {
+                        fila[i] = rs.getObject(i + 1);
+                    }
+                    modelo.addRow(fila);
+                }
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         return modelo;
     }
-    //Prueba para generar Licencias
+
     public static boolean esAptoParaLicencia(String cedula) {
 
         String sql = """
@@ -490,15 +475,14 @@ public class UsuarioDAO {
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, cedula);
-            ResultSet rs = ps.executeQuery();
+            try(ResultSet rs=ps.executeQuery()) {
 
-            return rs.next();
-
+                return rs.next();
+            }
         } catch (Exception e) {
             return false;
         }
     }
-
 
     public static boolean generarLicencia(String cedula) {
 
@@ -516,27 +500,27 @@ public class UsuarioDAO {
                     "SELECT 1 FROM licencia WHERE numeroLicencia=?"
             );
             psCheck.setInt(1, numero);
-            ResultSet rs = psCheck.executeQuery();
+            try(ResultSet rs = psCheck.executeQuery();) {
 
-            if (rs.next()) {
-                con.rollback();
-                return false;
+                if (rs.next()) {
+                    con.rollback();
+                    return false;
+                }
+
+                // Insertar licencia
+                PreparedStatement psInsert = con.prepareStatement(sqlInsert);
+                psInsert.setString(1, cedula);
+                psInsert.setInt(2, numero);
+                psInsert.executeUpdate();
+
+                // Cambiar estado del trámite
+                PreparedStatement psUpdate = con.prepareStatement(sqlUpdate);
+                psUpdate.setString(1, cedula);
+                psUpdate.executeUpdate();
+
+                con.commit();
+                return true;
             }
-
-            // Insertar licencia
-            PreparedStatement psInsert = con.prepareStatement(sqlInsert);
-            psInsert.setString(1, cedula);
-            psInsert.setInt(2, numero);
-            psInsert.executeUpdate();
-
-            // Cambiar estado del trámite
-            PreparedStatement psUpdate = con.prepareStatement(sqlUpdate);
-            psUpdate.setString(1, cedula);
-            psUpdate.executeUpdate();
-
-            con.commit();
-            return true;
-
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -557,22 +541,23 @@ public class UsuarioDAO {
         try (Connection conn = Conexion.getConexion();
              PreparedStatement ps = conn.prepareStatement(sql);) {
             ps.setString(1, cedula);
-            ResultSet rs = ps.executeQuery();
-            ResultSetMetaData meta = rs.getMetaData();
-            int columnas = meta.getColumnCount();
+            try(ResultSet rs=ps.executeQuery()) {
+                ResultSetMetaData meta = rs.getMetaData();
+                int columnas = meta.getColumnCount();
 
-            // Nombres de columnas
-            for (int i = 1; i <= columnas; i++) {
-                modelo.addColumn(meta.getColumnName(i));
-            }
-
-            // Filas
-            while (rs.next()) {
-                Object[] fila = new Object[columnas];
-                for (int i = 0; i < columnas; i++) {
-                    fila[i] = rs.getObject(i + 1);
+                // Nombres de columnas
+                for (int i = 1; i <= columnas; i++) {
+                    modelo.addColumn(meta.getColumnName(i));
                 }
-                modelo.addRow(fila);
+
+                // Filas
+                while (rs.next()) {
+                    Object[] fila = new Object[columnas];
+                    for (int i = 0; i < columnas; i++) {
+                        fila[i] = rs.getObject(i + 1);
+                    }
+                    modelo.addRow(fila);
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -593,22 +578,23 @@ public class UsuarioDAO {
         try (Connection conn = Conexion.getConexion();
              PreparedStatement ps = conn.prepareStatement(sql);) {
             ps.setString(1, cedula);
-            ResultSet rs = ps.executeQuery();
-            ResultSetMetaData meta = rs.getMetaData();
-            int columnas = meta.getColumnCount();
+            try(ResultSet rs=ps.executeQuery()) {
+                ResultSetMetaData meta = rs.getMetaData();
+                int columnas = meta.getColumnCount();
 
-            // Nombres de columnas
-            for (int i = 1; i <= columnas; i++) {
-                modelo.addColumn(meta.getColumnName(i));
-            }
-
-            // Filas
-            while (rs.next()) {
-                Object[] fila = new Object[columnas];
-                for (int i = 0; i < columnas; i++) {
-                    fila[i] = rs.getObject(i + 1);
+                // Nombres de columnas
+                for (int i = 1; i <= columnas; i++) {
+                    modelo.addColumn(meta.getColumnName(i));
                 }
-                modelo.addRow(fila);
+
+                // Filas
+                while (rs.next()) {
+                    Object[] fila = new Object[columnas];
+                    for (int i = 0; i < columnas; i++) {
+                        fila[i] = rs.getObject(i + 1);
+                    }
+                    modelo.addRow(fila);
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -621,37 +607,38 @@ public class UsuarioDAO {
         try(Connection conn =Conexion.getConexion();
         PreparedStatement ps=conn.prepareStatement(sql)){
             ps.setString(1, cedulaSolicitante);
-            ResultSet rs=ps.executeQuery();
-            String mensaje="";
-            //System.out.println(rs.next());
-            if (table.equals("usuariosPlataforma")) {
-                if (rs.next()) {
-                    System.out.println(rs.getString("cedula"));
-                    System.out.println(rs.getString("rol"));
-                    System.out.println(rs.getString("estadoUsuario"));
+            try(ResultSet rs=ps.executeQuery()) {
+                String mensaje = "";
+                //System.out.println(rs.next());
+                if (table.equals("usuariosPlataforma")) {
+                    if (rs.next()) {
+                        System.out.println(rs.getString("cedula"));
+                        System.out.println(rs.getString("rol"));
+                        System.out.println(rs.getString("estadoUsuario"));
 
-                    mensaje+=rs.getString("cedula")+"/";
-                    mensaje+=rs.getString("rol")+"/";
-                    mensaje+=rs.getString("estadoUsuario");
-                    System.out.println(mensaje);
+                        mensaje += rs.getString("cedula") + "/";
+                        mensaje += rs.getString("rol") + "/";
+                        mensaje += rs.getString("estadoUsuario");
+                        System.out.println(mensaje);
 
-                    return mensaje;
+                        return mensaje;
+                    }
+                } else if (table.equals("usuariosSolicitantes")) {
+                    if (rs.next()) {
+                        System.out.println(rs.getString("cedula"));
+                        System.out.println(rs.getString("estadoUsuario"));
+
+                        mensaje += rs.getString("cedula") + "/";
+                        mensaje += rs.getString("nombre") + "/";
+                        mensaje += rs.getString("estadoUsuario");
+                        System.out.println(mensaje);
+
+                        return mensaje;
+                    }
                 }
-            }else if(table.equals("usuariosSolicitantes")) {
-                if (rs.next()) {
-                    System.out.println(rs.getString("cedula"));
-                    System.out.println(rs.getString("estadoUsuario"));
 
-                    mensaje+=rs.getString("cedula")+"/";
-                    mensaje+=rs.getString("nombre")+"/";
-                    mensaje+=rs.getString("estadoUsuario");
-                    System.out.println(mensaje);
-
-                    return mensaje;
-                }
+                return "";
             }
-
-            return "";
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
@@ -688,9 +675,7 @@ public class UsuarioDAO {
         }
     }
 //prueba para reportes
-    public static DefaultTableModel cargarReporte(
-            String desde, String hasta,
-            String estado, String tipo, String cedula) {
+    public static DefaultTableModel cargarReporte(String desde, String hasta,String estado, String tipo, String cedula) {
 
         String sql = "SELECT * FROM tramites WHERE 1=1 ";
 
@@ -715,29 +700,28 @@ public class UsuarioDAO {
             if (tipo!=null&&!tipo.equals("Todos")) ps.setString(i++, tipo);
             if (cedula!=null&&!cedula.isEmpty()) ps.setString(i++, cedula);
 
-            ResultSet rs = ps.executeQuery();
-            ResultSetMetaData meta = rs.getMetaData();
-            int columnas = meta.getColumnCount();
+            try(ResultSet rs=ps.executeQuery()) {
+                ResultSetMetaData meta = rs.getMetaData();
+                int columnas = meta.getColumnCount();
 
-            for (int c = 1; c <= columnas; c++) {
-                modelo.addColumn(meta.getColumnName(c));
-            }
-
-            while (rs.next()) {
-                Object[] fila = new Object[columnas];
-                for (int c = 0; c < columnas; c++) {
-                    fila[c] = rs.getObject(c + 1);
+                for (int c = 1; c <= columnas; c++) {
+                    modelo.addColumn(meta.getColumnName(c));
                 }
-                modelo.addRow(fila);
-            }
 
+                while (rs.next()) {
+                    Object[] fila = new Object[columnas];
+                    for (int c = 0; c < columnas; c++) {
+                        fila[c] = rs.getObject(c + 1);
+                    }
+                    modelo.addRow(fila);
+                }
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         return modelo;
     }
-
 
     public static TableModel cargarLicencia() {
         String sql="select * from licencia";
@@ -749,22 +733,23 @@ public class UsuarioDAO {
         };
         try(Connection conn=Conexion.getConexion();
         PreparedStatement ps=conn.prepareStatement(sql)){
-            ResultSet rs = ps.executeQuery();
-            ResultSetMetaData meta = rs.getMetaData();
-            int columnas = meta.getColumnCount();
+            try(ResultSet rs=ps.executeQuery()) {
+                ResultSetMetaData meta = rs.getMetaData();
+                int columnas = meta.getColumnCount();
 
-            for (int c = 1; c <= columnas; c++) {
-                modelo.addColumn(meta.getColumnName(c));
-            }
-
-            while (rs.next()) {
-                Object[] fila = new Object[columnas];
-                for (int c = 0; c < columnas; c++) {
-                    fila[c] = rs.getObject(c + 1);
+                for (int c = 1; c <= columnas; c++) {
+                    modelo.addColumn(meta.getColumnName(c));
                 }
-                modelo.addRow(fila);
+
+                while (rs.next()) {
+                    Object[] fila = new Object[columnas];
+                    for (int c = 0; c < columnas; c++) {
+                        fila[c] = rs.getObject(c + 1);
+                    }
+                    modelo.addRow(fila);
+                }
+                return modelo;
             }
-            return  modelo;
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
@@ -775,16 +760,17 @@ public class UsuarioDAO {
         try(Connection conn=Conexion.getConexion();
         PreparedStatement ps=conn.prepareStatement(sql)){
             ps.setString(1, cedula);
-            ResultSet rs = ps.executeQuery();
-            String resultado="";
-            if(rs.next()){
-                resultado+=rs.getString("cedula")+"/";
-                resultado+=rs.getString("nombre")+"/";
-                resultado+=rs.getString("tipoLicencia")+"/";
-                resultado+=rs.getString("fechaEmision")+"/";
-                resultado+=rs.getString("fechaVencimiento");
+            try(ResultSet rs=ps.executeQuery()) {
+                String resultado = "";
+                if (rs.next()) {
+                    resultado += rs.getString("cedula") + "/";
+                    resultado += rs.getString("nombre") + "/";
+                    resultado += rs.getString("tipoLicencia") + "/";
+                    resultado += rs.getString("fechaEmision") + "/";
+                    resultado += rs.getString("fechaVencimiento");
+                }
+                return resultado;
             }
-            return resultado;
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
