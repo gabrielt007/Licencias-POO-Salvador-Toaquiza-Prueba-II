@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="PerfilUsuario" layout-manager="GridLayoutManager" row-count="7" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="842" height="764"/>
     </constraints>
     <properties>
       <background color="-8932379"/>
@@ -72,38 +72,44 @@
           <text value=" "/>
         </properties>
       </component>
-      <grid id="14f31" binding="PanelUsuarioLicencia" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="14f31" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="5" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <background color="-4799143"/>
+          <background color="-8932379"/>
           <visible value="true"/>
         </properties>
         <border type="none"/>
         <children>
-          <grid id="d2aa3" binding="licencia" layout-manager="GridLayoutManager" row-count="4" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="d2aa3" binding="PanelUsuarioLicencia" layout-manager="GridLayoutManager" row-count="4" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-3433074"/>
+              <visible value="false"/>
+            </properties>
             <border type="none"/>
             <children>
               <component id="81508" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <font name="Bodoni MT" size="18" style="3"/>
                   <text value="LICENCIA DE CONDUCCION"/>
                 </properties>
               </component>
               <component id="e698e" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <font name="Lucida Sans Typewriter" size="12" style="0"/>
+                  <foreground color="-11366021"/>
                   <text value="TIPO:"/>
                 </properties>
               </component>
@@ -112,38 +118,47 @@
                   <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <font name="Lucida Sans Typewriter" size="12" style="2"/>
                   <text value=" "/>
                 </properties>
               </component>
               <component id="1eb5f" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <font name="Lucida Sans Typewriter" size="12" style="0"/>
+                  <foreground color="-11366021"/>
                   <text value="CEDULA:"/>
                 </properties>
               </component>
               <component id="2fdb4" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <font name="Lucida Sans Typewriter" size="12" style="0"/>
+                  <foreground color="-11366021"/>
                   <text value="NOMBRE:"/>
                 </properties>
               </component>
               <component id="47072" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <font name="Lucida Sans Typewriter" size="12" style="0"/>
+                  <foreground color="-11366021"/>
                   <text value="FECHA EMISION:"/>
                 </properties>
               </component>
               <component id="965d9" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <font name="Lucida Sans Typewriter" size="12" style="0"/>
+                  <foreground color="-11366021"/>
                   <text value="FECHA VENCIMIENTO:"/>
                 </properties>
               </component>
@@ -152,6 +167,7 @@
                   <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <font name="Lucida Sans Typewriter" size="12" style="2"/>
                   <text value=" "/>
                 </properties>
               </component>
@@ -160,22 +176,35 @@
                   <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <font name="Lucida Sans Typewriter" size="12" style="2"/>
                   <text value=" "/>
                 </properties>
               </component>
               <component id="4e410" class="javax.swing.JLabel" binding="logo">
                 <constraints>
-                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="img/carro-familiar.png"/>
+                  <iconTextGap value="1"/>
                   <text value=" "/>
                 </properties>
               </component>
-              <component id="8736b" class="javax.swing.JLabel" binding="cedula">
+              <component id="8736b" class="javax.swing.JLabel" binding="cedulaL">
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <font name="Lucida Sans Typewriter" size="12" style="2"/>
+                  <text value=" "/>
+                </properties>
+              </component>
+              <component id="635c" class="javax.swing.JLabel" binding="nombre">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans Typewriter" size="12" style="2"/>
                   <text value=" "/>
                 </properties>
               </component>
@@ -191,6 +220,14 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
           </hspacer>
+          <component id="8b265" class="javax.swing.JButton" binding="exportarEnPDFButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Exportar en PDF"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <component id="c843d" class="javax.swing.JButton" binding="mostrarLicenciaButton" default-binding="true">

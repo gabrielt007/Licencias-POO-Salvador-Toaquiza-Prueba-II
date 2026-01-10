@@ -17,20 +17,21 @@ public class PerfilUsuario extends JFrame {
     private JLabel iconoUsuario;
     private JPanel PanelUsuarioLicencia;
     private JButton mostrarLicenciaButton;
-    private JPanel licencia;
     private JLabel tipoLicencia;
     private JLabel emision;
     private JLabel vencimiento;
     private JLabel logo;
-    private JLabel cedula;
+    private JLabel cedulaL;
+    private JLabel nombre;
+    private JButton exportarEnPDFButton;
     private String cedulaUsuario;
 
     public PerfilUsuario(String cedula) {
         this.cedulaUsuario = cedula;
-
+        exportarEnPDFButton.setVisible(false);
         setContentPane(PerfilUsuario);
         setTitle("Sistema de Licencias");
-        setSize(600,250);
+        setSize(600,335);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setVisible(true);
@@ -58,68 +59,28 @@ public class PerfilUsuario extends JFrame {
         });
 
         mostrarLicenciaButton.addActionListener(e -> {
+            String datos=UsuarioDAO.mostrarLicencia(cedula);
+            if(datos.equals("")){
+                JOptionPane.showMessageDialog(null,"La licencia no se puede mostrar, no se encontro el usuario");
+                return;
+            }
+            String[] lista=datos.split("/");
+            cedulaL.setText(lista[0]);
+            nombre.setText(lista[1]);
+            tipoLicencia.setText(lista[2]);
+            emision.setText(lista[3]);
+            vencimiento.setText(lista[4]);
             if (!PanelUsuarioLicencia.isVisible()) {
                 PanelUsuarioLicencia.setVisible(true);
+                exportarEnPDFButton.setVisible(true);
             }else{
                 PanelUsuarioLicencia.setVisible(false);
             }
         });
 
+        exportarEnPDFButton.addActionListener(e -> {
+            VentanaManager.guardarPdfConDialogo(PanelUsuarioLicencia);
+        });
     }
-
-//    private void configurarTabla() {
-//        DefaultTableModel modelo = new DefaultTableModel();
-//        modelo.addColumn("Tipo de Licencia");
-//        modelo.addColumn("Fecha de Solicitud");
-//        modelo.addColumn("Estado del Trámite");
-//        tablaTramiteUsuario.setModel(modelo);
-//    }
-//
-//    private void cargarDatosUsuario() {
-//        String sql = "SELECT nombre, cedula FROM usuariosSolicitantes WHERE cedula = ?";
-//
-//        try (Connection con = Conexion.getConexion();
-//             PreparedStatement ps = con.prepareStatement(sql)) {
-//
-//            ps.setString(1, cedulaUsuario);
-//            ResultSet rs = ps.executeQuery();
-//
-//            if (rs.next()) {
-//                txtNombreUsuario.setText(rs.getString("nombre"));
-//                txtCedulaUsuario.setText(rs.getString("cedula"));
-//            }
-//
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(this, "Error cargando usuario");
-//        }
-//    }
-//
-//    private void cargarTramiteUsuario() {
-//
-//        DefaultTableModel modelo = (DefaultTableModel) tablaTramiteUsuario.getModel();
-//        modelo.setRowCount(0);
-//
-//        String sql = "SELECT tipoLicencia,fechaSolicitud, estadoTramite FROM usuariosSolicitantes WHERE cedula = ?";
-//
-//        try (Connection con = Conexion.getConexion();
-//             PreparedStatement ps = con.prepareStatement(sql)) {
-//
-//            ps.setString(1, cedulaUsuario);
-//            ResultSet rs = ps.executeQuery();
-//
-//            while (rs.next()) {
-//                Object[] fila = new Object[3];
-//                fila[0]=rs.getString("tipoLicencia");
-//                fila[1] = rs.getTimestamp("fechaSolicitud");
-//                fila[2] = rs.getString("estadoTramite");
-//                modelo.addRow(fila);
-//            }
-//
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(this, "Error cargando trámite");
-//        }
-//    }
-
-
 }
 

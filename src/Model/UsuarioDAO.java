@@ -20,8 +20,10 @@ public class UsuarioDAO {
             ps.setString(2,password);
             ResultSet rs=ps.executeQuery();
             if(rs.next()){
+                conn.close();
                 return rs.getString("rol");
             }
+            conn.close();
             return "No encontrado";
         }catch (NullPointerException | SQLException e) {
             throw new RuntimeException(e);
@@ -768,4 +770,23 @@ public class UsuarioDAO {
         }
     }
 
+    public static String mostrarLicencia(String cedula) {
+        String sql="select * from licencia as l join usuariosSolicitantes as u on l.cedula=u.cedula where l.cedula=?";
+        try(Connection conn=Conexion.getConexion();
+        PreparedStatement ps=conn.prepareStatement(sql)){
+            ps.setString(1, cedula);
+            ResultSet rs = ps.executeQuery();
+            String resultado="";
+            if(rs.next()){
+                resultado+=rs.getString("cedula")+"/";
+                resultado+=rs.getString("nombre")+"/";
+                resultado+=rs.getString("tipoLicencia")+"/";
+                resultado+=rs.getString("fechaEmision")+"/";
+                resultado+=rs.getString("fechaVencimiento");
+            }
+            return resultado;
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
 }
