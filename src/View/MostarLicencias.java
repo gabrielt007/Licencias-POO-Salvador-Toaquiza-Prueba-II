@@ -12,6 +12,7 @@ public class MostarLicencias extends JFrame {
     private JPanel PanelPrincipal;
     private JTable tablaLicencias;
     private JLabel licenciaIcon;
+    private JButton verLicenciaButton;
 
     public MostarLicencias(String cedulaI,String usuario) {
         setContentPane(PanelPrincipal);
@@ -39,5 +40,36 @@ public class MostarLicencias extends JFrame {
         });
 
         tablaLicencias.setModel(UsuarioDAO.cargarLicencia());
+
+        verLicenciaButton.addActionListener(e->{
+            String cedulaSolicitante = JOptionPane.showInputDialog(
+                    "Digite la cédula del solicitante:"
+            );
+
+            if (cedulaSolicitante == null) {
+                JOptionPane.showMessageDialog(null, "Operación cancelada");
+                return;
+            }
+
+            if (cedulaSolicitante.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "La cédula no puede estar vacía");
+                return;
+            }
+            boolean resultados= UsuarioDAO.verificarCedula(cedulaSolicitante);
+            if (!resultados) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Usuario no encontrado",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+            dispose();
+            new PerfilUsuario(cedulaSolicitante).setVisible(true);
+        });
+
+
     }
+
 }

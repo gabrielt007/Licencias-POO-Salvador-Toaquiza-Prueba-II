@@ -28,13 +28,14 @@ public class GestionTramites extends JFrame{
     private JButton cedulaButton;
     private JButton fechaButton;
     private JButton licenciaButton;
+    private JButton verCedulaButton;
 
     public GestionTramites(String cedula, String usuario){
         setContentPane(GestionTramitesP);
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Sistema de Licencias");
-        setSize(650,600);
+        setSize(750,600);
         setLocationRelativeTo(null);
 
         ImageIcon Icon = new ImageIcon(
@@ -216,6 +217,7 @@ public class GestionTramites extends JFrame{
             dispose();
             new Licencias(cedula,usuario).setVisible(true);
         });
+
     }
     private String limpiarr(String valor) {
         if (valor == null) return null;

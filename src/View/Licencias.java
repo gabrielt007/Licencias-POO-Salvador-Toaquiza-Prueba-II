@@ -18,7 +18,7 @@ public class Licencias extends JFrame{
         setContentPane(Licencia);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setVisible(true);
-        pack();
+        setSize(400,400);
         setTitle("Sistema Licencias");
         setLocationRelativeTo(null);
 
