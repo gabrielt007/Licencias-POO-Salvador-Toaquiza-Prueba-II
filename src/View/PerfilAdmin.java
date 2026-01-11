@@ -30,7 +30,7 @@ public class PerfilAdmin extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Sistema de Licencias");
-        pack();
+        setSize(500,500);
         setLocationRelativeTo(null);
 
         ImageIcon adminIcon = new ImageIcon(
