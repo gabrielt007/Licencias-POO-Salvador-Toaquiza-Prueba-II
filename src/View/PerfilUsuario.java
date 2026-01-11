@@ -38,7 +38,9 @@ public class PerfilUsuario extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setVisible(true);
-
+if (ventanaOrigen instanceof MostarLicencias) {
+    cerrarSesionButton.setVisible(false);
+}
         ImageIcon Icon = new ImageIcon(
                 getClass().getResource("/img/usuario.png")
         );
