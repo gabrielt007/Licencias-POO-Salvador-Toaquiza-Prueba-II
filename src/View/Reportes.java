@@ -46,7 +46,7 @@ public class Reportes extends JFrame{
         setContentPane(Reportes);
         setTitle("Sistema de Licencias");
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        setSize(680,550);
+        setSize(880,750);
         setLocationRelativeTo(null);
         setVisible(true);
 
