@@ -22,7 +22,7 @@ public class PerfilAnalista extends JFrame {
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setVisible(true);
         setTitle("Sistema de Licencias");
-        pack();
+        setSize(600,400);
         setLocationRelativeTo(null);
 
         ImageIcon analistaIcon = new ImageIcon(
