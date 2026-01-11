@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="itextpdf-5.5.13.3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/dependencias final/dependencias/itextpdf-5.5.13.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias final/dependencias/commons-compress-1.28.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias final/dependencias/log4j-core-2.25.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias final/dependencias/log4j-api-2.25.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias final/dependencias/commons-io-2.19.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias final/dependencias/poi-ooxml-5.5.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias final/dependencias/commons-collections4-4.5.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias final/dependencias/xmlbeans-5.3.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias final/dependencias/poi-ooxml-full-5.5.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias final/dependencias/poi-5.5.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/dependencias final/dependencias/mysql-connector-j-9.5.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
