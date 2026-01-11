@@ -73,14 +73,14 @@ public class Login extends JFrame {
             String tipoUsuario = UsuarioDAO.existeUsuario(usuario, passwordHash);
             if ("ADMINISTRADOR".equals(tipoUsuario)) {
                 UsuarioDAO.modificarIntentos(usuario);
-                new PerfilAdmin(usuario).setVisible(true);
                 dispose();
+                new PerfilAdmin(usuario).setVisible(true);
                 return;
             }
             if ("ANALISTA".equals(tipoUsuario)) {
                 UsuarioDAO.modificarIntentos(usuario);
-                new PerfilAnalista(usuario).setVisible(true);
                 dispose();
+                new PerfilAnalista(usuario).setVisible(true);
                 return;
             }
 
@@ -88,8 +88,8 @@ public class Login extends JFrame {
             String tipoUserSol = UsuarioDAO.existeSolicitante(usuario, passwordHash);
             if (!"No encontrado".equals(tipoUserSol)) {
                 UsuarioDAO.modificarIntentosSolicitantes(usuario);
-                new PerfilUsuario(usuario,this).setVisible(true);
                 dispose();
+                new PerfilUsuario(usuario,this).setVisible(true);
                 return;
             }
 
