@@ -74,9 +74,9 @@ public class Reportes extends JFrame{
 
         buscarButton.addActionListener(e -> {
 
-            String estado = (ComBoxEstado.getSelectedItem().toString());
+            String estado = ComBoxEstado.getSelectedItem().toString();
 
-            DefaultTableModel model = UsuarioDAO.cargarReporte("","",estado,"","");
+            DefaultTableModel model = UsuarioDAO.cargarReporte(null,null,estado,null,null);
 
             table1.setModel(model);
             VentanaManager.ajustarColumnas(table1);
