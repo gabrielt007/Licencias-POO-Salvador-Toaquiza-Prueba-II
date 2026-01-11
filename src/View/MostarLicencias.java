@@ -65,8 +65,9 @@ public class MostarLicencias extends JFrame {
                 );
                 return;
             }
-            dispose();
-            new PerfilUsuario(cedulaSolicitante).setVisible(true);
+            setVisible(false);
+            new PerfilUsuario(cedulaSolicitante, this).setVisible(true);
+
         });
 
 

@@ -12,7 +12,7 @@ import java.awt.event.WindowEvent;
 public class PerfilUsuario extends JFrame {
 
     private JPanel PerfilUsuario;
-    private JButton cerrarSesionButton;
+    public JButton cerrarSesionButton;
     private JTable table1;
     private JLabel iconoUsuario;
     private JPanel PanelUsuarioLicencia;
@@ -25,8 +25,11 @@ public class PerfilUsuario extends JFrame {
     private JLabel nombre;
     private JButton exportarEnPDFButton;
     private String cedulaUsuario;
+    private JFrame ventanaOrigen;
 
-    public PerfilUsuario(String cedula) {
+    public PerfilUsuario(String cedula, JFrame origen) {
+
+        this.ventanaOrigen = origen;
         this.cedulaUsuario = cedula;
         exportarEnPDFButton.setVisible(false);
         setContentPane(PerfilUsuario);
@@ -48,9 +51,11 @@ public class PerfilUsuario extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                VentanaManager.cambiar(PerfilUsuario.this, new Login());
+                ventanaOrigen.setVisible(true);
+                dispose();
             }
         });
+
 
         cerrarSesionButton.addActionListener(e -> {
             dispose();

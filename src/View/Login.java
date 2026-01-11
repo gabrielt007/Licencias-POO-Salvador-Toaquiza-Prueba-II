@@ -88,7 +88,7 @@ public class Login extends JFrame {
             String tipoUserSol = UsuarioDAO.existeSolicitante(usuario, passwordHash);
             if (!"No encontrado".equals(tipoUserSol)) {
                 UsuarioDAO.modificarIntentosSolicitantes(usuario);
-                new PerfilUsuario(usuario).setVisible(true);
+                new PerfilUsuario(usuario,this).setVisible(true);
                 dispose();
                 return;
             }
