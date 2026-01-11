@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>C:\Users\Usuario\Documents\poo\Licencias-POO-Salvador-Toaquiza-Prueba-II\out\artifacts\Licencias_Salvador_Toaquiza_POO_Prueba_II_jar\SistemaLicencias.jar</jar>
+  <outfile>SistemaLicencias.exe</outfile>
+  <errTitle>Error Java</errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl>https://download.oracle.com/java/21/archive/jdk-21.0.8_windows-x64_bin.msi</downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon>C:\Users\Usuario\Downloads\contact_96967.ico</icon>
+  <jre>
+    <path>C:\Program Files\Java\jdk-21\bin</path>
+    <requiresJdk>true</requiresJdk>
+    <requires64Bit>false</requires64Bit>
+    <minVersion>21</minVersion>
+    <maxVersion></maxVersion>
+  </jre>
+</launch4jConfig>
